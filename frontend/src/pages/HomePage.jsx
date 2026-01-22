@@ -4,6 +4,7 @@ import TotalsCard from '../components/dashboard/TotalsCard';
 import VolumeChart from '../components/dashboard/VolumeChart';
 import VolumeFilter from '../components/dashboard/VolumeFilter';
 import ConstantsRow from '../components/dashboard/ConstantsRow';
+import CanvasParameters from '../components/dashboard/CanvasParameters';
 import useDashboardData from '../hooks/useDashboardData';
 import '../styles/Dashboard.css';
 
@@ -39,6 +40,9 @@ const HomePage = () => {
       <div className="dashboard-content">
         {/* Header with time range toggle */}
         <DashboardHeader timeRange={timeRange} onTimeRangeChange={setTimeRange} />
+
+        {/* Canvas Parameters Section */}
+        <CanvasParameters />
 
         {/* Totals Section */}
         <div className="totals-section">
