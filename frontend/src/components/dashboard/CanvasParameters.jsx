@@ -20,35 +20,9 @@ const CanvasParameters = () => {
     debugLog,
   } = useSalesforceCanvas();
 
-  // Show something even if not detected (for debugging)
-  if (loading) {
-    return (
-      <div className="canvas-parameters-section slds-box slds-m-bottom_medium">
-        <div className="canvas-parameters-loading">Loading Canvas context...</div>
-      </div>
-    );
-  }
-
-  if (!isCanvasApp) {
-    return (
-      <div className="canvas-parameters-section slds-box slds-m-bottom_medium">
-        <h3 className="canvas-parameters-title slds-text-heading_small slds-m-bottom_small">
-          ⚠️ Canvas App Not Detected
-        </h3>
-        <p className="slds-text-body_small slds-text-color_error">
-          This component is not running inside a Salesforce Canvas app. 
-          Sfdc.canvas SDK is not available or no Canvas context was detected.
-        </p>
-        <p className="slds-text-body_small slds-m-top_small">
-          <strong>Debug Info:</strong>
-        </p>
-        <ul className="slds-list slds-list_ordered slds-m-top_small">
-          <li>Check if you're opening this from a Salesforce Canvas frame</li>
-          <li>Verify the Canvas URL is correctly configured in Salesforce</li>
-          <li>Check browser console for Canvas SDK errors</li>
-        </ul>
-      </div>
-    );
+  // Don't render if not a Canvas app
+  if (!isCanvasApp || loading) {
+    return null;
   }
 
   // Extract user and org info
@@ -166,9 +140,9 @@ const CanvasParameters = () => {
         )}
       </div>
 
-      {/* Debug Info - Always visible and expanded */}
-      <div className="canvas-parameters-debug canvas-parameters-debug-expanded">
-        <h4 className="canvas-parameters-debug-summary">📊 Debug Info (Auto-Expanded)</h4>
+      {/* Debug Info */}
+      <details className="canvas-parameters-debug">
+        <summary className="canvas-parameters-debug-summary">Debug Info (Click to expand)</summary>
         <div className="canvas-parameters-debug-content">
           <div className="canvas-parameters-debug-section">
             <h5>Canvas Context Keys</h5>
@@ -194,13 +168,13 @@ const CanvasParameters = () => {
           <div className="canvas-parameters-debug-section">
             <h5>Full Canvas Context (JSON)</h5>
             <pre className="canvas-parameters-debug-json">
-              {canvasContext ? JSON.stringify(canvasContext, null, 2) : 'No canvas context'}
+              {JSON.stringify(canvasContext, null, 2)}
             </pre>
           </div>
 
           {debugLog.length > 0 && (
             <div className="canvas-parameters-debug-section">
-              <h5>Debug Log ({debugLog.length} entries)</h5>
+              <h5>Debug Log</h5>
               <div className="canvas-parameters-debug-log">
                 {debugLog.map((entry, idx) => (
                   <div key={idx} className="canvas-parameters-debug-log-entry">
@@ -212,15 +186,8 @@ const CanvasParameters = () => {
               </div>
             </div>
           )}
-
-          <div className="canvas-parameters-debug-section">
-            <h5>URL Parameters</h5>
-            <code className="canvas-parameters-debug-code">
-              {typeof window !== 'undefined' ? window.location.search || 'No URL parameters' : 'N/A'}
-            </code>
-          </div>
         </div>
-      </div>
+      </details>
 
       {/* Info Message */}
       <div className="canvas-parameters-info slds-m-top_small">
