@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canvas Callback</title>
+    <script src="/canvas-all.js"></script>
+</head>
+<body>
+    <script>
+        // This page handles the OAuth callback for Canvas apps
+        // It's loaded in a hidden iframe and passes auth data back to the parent
+        if (window.Sfdc && window.Sfdc.canvas) {
+            Sfdc.canvas.oauth.childWindowUnloadNotification();
+        }
+    </script>
+</body>
+</html>

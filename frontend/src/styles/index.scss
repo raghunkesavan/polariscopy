@@ -1,0 +1,219 @@
+@use './tokens';
+@use './utilities.css'; /* Token-based utility classes */
+@use './slds.css';
+@use './auth.css';
+@use './rates.css';
+@use './RatesTable.css';
+@use './CriteriaTable.css';
+@use './Modal.css';
+@use './darkmode.css';
+@use './badges.css'; /* Status badges */
+@use './transitions.css'; /* Smooth transitions for better UX */
+@use './table-sorting.css'; /* Sortable table headers and empty states */
+@use './keyboard-hints.css'; /* Keyboard shortcut hints */
+@use './help-icon.css'; /* Contextual help icons with tooltips */
+
+body {
+  margin: 0;
+  font-family: var(--token-font-family-base);
+  font-size: var(--token-font-size-md);
+  line-height: var(--token-line-height-base);
+  color: var(--token-text-primary);
+  background: var(--token-layer-background);
+}
+
+#root {
+  min-height: 100vh;
+  background: var(--token-layer-background);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+a {
+  color: var(--token-interactive);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--token-interactive-hover);
+    text-decoration: underline;
+  }
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--token-layer-background);
+}
+
+.app-header {
+  padding: var(--token-space-16) var(--token-space-24);
+  background: var(--token-layer-surface);
+  box-shadow: var(--token-shadow-soft);
+  border-bottom: 1px solid var(--token-border-subtle);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app-header__title {
+  margin: 0;
+  font-size: var(--token-font-size-lg);
+  font-weight: var(--token-font-weight-semibold);
+  line-height: var(--token-line-height-tight);
+  /* ensure header text is high-contrast against the header background */
+  color: var(--token-text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--token-spacing-sm);
+}
+
+.app-header__logo {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: var(--token-space-12) var(--token-space-16);
+  }
+
+  .app-header__title {
+    font-size: var(--token-font-size-md-plus);
+    color: var(--token-text-primary);
+    /* Center the title in mobile/tablet view */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: max-content;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    padding: var(--token-space-12);
+    padding-left: var(--token-spacing-2xl);
+  }
+
+  .app-header__title {
+    font-size: var(--token-font-size-md);
+    color: var(--token-text-primary);
+    /* Ensure centering persists on very small screens */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: max-content;
+  }
+}
+
+.app-layout {
+  display: flex;
+  gap: 0;
+  padding: 0;
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  background: var(--token-layer-background);
+}
+
+/* ============================================
+   PAGE CONTAINER SYSTEM
+   Base container with BEM modifiers
+   ============================================ */
+
+/* Base container - shared styles for all pages */
+.page-container {
+  padding: var(--token-spacing-xl);
+  max-width: 100%;
+  background-color: var(--token-layer-surface);
+  border-radius: var(--slds-g-radius-border-3);
+  box-shadow: var(--token-shadow-soft);
+}
+
+/* Modifier: Table pages (admin tables, data grids) */
+.page-container--table {
+  /* Table-specific overrides if needed */
+}
+
+/* Modifier: Form pages (settings, profiles) */
+.page-container--form {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Modifier: Full-width pages (calculators, dashboards) */
+.page-container--full-width {
+  max-width: 100%;
+}
+
+/* Modifier: No shadow (nested containers) */
+.page-container--no-shadow {
+  box-shadow: none;
+}
+
+/* Modifier: Compact padding */
+.page-container--compact {
+  padding: var(--token-spacing-md);
+}
+
+/* Modifier: No padding (for custom layouts) */
+.page-container--no-padding {
+  padding: 0;
+}
+
+/* Mobile/Tablet: Stack navigation and make it toggleable */
+/* Uses standard breakpoint: tablet (768px) */
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+  }
+}
+
+.app-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--token-space-24);
+  background: transparent;
+  margin-inline-start: 0 !important;
+  margin-left: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .app-content {
+    padding: var(--token-space-16);
+  }
+}
+
+@media (max-width: 480px) {
+  .app-content {
+    padding: var(--token-space-12);
+  }
+}
+
+.app-card {
+  background: var(--token-layer-surface);
+  border-radius: var(--token-radius-md);
+  box-shadow: var(--token-shadow-soft);
+  padding: var(--token-space-24);
+  border: 1px solid var(--token-border-subtle);
+}
+
+.app-section-title {
+  font-size: var(--token-font-size-md);
+  font-weight: var(--token-font-weight-medium);
+  margin: 0 0 var(--token-space-12);
+}
+
+.app-empty-state {
+  display: grid;
+  place-items: center;
+  padding: var(--token-space-48);
+  text-align: center;
+  color: var(--token-text-secondary);
+}

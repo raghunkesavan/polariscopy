@@ -1,0 +1,56 @@
+/* Keyboard Shortcut Hints */
+
+.keyboard-hint {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--token-spacing-2) 0.375rem;
+  margin-left: var(--token-spacing-8);
+  background: var(--slds-color-background-alt, #f3f3f3);
+  border: 1px solid var(--slds-color-border-base, #c9c9c9);
+  border-radius: var(--token-spacing-4);
+  font-size: var(--token-font-size-xs);
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  color: var(--slds-color-text-weak, #706e6b);
+  white-space: nowrap;
+  box-shadow: var(--token-shadow-soft, 0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.keyboard-hint_small {
+  font-size: var(--token-font-size-xs-minus);
+  padding: var(--token-spacing-1) 0.25rem;
+}
+
+.keyboard-hint_normal {
+  font-size: var(--token-font-size-xs);
+  padding: var(--token-spacing-2) 0.375rem;
+}
+
+/* Dark mode */
+[data-carbon-theme='g100'] .keyboard-hint,
+.dark-mode .keyboard-hint {
+  background: var(--cds-layer-02, #393939) !important;
+  border-color: var(--cds-border-subtle-01, #525252) !important;
+  color: var(--cds-text-secondary, #c6c6c6) !important;
+}
+
+/* In buttons */
+button .keyboard-hint {
+  margin-left: auto;
+  padding-left: var(--token-spacing-8);
+}
+
+/* Accessibility: Hide from screen readers since it's decorative */
+.keyboard-hint::before {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

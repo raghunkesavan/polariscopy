@@ -1,0 +1,1049 @@
+@use './variables' as *;
+@use './controls' as *;
+
+// Calculator-specific SCSS (SLDS-compliant)
+.calculator-container {
+  font-family: $token-font-family;
+  padding: $spacing-xs;
+  width: 100%;
+  max-width: none; /* allow the container to fill the available content column */
+  margin: 0;
+  box-sizing: border-box;
+  background: var(--slds-g-color-surface-container-1);
+  border-radius: var(--slds-g-radius-border-3);
+}
+
+// Slider input styling
+input[type="range"] {
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: var(--token-size-icon-md);
+    height: var(--token-size-icon-md);
+    border-radius: 50%;
+    background: var(--token-color-brand-blue);
+    cursor: pointer;
+    border: var(--token-border-width-medium) solid var(--token-layer-surface);
+    box-shadow: var(--token-shadow-sm);
+    transition: all 0.15s ease;
+
+    &:hover {
+      background: var(--token-color-brand-blue-dark);
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  &::-moz-range-thumb {
+    width: var(--token-size-icon-md);
+    height: var(--token-size-icon-md);
+    border-radius: 50%;
+    background: var(--token-color-brand-blue);
+    cursor: pointer;
+    border: var(--token-border-width-medium) solid var(--token-layer-surface);
+    box-shadow: var(--token-shadow-sm);
+    transition: all 0.15s ease;
+
+    &:hover {
+      background: var(--token-color-brand-blue-dark);
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+
+    &::-webkit-slider-thumb {
+      cursor: not-allowed;
+    }
+
+    &::-moz-range-thumb {
+      cursor: not-allowed;
+    }
+  }
+}
+
+// Top filters row (inline, no card)
+.top-filters {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--slds-g-spacing-3);
+  margin-bottom: var(--slds-g-spacing-3);
+  padding: var(--slds-g-spacing-3);
+  background: var(--slds-g-color-surface-container-1);
+  border: 1px solid var(--slds-g-color-border-1);
+  border-radius: var(--slds-g-radius-border-2);
+  flex-wrap: wrap;
+
+  .slds-form-element {
+    flex: 0 0 auto;
+    min-width: 150px;
+
+    &:nth-child(2),
+    &:nth-child(3) {
+      min-width: 280px;
+    }
+  }
+
+  .tier-display {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 0px;
+    
+    .tier-label {
+      font-size: var(--token-font-size-xs);
+      color: $token-text-secondary;
+      margin-bottom: var(--token-spacing-xs);
+    }
+    
+    .tier-value {
+      font-size: var(--token-font-size-md);
+      color: $token-text-primary;
+    }
+  }
+}
+
+// Collapsible section (accordion-like)
+.collapsible-section {
+  background: var(--slds-g-color-surface-container-1);
+  border-radius: var(--slds-g-radius-border-3);
+  margin-bottom: var(--slds-g-spacing-3);
+  overflow: hidden;
+}
+
+// Product configuration sections
+.product-config-section {
+  background: var(--slds-g-color-surface-container-1);
+  padding: var(--slds-g-spacing-4);
+  border-radius: var(--slds-g-radius-border-3);
+  margin-bottom: var(--slds-g-spacing-3);
+}
+
+// Product section row 1: Product type label + action buttons
+.product-section-row-1 {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--slds-g-spacing-3);
+  margin-bottom: var(--slds-g-spacing-4);
+  align-items: center;
+  flex-wrap: wrap;
+
+  .product-type-label {
+    font-weight: var(--token-font-weight-semibold);
+    font-size: var(--token-font-size-md);
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .product-actions-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-4);
+  }
+
+  .product-actions-new-quote {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .product-actions {
+    display: flex;
+    gap: var(--slds-g-spacing-2);
+    align-items: center;
+    flex-wrap: wrap;
+
+    // Ensure buttons use consistent SLDS sizing
+    .slds-button {
+      height: var(--slds-g-sizing-9);
+      padding: 0 var(--slds-g-spacing-4);
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--slds-g-spacing-3);
+
+    .product-type-label {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .product-actions {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .product-actions {
+      flex-direction: column;
+      gap: var(--slds-g-spacing-3);
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// Product section row 2: Grid of criteria fields
+.product-criteria-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--token-form-field-gap);
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.btl-product-selector {
+  background: var(--slds-g-color-surface-container-1);
+  padding: var(--slds-g-spacing-4);
+  border-radius: var(--slds-g-radius-border-3);
+  margin-bottom: var(--slds-g-spacing-3);
+  
+  .top-filters {
+    display: flex;
+    gap: $spacing-md;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    
+    .slds-form-element {
+      flex: 1;
+      min-width: 150px;
+    }
+    
+    .tier-display {
+      display: flex;
+      align-items: center;
+      gap: var(--slds-g-spacing-2);
+      padding: var(--slds-g-spacing-2) var(--slds-g-spacing-3);
+      background: var(--token-info-bg);
+      border-radius: var(--slds-g-radius-border-2);
+      border: 1px solid var(--token-info);
+      
+      .tier-label {
+        font-size: var(--token-font-size-sm);
+        color: $token-text-secondary;
+      }
+      
+      .tier-value {
+        font-size: var(--token-font-size-md);
+        font-weight: 600;
+        color: $token-text-primary;
+      }
+
+      /* Make Tier 1 visually stronger in BTL calculator */
+      .tier-value.tier-1 {
+        font-weight: 700 !important;
+      }
+    }
+  }
+}
+
+.collapsible-header {
+  display: flex;
+  height: var(--slds-g-sizing-9);
+  padding: var(--slds-g-spacing-2) var(--slds-g-spacing-3);
+  align-items: center;
+  gap: var(--slds-g-spacing-2);
+  align-self: stretch;
+  justify-content: space-between;
+  border-radius: var(--slds-g-radius-border-3);
+  border: 1px solid var(--slds-g-color-border-1);
+  background: transparent;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  
+  &:hover {
+    background: var(--slds-g-color-neutral-base-80);
+    border-color: var(--slds-g-color-border-2);
+  }
+  
+  // When section is expanded, use accent color
+  &.expanded {
+    background: var(--slds-g-color-surface-container-3);
+   
+  }
+  
+  .header-title {
+    font-size: var(--token-font-size-base-minus);
+    font-weight: 600;
+    color: var(--slds-g-color-on-surface-2);
+    margin: 0;
+  }
+  
+  .chevron-icon {
+    width: var(--token-spacing-16);
+    height: var(--token-spacing-16);
+    transition: transform 0.2s ease;
+    fill: currentColor;
+    color: var(--slds-g-color-on-surface-1);
+    flex-shrink: 0;
+  }
+}
+
+.collapsible-body {
+  padding: var(--slds-g-spacing-4);
+  background: var(--slds-g-color-surface-container-1);
+  
+  &.collapsed {
+    display: none;
+  }
+}
+
+// Criteria grid (responsive 4-column)
+// Uses standard breakpoints: desktop (1024px), tablet (768px), mobile (480px)
+.criteria-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--token-form-field-gap);
+  
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Loan details grid (responsive multi-column)
+.loan-details-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--token-form-field-gap);
+  margin-bottom: $spacing-md;
+
+  .loan-info-box {
+    padding: var(--token-spacing-xs) var(--token-spacing-sm);
+    font-size: var(--token-font-size-sm);
+    color: var(--token-text-secondary);
+    line-height: var(--token-line-height-tight);
+    background-color: var(--token-info-bg);
+    border-radius: var(--token-radius-md);
+    display: flex;
+    align-items: center;
+    gap: var(--token-spacing-xs);
+    min-height: 50px;
+
+
+    .help-icon {
+      flex-shrink: 0;
+      margin-left: 0;
+      width: var(--token-icon-lg);
+      height: var(--token-icon-lg);
+    }
+
+    .help-icon svg {
+      width: var(--token-icon-lg);
+      height: var(--token-icon-lg);
+    }
+
+    .info-text {
+      font-size: var(--token-font-size-sm);
+      line-height: var(--token-line-height-base);
+      color: var(--token-text-primary);
+    }
+  }
+  
+  .slds-form-element {
+    min-width: 0; // Prevent grid items from overflowing
+  }
+
+  .slds-input,
+  .slds-select {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  // LTV slider styling to match input fields
+  .ltv-slider {
+    width: 100%;
+    height: var(--token-spacing-8);
+    border-radius: var(--token-spacing-4);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: var(--token-spacing-20);
+      height: var(--token-spacing-20);
+      border-radius: 50%;
+      background: $token-color-interactive;
+      cursor: pointer;
+      border: var(--token-spacing-2) solid $token-color-surface;
+      box-shadow: $token-shadow-soft;
+    }
+
+    &::-moz-range-thumb {
+      width: var(--token-spacing-20);
+      height: var(--token-spacing-20);
+      border-radius: 50%;
+      background: $token-color-interactive;
+      cursor: pointer;
+      border: var(--token-spacing-2) solid $token-color-surface;
+      box-shadow: $token-shadow-soft;
+    }
+  }
+  
+  @media (max-width: 1440px) {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  
+  @media (max-width: 1400px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  @media (max-width: 480px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+// Styling for first-charge warning: remove outer border and color input border only
+.first-charge-warning {
+  background: $token-warning-bg;
+  padding: var(--token-spacing-sm);
+  border-radius: var(--token-spacing-4);
+  border: none; /* remove outside border as requested */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: var(--token-spacing-48); /* align visually with neighboring inputs */
+}
+
+.first-charge-warning .first-charge-label {
+  font-weight: 600;
+}
+
+.first-charge-warning .first-charge-hint {
+  font-size: var(--token-font-size-sm-minus);
+  color: $token-text-helper;
+  margin-left: var(--token-spacing-xs);
+}
+
+/* Only change the input's border color; do not add an outer wrapper border */
+.first-charge-warning .first-charge-input,
+.first-charge-warning .slds-input {
+  border-color: $token-color-accent; /* accent colour for input border */
+  box-shadow: none;
+}
+
+@media (max-width: 480px) {
+  .first-charge-warning {
+    grid-column: 1 / -1; /* full width on small screens */
+  }
+}
+
+// Fees section - full width below main grid
+.fees-section {
+  border-top: 1px solid $token-color-border-subtle;
+  padding-top: $spacing-md;
+  margin-top: $spacing-md;
+
+  .fees-row {
+    display: grid;
+    // Three columns: [toggle] [Fee calculated as] [Additional fee amount]
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0; // Remove gap between fee fields
+    align-items: start;
+
+    .slds-form-element {
+      min-width: 0;
+      padding-right: $spacing-md; // Add padding to create controlled spacing
+    }
+
+    .slds-input,
+    .slds-select {
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+
+    // Keep the layout stable when toggle is off
+    .fees-collapsed {
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .modern-switch {
+    // Toggle occupies a single column so the next field is immediately adjacent
+    grid-column: span 1;
+
+    @media (max-width: 1024px) {
+      // With 2 columns at this breakpoint, keep the toggle to 1 column as well
+      grid-column: span 1;
+    }
+
+    @media (max-width: 768px) {
+      grid-column: span 1;
+    }
+  }
+}
+
+
+/* ============================================
+   RESULTS DISPLAY SECTION
+   Distinct from range toggle buttons
+   ============================================ */
+
+// Results container - card-like appearance
+.results-section {
+  background: var(--token-layer-surface, white);
+  border: 1px solid var(--token-border-subtle, #d8dde6);
+  border-radius: var(--token-radius-lg, 12px);
+  margin-top: var(--token-spacing-lg, 1rem);
+  overflow: hidden;
+  box-shadow: var(--token-shadow-soft, 0 2px 4px rgba(0, 0, 0, 0.05));
+}
+
+// Rates display
+.rates-display {
+  padding: $spacing-xs;
+
+  .rates-count {
+    font-size: var(--token-font-size-sm);
+    color: $token-text-secondary;
+    margin-bottom: $spacing-md;
+  }
+
+  .rate-item {
+    padding: var(--token-spacing-sm) 0;
+    border-bottom: 1px solid $token-color-border-subtle;
+    font-size: var(--token-font-size-base-minus);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    strong {
+      font-weight: 600;
+      color: $token-text-primary;
+    }
+
+    .rate-fee {
+      color: $token-text-secondary;
+      font-size: var(--token-font-size-sm);
+    }
+  }
+
+  /* ⚠️ DEPRECATED: Use .empty-state from utilities.css instead! */
+  .no-rates {
+    /* Extends .empty-state */
+    padding: var(--token-spacing-2xl, 2rem);
+    text-align: center;
+    color: var(--token-text-muted, #6b6b6b);
+    font-style: italic;
+    
+    .no-rates__title {
+      /* Extends .empty-state__title */
+      font-size: var(--token-font-size-md-plus);
+      font-weight: 500;
+      margin-bottom: var(--token-spacing-sm, 0.5rem);
+      font-style: normal;
+      color: var(--token-text-primary, #181818);
+    }
+    
+    .no-rates__subtitle {
+      /* Extends .empty-state__subtitle */
+      font-size: var(--token-font-size-sm-plus);
+      color: var(--token-text-secondary, #6b6b6b);
+      font-style: italic;
+    }
+  }
+}
+
+/* ⚠️ DEPRECATED: Use .empty-state__cell from utilities.css instead! */
+.no-rates__cell {
+  /* Extends .empty-state__cell */
+  padding: var(--token-spacing-2xl, 2rem) !important;
+  text-align: center !important;
+  color: var(--token-text-muted, #6b6b6b);
+  font-style: italic;
+}
+
+// Info icon + tooltip
+.info-icon-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-left: var(--token-spacing-sm);
+  
+  .info-icon-button {
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    
+    svg {
+      width: var(--token-icon-sm);
+      height: var(--token-icon-sm);
+      fill: var(--token-color-brand-blue);
+      color: var(--token-color-brand-blue);
+    }
+
+    &:hover svg {
+      fill: var(--token-color-brand-blue-dark);
+      color: var(--token-color-brand-blue-dark);
+    }
+  }
+  
+  .info-tooltip {
+    position: absolute;
+    left: 110%;
+    top: 50%;
+    transform: translateY(-50%);
+    min-width: 180px;
+    max-width: 320px;
+    background: $token-color-surface;
+    color: $token-text-primary;
+    border: 1px solid $token-color-interactive;
+    border-radius: $token-radius-sm;
+    padding: var(--token-spacing-sm) var(--token-spacing-md);
+    box-shadow: $token-shadow-strong;
+    z-index: 1100;
+    white-space: normal;
+    font-size: var(--token-font-size-xs-plus);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 150ms ease, visibility 150ms ease;
+    
+    &.visible {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+  }
+}
+
+// ============================================
+// BRANDED RESULTS TABLE STYLING (MFS theme)
+// ============================================
+.results-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--token-radius-md);
+  
+  table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    background: var(--token-layer-surface);
+    font-variant-numeric: tabular-nums;
+  }
+  
+  // Sticky header
+  thead {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  thead th {
+    text-align: center;
+    font-weight: 600;
+    padding: var(--token-spacing-md) var(--token-spacing-lg) !important;
+    border-bottom: var(--token-spacing-2) solid var(--mfs-brand-navy);
+    white-space: nowrap;
+  }
+  
+  // Label column (first column header)
+  thead th.th-label {
+    background: var(--token-color-transparent) !important;
+    color: var(--token-color-transparent) !important;
+    text-align: left;
+    position: sticky;
+    left: 0;
+    z-index: 101;
+    font-size: 0;
+    line-height: 0;
+    visibility: hidden;
+  }
+  
+  // Data column headers - colors set via inline styles for dynamic support
+  thead th.th-data-col {
+    text-align: center;
+    font-weight: 600;
+  }
+  
+  // Legacy class support - Fusion column header (default)
+  thead th.th-fusion {
+    background: var(--results-header-col1-bg) !important;
+    color: var(--results-header-col1-text) !important;
+  }
+  
+  // Legacy class support - Variable Bridge column header (default)
+  thead th.th-variable {
+    background: var(--results-header-col2-bg) !important;
+    color: var(--results-header-col2-text) !important;
+  }
+  
+  // Legacy class support - Fixed Bridge column header (default)
+  thead th.th-fixed {
+    background: var(--results-header-col3-bg) !important;
+    color: var(--results-header-col3-text) !important;
+  }
+}
+
+// BTL Calculator specific header colors
+.results-table-wrapper[data-calculator-type="btl"] {
+  thead th.th-label {
+    color: var(--results-header-btl-label-text) !important;
+    background: var(--results-header-btl-label-bg) !important;
+  }
+  // Legacy class support
+  thead th.th-fusion {
+    background: var(--results-header-btl-col1-bg) !important;
+    color: var(--results-header-btl-col1-text) !important;
+  }
+  thead th.th-variable {
+    background: var(--results-header-btl-col2-bg) !important;
+    color: var(--results-header-btl-col2-text) !important;
+  }
+  thead th.th-fixed {
+    background: var(--results-header-btl-col3-bg) !important;
+    color: var(--results-header-btl-col3-text) !important;
+  }
+}
+
+// Bridge Calculator specific header colors
+.results-table-wrapper[data-calculator-type="bridge"] {
+  thead th.th-label {
+    color: var(--results-header-bridge-label-text) !important;
+    background: var(--results-header-bridge-label-bg) !important;
+  }
+  thead th.th-fusion {
+    background: var(--results-header-bridge-col1-bg) !important;
+    color: var(--results-header-bridge-col1-text) !important;
+  }
+  thead th.th-variable {
+    background: var(--results-header-bridge-col2-bg) !important;
+    color: var(--results-header-bridge-col2-text) !important;
+  }
+  thead th.th-fixed {
+    background: var(--results-header-bridge-col3-bg) !important;
+    color: var(--results-header-bridge-col3-text) !important;
+  }
+}
+
+// Core Calculator specific header colors
+.results-table-wrapper[data-calculator-type="core"] {
+  thead th.th-label {
+    color: var(--results-header-core-label-text) !important;
+    background: var(--results-header-core-label-bg) !important;
+  }
+  thead th.th-fusion {
+    background: var(--results-header-core-col1-bg) !important;
+    color: var(--results-header-core-col1-text) !important;
+  }
+  thead th.th-variable {
+    background: var(--results-header-core-col2-bg) !important;
+    color: var(--results-header-core-col2-text) !important;
+  }
+  thead th.th-fixed {
+    background: var(--results-header-core-col3-bg) !important;
+    color: var(--results-header-core-col3-text) !important;
+  }
+}
+
+// Results table styling continued (body styles)
+.results-table-wrapper {
+  // Table body styling
+  tbody tr {
+    transition: background-color 0.15s ease;
+  }
+  
+  // Zebra striping
+  tbody tr:nth-child(even) {
+    background: var(--token-ui-background-subtle, #fafafa);
+  }
+  
+  // Hover highlight
+  tbody tr:hover {
+    background: var(--mfs-brand-orange-100, #FFF3DF) !important;
+  }
+  
+  // Sticky first column (row labels)
+  tbody th[scope='row'],
+  tbody td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: var(--token-z-base, 1);
+    background: var(--token-ui-background-neutral, #f4f6f9);
+    font-weight: 600;
+    text-align: left;
+  }
+  
+  // Cell styling
+  td, th {
+    padding: var(--token-spacing-sm) var(--token-spacing-md);
+    border-bottom: 1px solid var(--token-ui-border-subtle, #e0e6ed);
+    vertical-align: middle;
+  }
+  
+  // Center-align data columns
+  td:not(:first-child) {
+    text-align: center;
+  }
+  
+  // Right-align currency and percentage values for readability
+  td.text-align-right {
+    text-align: right;
+  }
+}
+
+// Helper text below inputs
+.helper-text {
+  margin-top: var(--token-spacing-xs);
+  font-size: var(--token-font-size-sm);
+  color: $token-text-secondary;
+  line-height: 1.4;
+}
+
+// Fee inline row
+.fee-inline-row {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  margin-top: var(--token-spacing-sm);
+  flex-wrap: wrap;
+}
+
+// Compact form element for fees
+.fee-form-element {
+  min-width: 140px;
+  flex: 0 0 auto;
+}
+
+// Required asterisk
+.required-asterisk {
+  color: $token-color-critical;
+  margin-right: var(--token-spacing-xs);
+  font-weight: 600;
+}
+
+/* Responsive tweaks for tablet and mobile */
+/* Uses standard breakpoints: tablet (768px), mobile (480px) */
+@media (max-width: 768px) {
+  .calculator-container {
+    padding: $spacing-sm;
+    margin: 0;
+  }
+
+  /* make top filters stack nicely on small screens */
+  .top-filters {
+    padding: $spacing-sm;
+    
+    .slds-form-element {
+      flex: 1 1 100%;
+      min-width: 0 !important;
+    }
+  }
+
+  .range-toggle-buttons .range-button {
+    padding: var(--token-spacing-md) var(--token-spacing-lg);
+    font-size: var(--token-font-size-base);
+  }
+
+  .collapsible-header {
+    padding: var(--token-spacing-sm) $spacing-sm;
+    
+    .header-title {
+      font-size: var(--token-font-size-base);
+    }
+  }
+
+  .collapsible-body {
+    padding: $spacing-sm;
+  }
+
+  /* ensure results table becomes more compact */
+  .results-section table {
+    font-size: var(--token-font-size-base);
+  }
+
+  .rates-display .rate-item {
+    font-size: var(--token-font-size-base);
+  }
+}
+
+@media (max-width: 480px) {
+  .calculator-container {
+    padding: $spacing-xs;
+  }
+
+  .top-filters {
+    padding: $spacing-xs;
+    gap: $spacing-xs;
+    margin-bottom: $spacing-xs;
+  }
+
+  .criteria-grid {
+    gap: $spacing-xs;
+  }
+
+  .loan-details-grid {
+    gap: $spacing-xs;
+  }
+
+  .collapsible-section {
+    margin-bottom: $spacing-xs;
+  }
+
+  .collapsible-header {
+    padding: var(--token-spacing-sm) $spacing-xs;
+    
+    .header-title {
+      font-size: var(--token-font-size-sm-plus);
+    }
+    
+    .chevron-icon {
+      width: 0.9rem;
+      height: 0.9rem;
+    }
+  }
+
+  .collapsible-body {
+    padding: $spacing-xs;
+  }
+
+  .slds-form-element {
+    margin-bottom: $spacing-xs;
+  }
+
+  .slds-form-element__label {
+    font-size: var(--token-font-size-sm-minus);
+  }
+
+  .slds-input, .slds-select {
+    font-size: var(--token-font-size-base);
+    padding: var(--token-spacing-sm) var(--token-spacing-md);
+  }
+
+  .slds-table {
+    font-size: var(--token-font-size-sm-plus);
+    
+    td, th {
+      padding: var(--token-spacing-sm) var(--token-spacing-sm);
+    }
+  }
+
+  .range-toggle-buttons .range-button {
+    padding: var(--token-spacing-sm) var(--token-spacing-md);
+    font-size: var(--token-font-size-sm-plus);
+  }
+
+  /* Make fee toggle more compact on mobile */
+  .modern-switch {
+    .switch-label {
+      font-size: var(--token-font-size-sm-minus);
+    }
+  }
+}
+
+// BTL Slider Controls
+.btl-slider-controls {
+  padding: var(--token-spacing-8);
+
+  .slds-form-element {
+    margin-bottom: var(--token-spacing-16);
+  }
+
+  .slds-slider {
+    width: 100%;
+  }
+
+  .manual-mode-indicator {
+    margin-top: var(--token-spacing-8);
+  }
+}
+
+// BTL Results Summary
+.btl-results-summary {
+  .no-results {
+    text-align: center;
+    padding: var(--token-spacing-32);
+  }
+
+  .results-table-wrapper {
+    .th-label {
+      width: 200px;
+    }
+  }
+
+  .action-buttons-row {
+    margin-top: var(--token-spacing-16);
+  }
+}
+
+// BTL Additional Fees
+.btl-additional-fees {
+  .fees-grid {
+    margin-top: var(--token-spacing-16);
+  }
+}
+
+// BTL Calculator
+.btl-calculator {
+  .input-card {
+    margin-bottom: var(--token-spacing-16);
+  }
+
+  .action-card {
+    margin-bottom: var(--token-spacing-16);
+  }
+
+  .empty-results {
+    text-align: center;
+    padding: var(--token-spacing-32);
+  }
+}

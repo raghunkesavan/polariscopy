@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+
+# Run ESLint to catch inline styles
+cd frontend
+npm run lint
+
+if [ $? -ne 0 ]; then
+  echo "❌ ESLint found issues! Fix inline styles before committing."
+  echo "💡 Read docs/CSS_STYLE_GUIDE.md for guidance"
+  exit 1
+fi
+
+# Run Stylelint to catch hardcoded values
+npm run lint:styles
+
+if [ $? -ne 0 ]; then
+  echo "❌ Stylelint found issues! Use design tokens instead of hardcoded values."
+  echo "💡 Read docs/DESIGN_TOKENS.md for available tokens"
+  exit 1
+fi
+
+echo "✅ All checks passed!"

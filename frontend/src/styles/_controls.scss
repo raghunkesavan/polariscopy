@@ -1,0 +1,118 @@
+// Shared UI controls used across calculators
+@use './variables' as *;
+
+.modern-switch {
+  display: flex;
+  align-items: center;
+  gap: var(--token-spacing-12);
+  
+  .switch-track {
+    width: 51px;
+    height: 28px;
+    border-radius: 14px;
+    border: none;
+    padding: 0;
+    background: $token-color-border-subtle;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    position: relative;
+    flex-shrink: 0;
+    
+    &.checked {
+      background: $token-color-interactive;
+    }
+    
+    .switch-thumb {
+      position: absolute;
+      left: var(--token-spacing-2);
+      display: block;
+      width: var(--token-spacing-24);
+      height: var(--token-spacing-24);
+      border-radius: 50%;
+      background: $token-color-surface;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      transform: translateX(0);
+      transition: transform 0.15s ease;
+      
+      &.checked {
+        transform: translateX(23px);
+      }
+    }
+  }
+  
+  .switch-label {
+    font-size: var(--token-font-size-sm);
+    color: $token-text-primary;
+    line-height: 1.4;
+  }
+}
+
+/* ============================================
+   RANGE TOGGLE - Segmented Button Group
+   For Specialist/Core range selection
+   ⚠️ DEPRECATED: Use .slds-button-group_segmented instead!
+   Legacy classes kept for backward compatibility.
+   
+   Migration path:
+   .range-toggle-buttons → .slds-button-group_segmented
+   .range-button         → .slds-button (with .slds-is-selected for active state)
+   ============================================ */
+
+.range-toggle-container {
+  /* Wrapper container - still used for layout */
+  margin-top: $spacing-md;
+  background: $token-color-surface;
+  border: 1px solid $token-color-border-subtle;
+  border-radius: var(--token-radius-btn, 88px);
+  overflow: hidden;
+}
+
+.range-toggle-buttons {
+  /* Extends .slds-button-group_segmented */
+  display: flex;
+  gap: 0;
+  width: 100%;
+  
+  .range-button {
+    /* Extends .slds-button (inside button group) */
+    flex: 1;
+    padding: var(--token-spacing-md) var(--token-spacing-xl);
+    background: $token-color-surface;
+    border: none;
+    border-right: 1px solid $token-color-border-subtle;
+    color: $token-text-primary;
+    font-size: var(--token-font-size-base-minus);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: $token-font-family;
+    
+    /* Left button - rounded on left side */
+    &:first-child {
+      border-radius: var(--token-radius-btn-left, 88px 0 0 88px) !important;
+    }
+    
+    /* Right button - rounded on right side */
+    &:last-child {
+      border-right: none;
+      border-radius: var(--token-radius-btn-right, 0 88px 88px 0) !important;
+    }
+    
+    /* Middle buttons (if any) */
+    &:not(:first-child):not(:last-child) {
+      border-radius: 0 !important;
+    }
+    
+    &:hover:not(.active) {
+      background: var(--token-layer-hover, #f3f3f3);
+    }
+    
+    &.active {
+      background: var(--token-interactive, #0176d3);
+      color: var(--token-text-inverse, white);
+      font-weight: 600;
+    }
+  }
+}

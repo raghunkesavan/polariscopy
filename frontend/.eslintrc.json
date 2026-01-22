@@ -1,0 +1,66 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "warn",
+    
+    "no-inline-styles": "off",
+    "react/forbid-dom-props": [
+      "error",
+      {
+        "forbid": [
+          {
+            "propName": "style",
+            "message": "Inline styles are forbidden. Use CSS classes with design tokens instead. Only exception: dynamic values (width, transform, etc.), PDF generation, or SVG positioning."
+          }
+        ]
+      }
+    ],
+    
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "JSXAttribute[name.name='style'] > JSXExpressionContainer > ObjectExpression",
+        "message": "Inline style objects are forbidden. Use CSS classes with design tokens. Only exception: dynamic values like width={`${percentage}%`}, transform, PDF/SVG positioning."
+      }
+    ],
+    
+    "no-magic-numbers": "off",
+    "no-console": [
+      "warn",
+      {
+        "allow": ["warn", "error"]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.pdf.jsx", "**/*.PDF.jsx", "**/pdf/**/*.jsx"],
+      "rules": {
+        "react/forbid-dom-props": "off",
+        "no-restricted-syntax": "off"
+      }
+    }
+  ]
+}

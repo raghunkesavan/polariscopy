@@ -1,0 +1,287 @@
+/* Settings Page Styles */
+
+.settings-page {
+  min-height: calc(100vh - 200px);
+  padding: var(--token-spacing-32);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.settings-page h1 {
+  font-size: var(--token-font-size-3xl);
+  font-weight: 600;
+  color: var(--token-text-primary, #181818);
+  margin: 0 0 0.5rem 0;
+}
+
+.settings-page > p {
+  font-size: var(--token-font-size-base);
+  color: var(--token-text-secondary, #706e6b);
+  margin: 0 0 2rem 0;
+}
+
+/* Tab Buttons */
+.settings-tabs {
+  border-bottom: var(--token-spacing-2) solid var(--token-border-subtle, #e5e5e5);
+  margin-bottom: var(--token-spacing-32);
+  display: flex;
+  gap: var(--token-spacing-8);
+}
+
+.settings-tab-button {
+  padding: var(--token-spacing-12) 1.5rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: var(--token-font-size-md);
+  font-weight: 500;
+  color: var(--token-text-secondary, #706e6b);
+  border-bottom: var(--token-spacing-3) solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s ease;
+}
+
+.settings-tab-button:hover {
+  color: var(--token-interactive, #0176d3);
+}
+
+.settings-tab-button.active {
+  color: var(--token-interactive, #0176d3);
+  border-bottom-color: var(--token-interactive, #0176d3);
+  font-weight: 600;
+}
+
+/* Settings Content */
+.settings-content {
+  background: var(--token-layer-surface, white);
+  border-radius: var(--token-spacing-8);
+  padding: var(--token-spacing-32);
+  box-shadow: var(--token-shadow-soft, 0 1px 3px rgba(0, 0, 0, 0.1));
+  border: 1px solid var(--token-border-subtle, #e5e5e5);
+  min-height: 400px;
+}
+
+.settings-content h2 {
+  font-size: var(--token-font-size-2xl);
+  font-weight: 600;
+  color: var(--token-text-primary, #181818);
+  margin: 0 0 1.5rem 0;
+}
+
+.settings-content > p {
+  font-size: var(--token-font-size-base);
+  color: var(--token-text-secondary, #706e6b);
+  margin: 0 0 2rem 0;
+}
+
+/* ============================================
+   DEPRECATED: Use .page-container .page-container--form
+   Kept for backward compatibility only.
+   ============================================ */
+.settings-sections-container {
+  /* DEPRECATED: Use .page-container .page-container--form */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--token-spacing-48);
+}
+
+.settings-section {
+  margin-bottom: 0;
+}
+
+.settings-section:last-child {
+  margin-bottom: 0;
+}
+
+.settings-reset-button {
+  margin-bottom: var(--token-spacing-24);
+}
+
+.settings-success-message {
+  background-color: var(--token-success-bg, #d4edda);
+  border: 1px solid var(--token-success, #28a745);
+  border-radius: var(--token-spacing-4);
+  padding: var(--token-spacing-12) 1rem;
+  margin-top: var(--token-spacing-16);
+  color: var(--token-success, #155724);
+  font-size: var(--token-font-size-sm-plus);
+}
+
+/* Setting Items */
+.setting-item {
+  padding: var(--token-spacing-20) 0;
+  border-bottom: 1px solid var(--token-border-subtle, #e5e5e5);
+}
+
+.setting-item:last-child {
+  border-bottom: none;
+}
+
+.setting-item:first-child {
+  padding-top: 0;
+}
+
+/* Toggle Switch Styles */
+.toggle-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  width: 100%;
+}
+
+.setting-label-text {
+  font-size: var(--token-font-size-md);
+  font-weight: 500;
+  color: var(--token-text-primary, #181818);
+}
+
+.setting-description {
+  font-size: var(--token-font-size-sm);
+  color: var(--token-text-secondary, #706e6b);
+  margin-top: var(--token-spacing-4);
+  line-height: 1.4;
+}
+
+.toggle-switch {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--token-border-subtle, #c9c9c9);
+  transition: 0.3s;
+  border-radius: 28px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: var(--token-spacing-20);
+  width: var(--token-spacing-20);
+  left: var(--token-spacing-4);
+  bottom: var(--token-spacing-4);
+  background-color: var(--token-layer-background, white);
+  transition: 0.3s;
+  border-radius: 50%;
+  box-shadow: var(--token-shadow-soft, 0 1px 3px rgba(0, 0, 0, 0.3));
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background-color: var(--token-interactive-brand, #0176d3);
+}
+
+.toggle-switch input:checked + .toggle-slider:before {
+  transform: translateX(24px);
+}
+
+.toggle-switch input:focus + .toggle-slider {
+  box-shadow: 0 0 0 2px var(--token-focus-ring, rgba(1, 118, 211, 0.3));
+}
+
+.toggle-switch input:disabled + .toggle-slider {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Radio Button Group */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--token-spacing-8);
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: var(--token-spacing-12) 1rem;
+  border-radius: var(--token-spacing-6);
+  border: var(--token-spacing-2) solid var(--token-border-subtle, #e5e5e5);
+  background-color: var(--token-layer-background, white);
+  transition: all 0.2s ease;
+}
+
+.radio-label:hover {
+  border-color: var(--token-interactive, #0176d3);
+  background-color: var(--token-layer-surface, #f8f9fa);
+}
+
+.radio-label input[type="radio"] {
+  width: var(--token-spacing-20);
+  height: var(--token-spacing-20);
+  margin-right: var(--token-spacing-12);
+  cursor: pointer;
+  accent-color: var(--token-interactive-brand, #0176d3);
+  flex-shrink: 0;
+}
+
+.radio-label input[type="radio"]:checked {
+  accent-color: var(--token-interactive-brand, #0176d3);
+}
+
+.radio-label:has(input[type="radio"]:checked) {
+  border-color: var(--token-interactive-brand, #0176d3);
+  background-color: var(--token-layer-surface, #e8f4fd);
+}
+
+.radio-label span {
+  font-size: var(--token-font-size-base);
+  color: var(--token-text-primary, #181818);
+  font-weight: 500;
+}
+
+/* Section Headers */
+.setting-section-header {
+  font-size: var(--token-font-size-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--token-text-secondary, #706e6b);
+  margin-bottom: var(--token-spacing-16);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .settings-page {
+    padding: var(--token-spacing-16);
+  }
+
+  .settings-content {
+    padding: var(--token-spacing-24);
+  }
+
+  .settings-sections-container {
+    grid-template-columns: 1fr;
+    gap: var(--token-spacing-48);
+  }
+
+  .settings-tabs {
+    gap: var(--token-spacing-4);
+  }
+
+  .settings-tab-button {
+    padding: var(--token-spacing-8) 1rem;
+    font-size: var(--token-font-size-sm-plus);
+  }
+
+  .radio-label {
+    padding: var(--token-spacing-10) 0.875rem;
+  }
+}

@@ -1,0 +1,95 @@
+/* Sortable Table Headers */
+
+.slds-th__action {
+  background: transparent;
+  border: none;
+  padding: var(--token-spacing-8);
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: inherit;
+  color: inherit;
+  transition: background-color 0.15s ease;
+}
+
+.slds-th__action:hover {
+  background-color: var(--slds-color-background-row-hover, var(--token-layer-hover, rgba(0, 0, 0, 0.05)));
+}
+
+.slds-th__action:focus {
+  outline: var(--token-spacing-2) solid var(--slds-color-border-focus, #0176d3);
+  outline-offset: -2px;
+}
+
+.slds-th__action-text {
+  flex: 1;
+}
+
+.slds-th__sort-icon {
+  margin-left: var(--token-spacing-8);
+  font-size: var(--token-font-size-xs);
+  color: var(--slds-color-text-weak, #706e6b);
+  transition: color 0.15s ease;
+}
+
+.slds-th__action:hover .slds-th__sort-icon {
+  color: var(--slds-color-text-default, #181818);
+}
+
+/* Ensure table headers don't have extra padding when using button */
+.slds-table thead th {
+  padding: 0;
+}
+
+/* Dark mode overrides */
+[data-carbon-theme='g100'] .slds-th__action:hover {
+  background-color: var(--token-layer-hover, rgba(255, 255, 255, 0.1));
+}
+
+[data-carbon-theme='g100'] .slds-th__sort-icon {
+  color: var(--cds-text-secondary, #c6c6c6);
+}
+
+[data-carbon-theme='g100'] .slds-th__action:hover .slds-th__sort-icon {
+  color: var(--cds-text-primary, #f4f4f4);
+}
+
+/* Empty state styles */
+.quotes-empty-state {
+  text-align: center;
+  padding: var(--token-spacing-48) 1rem;
+}
+
+.quotes-empty-state__icon {
+  font-size: var(--token-font-size-6xl);
+  color: var(--slds-color-text-weak, #706e6b);
+  margin-bottom: var(--token-spacing-16);
+}
+
+.quotes-empty-state__title {
+  font-size: var(--token-font-size-lg);
+  font-weight: 600;
+  color: var(--slds-color-text-default, #181818);
+  margin-bottom: var(--token-spacing-8);
+}
+
+.quotes-empty-state__message {
+  color: var(--slds-color-text-weak, #706e6b);
+  margin-bottom: var(--token-spacing-24);
+}
+
+[data-carbon-theme='g100'] .quotes-empty-state__icon {
+  color: var(--cds-text-secondary, #c6c6c6);
+}
+
+[data-carbon-theme='g100'] .quotes-empty-state__title {
+  color: var(--cds-text-primary, #f4f4f4);
+}
+
+[data-carbon-theme='g100'] .quotes-empty-state__message {
+  color: var(--cds-text-secondary, #c6c6c6);
+}

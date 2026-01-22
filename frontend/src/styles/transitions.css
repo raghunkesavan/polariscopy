@@ -1,0 +1,153 @@
+/* Smooth transitions for better UX - Non-breaking additions */
+
+/* Collapsible sections smooth animation */
+.collapsible-body {
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.25s ease,
+              padding 0.25s ease;
+}
+
+.collapsible-body.collapsed {
+  opacity: 0;
+}
+
+.collapsible-header {
+  transition: background-color 0.2s ease, border-color 0.15s ease;
+  cursor: pointer;
+}
+
+.collapsible-header:hover {
+  background-color: var(--slds-g-color-neutral-base-80);
+  border-color: var(--slds-g-color-border-2);
+}
+
+.chevron-icon {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chevron-icon.expanded {
+  transform: rotate(180deg);
+}
+
+/* Button transitions */
+.slds-button {
+  transition: all 0.15s ease;
+}
+
+.slds-button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.slds-button:hover:not(:disabled) {
+  box-shadow: var(--token-shadow-soft, 0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+/* Range toggle buttons */
+.range-button {
+  transition: all 0.15s ease;
+}
+
+.range-button:hover:not(.active) {
+  transform: translateY(-1px);
+  box-shadow: var(--token-shadow-soft, 0 2px 4px rgba(0, 0, 0, 0.08));
+}
+
+/* Modal transitions */
+.slds-modal {
+  animation: modalFadeIn 0.2s ease;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slds-backdrop {
+  animation: backdropFadeIn 0.15s ease;
+}
+
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Input focus transitions */
+.slds-input,
+.slds-select,
+.slds-textarea {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.slds-input:focus,
+.slds-select:focus,
+.slds-textarea:focus {
+  box-shadow: 0 0 0 3px var(--token-focus-ring, var(--token-focus-ring, rgba(2, 80, 217, 0.3)));
+}
+
+/* Table row hover */
+.slds-table tr {
+  transition: background-color 0.15s ease;
+}
+
+/* Card hover effects */
+.app-card {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.app-card:hover {
+  box-shadow: var(--token-shadow-strong, var(--token-shadow-strong, 0 6px 18px rgba(11, 20, 26, 0.14)));
+}
+
+/* Loading spinner fade in */
+@keyframes spinnerFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.loading-spinner {
+  animation: spinnerFadeIn 0.2s ease;
+}
+
+/* Toast notification slide in */
+@keyframes toastSlideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.toast-notification {
+  animation: toastSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Status badge pulse animation (subtle) */
+@keyframes badgePulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+.slds-badge.animate-pulse {
+  animation: badgePulse 2s ease-in-out infinite;
+}

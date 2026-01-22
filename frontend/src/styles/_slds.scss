@@ -1,0 +1,568 @@
+/* Salesforce Sans font faces (kept as-is) */
+@font-face {
+  font-family: 'Salesforce Sans';
+  src: url('https://www.sfdcstatic.com/system/shared/common/assets/fonts/SalesforceSans/SalesforceSans-Regular.woff2') format('woff2'),
+       url('https://www.sfdcstatic.com/system/shared/common/assets/fonts/SalesforceSans/SalesforceSans-Regular.woff') format('woff');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Salesforce Sans';
+  src: url('https://www.sfdcstatic.com/system/shared/common/assets/fonts/SalesforceSans/SalesforceSans-Bold.woff2') format('woff2'),
+       url('https://www.sfdcstatic.com/system/shared/common/assets/fonts/SalesforceSans/SalesforceSans-Bold.woff') format('woff');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Salesforce Sans';
+  src: url('https://www.sfdcstatic.com/system/shared/common/assets/fonts/SalesforceSans/SalesforceSans-Light.woff2') format('woff2'),
+       url('https://www.sfdcstatic.com/system/shared/common/assets/fonts/SalesforceSans/SalesforceSans-Light.woff') format('woff');
+  font-weight: 300;
+}
+
+/* SLDS-inspired styles migrated to SCSS using variables */
+
+/* Apply Salesforce Sans to all SLDS components */
+.slds-scope,
+[class*='slds-'],
+[class*='slds-'] * {
+  font-family: $slds-font-family;
+}
+
+/* Apply SLDS font globally for app shell and headers */
+body,
+.app-container {
+  font-family: $slds-font-family;
+}
+
+.slds-table {
+  background-color: white;
+  border: 1px solid $slds-color-gray-3;
+  border-radius: $slds-border-radius;
+  border-collapse: separate;
+  width: 100%;
+  font-family: $slds-font-family;
+}
+
+.slds-table th {
+  background: $slds-color-gray-2;
+  padding: var(--token-spacing-sm);
+  font-weight: 600;
+  text-align: left;
+  line-height: 2;
+  color: $slds-color-text-weak;
+  border-bottom: 0.5px solid $slds-color-gray-3;
+}
+
+.slds-table td {
+  padding: var(--token-spacing-sm);
+  line-height: 1.5;
+  color: $slds-color-text-default;
+  border-bottom: 0.5px solid $slds-color-gray-3;
+}
+
+.slds-table tr:hover {
+  background-color: $slds-color-gray-1;
+}
+
+/* Button Styles */
+.slds-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--token-spacing-lg);
+  border: 1px solid transparent;
+  border-radius: $slds-border-radius;
+  font-size: 0.8125rem;
+  line-height: 1.875rem;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.05s linear, background-color 0.05s linear;
+}
+
+.slds-button_brand {
+  padding: 0 var(--token-spacing-lg);
+  background-color: $slds-color-blue-50;
+  border-color: $slds-color-blue-50;
+  color: white;
+}
+
+.slds-button_brand:hover {
+  background-color: $slds-color-blue-20;
+  border-color: $slds-color-blue-20;
+}
+
+.slds-button_neutral {
+  padding: 0 var(--token-spacing-lg);
+  background-color: white;
+  border: 1px solid $slds-color-gray-4;
+  color: $slds-color-text-weak;
+}
+
+.slds-button_neutral:hover {
+  background-color: $slds-color-gray-1;
+}
+
+.slds-button_destructive {
+  padding: 0 var(--token-spacing-lg);
+  background-color: var(--token-critical);
+  border-color: #c23934;
+  color: white;
+}
+
+.slds-button_destructive:hover {
+  background-color: var(--token-critical-hover);
+  border-color: var(--token-critical-hover);
+}
+
+/* Form Elements */
+.slds-form-element {
+  position: relative;
+  min-width: 0;
+  margin-bottom: var(--token-spacing-sm);
+  /* Prevent form elements from shrinking and overlapping when wrapped */
+  flex: 0 0 auto;
+}
+
+/* Ensure filter controls inside wrapped SLDS grids behave predictably */
+.slds-grid.slds-wrap > .slds-form-element {
+  /* default control width; components can override inline if needed */
+  flex: 0 0 200px;
+  min-width: 160px;
+}
+
+/* Make sure inputs/selects inside filter controls take full width and don't overflow */
+.slds-grid.slds-wrap .slds-form-element__control .slds-input,
+.slds-grid.slds-wrap .slds-form-element__control .slds-select,
+.slds-grid.slds-wrap .slds-form-element__control .slds-textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Responsive: on very narrow screens let controls be full width stacked */
+@media (max-width: 680px) {
+  .slds-grid.slds-wrap > .slds-form-element {
+    flex: 0 0 100%;
+    min-width: 0;
+  }
+}
+
+.slds-form-element__label {
+  display: inline-block;
+  color: $slds-color-text-weak;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  margin-right: var(--token-spacing-sm);
+  margin-bottom: var(--token-spacing-xs);
+}
+
+.slds-input {
+  width: 100%;
+  padding: 0 var(--token-spacing-lg) 0 var(--token-spacing-md);
+  line-height: 1.875rem;
+  min-height: calc(1.875rem + (1px * 2));
+  border: 1px solid $slds-color-gray-4;
+  border-radius: $slds-border-radius;
+  background-color: white;
+  color: $slds-color-text-default;
+  transition: border 0.1s linear, background-color 0.1s linear;
+}
+
+.slds-input:focus {
+  outline: 0;
+  border-color: $slds-color-blue-20;
+  box-shadow: 0 0 3px $slds-color-blue-20;
+}
+
+.slds-select {
+  width: 100%;
+  padding: 0 var(--token-spacing-lg) 0 var(--token-spacing-md);
+  line-height: 1.875rem;
+  min-height: calc(1.875rem + (1px * 2));
+  border: 1px solid $slds-color-gray-4;
+  border-radius: $slds-border-radius;
+  background-color: white;
+  color: $slds-color-text-default;
+  transition: border 0.1s linear, background-color 0.1s linear;
+  font-family: $slds-font-family;
+}
+
+/* Utility: fixed-control
+   Use this on inputs/selects that must visually match the main control height/spacing
+   (Monthly Rent, Property Value, Product select, Fee controls, etc.) */
+.fixed-control {
+  padding: 0 var(--token-spacing-lg) 0 var(--token-spacing-md) !important;
+  line-height: 1.875rem !important;
+  min-height: calc(1.875rem + (1px * 2)) !important;
+  font-size: 1rem !important;
+  box-sizing: border-box !important;
+}
+
+/* Make fee-compact inherit the fixed-control sizing so fee inputs stay in sync
+   with global controls. Using @extend keeps a single source of truth. */
+.fee-compact .slds-input,
+.fee-compact .slds-select {
+  @extend .fixed-control;
+}
+
+.slds-select:focus {
+  outline: 0;
+  border-color: $slds-color-blue-20;
+  box-shadow: 0 0 3px $slds-color-blue-20;
+}
+
+.slds-textarea {
+  width: 100%;
+  padding: var(--token-spacing-sm) var(--token-spacing-md);
+  border: 1px solid $slds-color-gray-4;
+  border-radius: $slds-border-radius;
+  background-color: white;
+  color: $slds-color-text-default;
+  transition: border 0.1s linear, background-color 0.1s linear;
+  font-family: $slds-font-family;
+  resize: vertical;
+}
+
+.slds-textarea:focus {
+  outline: 0;
+  border-color: $slds-color-blue-20;
+  box-shadow: 0 0 3px $slds-color-blue-20;
+}
+
+/* Range (input[type=range]) styling: improve visual filled track and thumb size for better UX */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2rem; /* give vertical space for larger thumb */
+  background: transparent; /* background is set inline to show filled portion */
+}
+
+/* WebKit track */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 10px;
+  background: #e9eef5; /* unfilled track */
+  border-radius: 999px;
+}
+
+/* WebKit thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: -5px; /* center the thumb on the track */
+  border-radius: 50%;
+  background: var(--token-interactive); /* filled color */
+  box-shadow: 0 2px 6px rgba(15,98,254,0.18);
+  cursor: pointer;
+}
+
+/* Firefox track & thumb */
+input[type="range"]::-moz-range-track {
+  height: 10px;
+  background: #e9eef5;
+  border-radius: 999px;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--token-interactive);
+  box-shadow: 0 2px 6px rgba(15,98,254,0.18);
+  cursor: pointer;
+}
+
+/* Focus states */
+input[type="range"]:focus::-webkit-slider-thumb,
+input[type="range"]:focus::-moz-range-thumb {
+  outline: 3px solid rgba(15,98,254,0.18);
+}
+
+/* Small inline info tooltip for question help (shown on hover/focus) */
+.info-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.info-button .info-tooltip {
+  /* Initially hidden using visibility/opacity for reliable control across CSS resets */
+  display: block; /* keep in layout as absolute but hide via opacity/visibility */
+  position: absolute;
+  left: 110%;
+  top: 50%;
+  transform: translateY(-50%);
+  min-width: 180px;
+  max-width: 360px;
+  background: white;
+  color: $slds-color-text-default;
+  border: 1px solid var(--token-interactive);
+  border-radius: var(--token-spacing-xs);
+  padding: 0.4rem 0.6rem;
+  box-shadow: 0 6px 18px rgba(15,98,254,0.08);
+  z-index: 1100;
+  white-space: normal;
+  font-size: 0.875rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 150ms ease, visibility 150ms ease;
+}
+
+.info-button:hover .info-tooltip,
+.info-button:focus .info-tooltip,
+.info-button:focus-within .info-tooltip {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Make sure tooltip collapses nicely on very small screens */
+@media (max-width: 520px) {
+  .info-button .info-tooltip {
+    left: 0;
+    top: 120%;
+    transform: none;
+    min-width: 140px;
+  }
+}
+
+.slds-form_stacked .slds-form-element {
+  margin-bottom: var(--token-spacing-lg);
+}
+
+/* Modal/Dialog */
+.slds-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9001;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slds-modal__container {
+  position: relative;
+  background: white;
+  border-radius: var(--token-spacing-xs);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  width: 50%;
+  max-width: 40rem;
+  min-width: 20rem;
+}
+
+.slds-modal__header {
+  position: relative;
+  border-top-right-radius: var(--token-spacing-xs);
+  border-top-left-radius: var(--token-spacing-xs);
+  border-bottom: 2px solid $slds-color-gray-3;
+  padding: var(--token-spacing-lg);
+  text-align: center;
+}
+
+.slds-modal__content {
+  padding: var(--token-spacing-lg);
+  overflow: auto;
+  max-height: 70vh;
+}
+
+.slds-modal__footer {
+  border-top: 2px solid $slds-color-gray-3;
+  padding: var(--token-spacing-md) var(--token-spacing-lg);
+  background-color: $slds-color-gray-1;
+  border-bottom-right-radius: var(--token-spacing-xs);
+  border-bottom-left-radius: var(--token-spacing-xs);
+  text-align: right;
+}
+
+.slds-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(43, 40, 38, 0.6);
+  z-index: 9000;
+}
+
+/* Navigation */
+.slds-nav-vertical {
+  width: 100%;
+  background: white;
+  border: 1px solid $slds-color-gray-3;
+  border-radius: $slds-border-radius;
+}
+
+.slds-nav-vertical__item {
+  position: relative;
+  display: flex;
+}
+
+.slds-nav-vertical__action {
+  padding: var(--token-spacing-sm) var(--token-spacing-lg) var(--token-spacing-sm) 2rem;
+  color: $slds-color-text-weak;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex: 1;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.slds-nav-vertical__action:hover {
+  background-color: $slds-color-gray-1;
+  color: $slds-color-text-default;
+}
+
+.slds-nav-vertical__action.active {
+  background-color: $slds-color-gray-1;
+  color: $slds-color-text-default;
+  font-weight: bold;
+}
+
+/* Utility Classes */
+.slds-grid {
+  display: flex;
+}
+
+.slds-wrap {
+  flex-wrap: wrap;
+}
+
+.slds-col {
+  flex: 1;
+}
+
+.slds-col_bump-left {
+  margin-left: auto;
+}
+
+.slds-grid_vertical-align-center {
+  align-items: center;
+}
+
+.slds-grid_align-center {
+  justify-content: center;
+}
+
+.slds-has-dividers_bottom > .slds-item {
+  border-bottom: 1px solid $slds-color-gray-3;
+}
+
+.slds-p-around_medium {
+  padding: var(--token-spacing-lg);
+}
+
+.slds-m-bottom_small {
+  margin-bottom: var(--token-spacing-md);
+}
+
+.slds-m-bottom_medium {
+  margin-bottom: var(--token-spacing-lg);
+}
+
+.slds-m-top_small {
+  margin-top: var(--token-spacing-md);
+}
+
+.slds-m-top_medium {
+  margin-top: var(--token-spacing-lg);
+}
+
+.slds-m-right_small {
+  margin-right: var(--token-spacing-md);
+}
+
+.slds-m-horizontal_small {
+  margin-left: var(--token-spacing-md);
+  margin-right: var(--token-spacing-md);
+}
+
+.slds-m-around_medium {
+  margin: var(--token-spacing-lg);
+}
+
+/* Table enhancements */
+.slds-table_bordered {
+  border: 0.5px solid $slds-color-gray-3;
+}
+
+.slds-table_cell-buffer th,
+.slds-table_cell-buffer td {
+  padding: var(--token-spacing-sm) var(--token-spacing-md);
+}
+
+.slds-table_cell-buffer th:first-child,
+.slds-table_cell-buffer td:first-child {
+  padding-left: var(--token-spacing-lg);
+}
+
+.slds-table_cell-buffer th:last-child,
+.slds-table_cell-buffer td:last-child {
+  padding-right: var(--token-spacing-lg);
+}
+
+/* Checkbox styling */
+.slds-checkbox {
+  display: inline-flex;
+  align-items: center;
+}
+
+.slds-checkbox [type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* Card styles (make header less tall for compact look) */
+.slds-card {
+  background: white;
+  border: 1px solid $slds-color-gray-3;
+  border-radius: $slds-border-radius;
+  overflow: hidden;
+}
+
+.slds-card__header {
+  /* reduced vertical padding to make header thinner */
+  padding: var(--token-spacing-sm) var(--token-spacing-lg);
+  background: $slds-color-blue-50;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slds-card__header .slds-text-heading_small {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.slds-card__body {
+  padding: var(--token-spacing-md) var(--token-spacing-lg);
+}
+
+/* Calculator grid helper: used by Calculator.jsx for multi-column form rows
+   Keep inline styles as primary source but provide a responsive fallback here. */
+.calculator-grid {
+  width: 100%;
+}
+
+@media (max-width: 680px) {
+  .calculator-grid {
+    display: block !important;
+  }
+  .calculator-grid > .slds-form-element {
+    width: 100% !important;
+    margin-bottom: var(--token-spacing-md);
+  }
+}
+

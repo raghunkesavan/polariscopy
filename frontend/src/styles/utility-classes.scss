@@ -1,0 +1,248 @@
+/**
+ * Utility Classes - Reusable CSS patterns using design tokens
+ * Import this file to use consistent, themeable utility classes
+ */
+
+/* Flexbox utilities */
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-align-center {
+  display: flex;
+  align-items: center;
+}
+
+.flex-justify-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Gap utilities using design tokens */
+.gap-xs {
+  gap: var(--token-spacing-xs);
+}
+
+.gap-sm {
+  gap: var(--token-spacing-sm);
+}
+
+.gap-md {
+  gap: var(--token-spacing-md);
+}
+
+.gap-lg {
+  gap: var(--token-spacing-lg);
+}
+
+.gap-xl {
+  gap: var(--token-spacing-xl);
+}
+
+/* Text utilities */
+.text-primary {
+  color: var(--token-text-primary);
+}
+
+.text-secondary {
+  color: var(--token-text-secondary);
+}
+
+.text-muted {
+  color: var(--token-text-muted);
+}
+
+.text-error {
+  color: var(--token-error);
+}
+
+.text-critical {
+  color: var(--token-critical);
+}
+
+.text-success {
+  color: var(--token-success);
+}
+
+.text-inverse {
+  color: var(--token-text-inverse);
+}
+
+/* Font size utilities */
+.text-xs {
+  font-size: var(--token-font-size-xs);
+}
+
+.text-sm {
+  font-size: var(--token-font-size-sm);
+}
+
+.text-md {
+  font-size: var(--token-font-size-md);
+}
+
+.text-lg {
+  font-size: var(--token-font-size-lg);
+}
+
+/* Background utilities */
+.bg-surface {
+  background-color: var(--token-layer-surface);
+}
+
+.bg-background {
+  background-color: var(--token-layer-background);
+}
+
+.bg-neutral {
+  background-color: var(--token-ui-background-neutral);
+}
+
+.bg-disabled {
+  background-color: var(--token-ui-background-disabled);
+}
+
+.bg-subtle {
+  background-color: var(--token-ui-background-subtle);
+}
+
+/* Border utilities */
+.border-subtle {
+  border: 1px solid var(--token-border-subtle);
+}
+
+.border-strong {
+  border: 1px solid var(--token-border-strong);
+}
+
+.border-danger {
+  border: 1px solid var(--token-border-danger);
+}
+
+/* Radius utilities */
+.radius-sm {
+  border-radius: var(--token-radius-sm);
+}
+
+.radius-md {
+  border-radius: var(--token-radius-md);
+}
+
+/* Shadow utilities */
+.shadow-soft {
+  box-shadow: var(--token-shadow-soft);
+}
+
+.shadow-strong {
+  box-shadow: var(--token-shadow-strong);
+}
+
+.shadow-modal {
+  box-shadow: var(--token-shadow-modal);
+}
+
+/* Spacing utilities */
+.m-0 { margin: 0; }
+.p-0 { padding: 0; }
+
+.mt-xs { margin-top: var(--token-spacing-xs); }
+.mt-sm { margin-top: var(--token-spacing-sm); }
+.mt-md { margin-top: var(--token-spacing-md); }
+.mt-lg { margin-top: var(--token-spacing-lg); }
+.mt-xl { margin-top: var(--token-spacing-xl); }
+
+.mb-xs { margin-bottom: var(--token-spacing-xs); }
+.mb-sm { margin-bottom: var(--token-spacing-sm); }
+.mb-md { margin-bottom: var(--token-spacing-md); }
+.mb-lg { margin-bottom: var(--token-spacing-lg); }
+.mb-xl { margin-bottom: var(--token-spacing-xl); }
+
+.mr-xs { margin-right: var(--token-spacing-xs); }
+.mr-sm { margin-right: var(--token-spacing-sm); }
+.mr-md { margin-right: var(--token-spacing-md); }
+.mr-lg { margin-right: var(--token-spacing-lg); }
+
+.ml-xs { margin-left: var(--token-spacing-xs); }
+.ml-sm { margin-left: var(--token-spacing-sm); }
+.ml-md { margin-left: var(--token-spacing-md); }
+.ml-lg { margin-left: var(--token-spacing-lg); }
+
+.p-xs { padding: var(--token-spacing-xs); }
+.p-sm { padding: var(--token-spacing-sm); }
+.p-md { padding: var(--token-spacing-md); }
+.p-lg { padding: var(--token-spacing-lg); }
+.p-xl { padding: var(--token-spacing-xl); }
+
+.px-xs { padding-left: var(--token-spacing-xs); padding-right: var(--token-spacing-xs); }
+.px-sm { padding-left: var(--token-spacing-sm); padding-right: var(--token-spacing-sm); }
+.px-md { padding-left: var(--token-spacing-md); padding-right: var(--token-spacing-md); }
+.px-lg { padding-left: var(--token-spacing-lg); padding-right: var(--token-spacing-lg); }
+
+.py-xs { padding-top: var(--token-spacing-xs); padding-bottom: var(--token-spacing-xs); }
+.py-sm { padding-top: var(--token-spacing-sm); padding-bottom: var(--token-spacing-sm); }
+.py-md { padding-top: var(--token-spacing-md); padding-bottom: var(--token-spacing-md); }
+.py-lg { padding-top: var(--token-spacing-lg); padding-bottom: var(--token-spacing-lg); }
+
+/* Common component patterns */
+.dropdown-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--token-z-dropdown);
+}
+
+.modal-header-branded {
+  background: var(--token-brand-header);
+  color: var(--token-text-inverse);
+  padding: var(--token-spacing-lg) var(--token-spacing-xl);
+}
+
+.card {
+  background: var(--slds-g-color-surface-container-1);
+  border: 1px solid var(--slds-g-color-border-1);
+  border-radius: var(--slds-g-radius-border-3);
+  box-shadow: var(--token-shadow-soft);
+  padding: var(--slds-g-spacing-4);
+}
+
+.clickable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* Interactive states */
+.hover-bg:hover {
+  background-color: var(--slds-g-color-neutral-base-90);
+}
+
+.hover-interactive:hover {
+  color: var(--token-interactive-hover);
+}
+
+/* Z-index utilities */
+.z-base { z-index: var(--token-z-base); }
+.z-dropdown { z-index: var(--token-z-dropdown); }
+.z-sticky { z-index: var(--token-z-sticky); }
+.z-modal { z-index: var(--token-z-modal); }
+.z-popover { z-index: var(--token-z-popover); }
+.z-tooltip { z-index: var(--token-z-tooltip); }
+.z-toast { z-index: var(--token-z-toast); }

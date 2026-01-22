@@ -1,0 +1,264 @@
+.criteria-container {
+  padding: var(--token-spacing-32);
+}
+
+.table-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--token-spacing-24);
+}
+
+.left-actions {
+  display: flex;
+  gap: var(--token-spacing-16);
+}
+
+/* ⚠️ DEPRECATED: Use .slds-pagination and .slds-pagination__button instead!
+   Migration path:
+   .pagination        → .slds-pagination__controls
+   .pagination button → .slds-pagination__button
+*/
+
+.left-actions button,
+.pagination button {
+  /* Extends .slds-pagination__button */
+  padding: var(--token-spacing-8) 1rem;
+  border: none;
+  border-radius: var(--token-spacing-4);
+  background: var(--token-interactive, #1a73e8);
+  color: var(--token-layer-surface, white);
+  cursor: pointer;
+  font-size: var(--token-font-size-sm-plus);
+  transition: background-color 0.2s;
+}
+
+.left-actions button:hover,
+.pagination button:hover:not(:disabled) {
+  background: var(--token-interactive-hover, #1557b0);
+}
+
+.pagination button:disabled {
+  background: var(--token-border-subtle, #ccc);
+  cursor: not-allowed;
+}
+
+.pagination {
+  /* Extends .slds-pagination__controls */
+  display: flex;
+  align-items: center;
+  gap: var(--token-spacing-16);
+}
+
+.filters {
+  display: flex;
+  gap: var(--token-spacing-24);
+  margin-bottom: var(--token-spacing-32);
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--token-spacing-8);
+}
+
+.filter-group label {
+  font-weight: 500;
+  color: var(--token-text-secondary, #666);
+}
+
+/* ⚠️ DEPRECATED: Use .slds-select directly! */
+.filter-group select {
+  /* Extends .slds-select */
+  padding: var(--slds-g-spacing-2) var(--slds-g-spacing-3);
+  border: 1px solid var(--slds-g-color-border-1);
+  border-radius: var(--slds-g-radius-border-2);
+  min-width: 200px;
+  line-height: 1.875rem;
+  min-height: var(--slds-g-sizing-9);
+  background: var(--slds-g-color-surface-container-1);
+  color: var(--slds-g-color-on-surface-2);
+  box-sizing: border-box;
+  font-family: var(--slds-font-family);
+  cursor: pointer;
+  transition: border-color 0.1s linear, box-shadow 0.1s linear;
+}
+
+.filter-group select:focus {
+  outline: 0;
+  border-color: var(--slds-g-color-accent-2);
+  box-shadow: 0 0 0 2px rgba(2, 80, 217, 0.2);
+}
+
+.table-container {
+  overflow-x: auto;
+  background: var(--token-layer-surface, white);
+  border-radius: var(--token-spacing-8);
+  box-shadow: var(--token-shadow-soft);
+}
+
+/* ⚠️ DEPRECATED: Use .slds-table directly!
+   Legacy criteria-table class kept for backward compatibility.
+   Migration path: .criteria-table → .slds-table
+*/
+.criteria-table {
+  /* Extends .slds-table */
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1000px;
+}
+
+.criteria-table th,
+.criteria-table td {
+  /* Extends .slds-table th/td */
+  padding: var(--token-spacing-16);
+  text-align: left;
+  border-bottom: 1px solid var(--token-border-subtle, #eee);
+}
+
+.criteria-table th {
+  /* Extends .slds-table th */
+  background: var(--token-layer-background, #f8f9fa);
+  font-weight: 500;
+  color: var(--token-text-primary, #444);
+}
+
+.criteria-table tr:hover {
+  /* Extends .slds-table tr:hover */
+  background: var(--token-layer-background, #f8f9fa);
+}
+
+.delete-button {
+  padding: var(--token-spacing-4) 0.75rem;
+  border: none;
+  border-radius: var(--token-spacing-4);
+  background: var(--token-critical, #dc3545);
+  color: var(--token-layer-surface, white);
+  cursor: pointer;
+  font-size: var(--token-font-size-sm);
+  transition: background-color 0.2s;
+}
+
+.delete-button:hover {
+  background: color-mix(in srgb, var(--token-critical, #dc3545) 90%, black);
+}
+
+/* ⚠️ DEPRECATED: Use shared utility classes instead!
+   Migration path:
+   .loading         → .loading-state
+   .error-container → .error-state
+   .error-message   → .error-message (from utilities.css)
+*/
+
+.loading,
+.error-container {
+  /* Extends .loading-state / .error-state */
+  text-align: center;
+  padding: var(--token-spacing-32);
+}
+
+.error-message {
+  /* Shared utility - defined in utilities.css */
+  color: var(--token-critical, #dc3545);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.error-message button {
+  /* Extends .error-message__button */
+  margin-top: var(--token-spacing-16);
+  padding: var(--token-spacing-8) 1rem;
+  border: none;
+  border-radius: var(--token-spacing-4);
+  background: var(--token-interactive, #1a73e8);
+  color: var(--token-layer-surface, white);
+  cursor: pointer;
+}
+
+/* Responsive Styles for Mobile and Tablet */
+/* Uses standard breakpoints: tablet (768px), mobile (480px) */
+@media (max-width: 768px) {
+  .criteria-container {
+    padding: var(--token-spacing-16);
+  }
+
+  .table-actions {
+    flex-direction: column;
+    gap: var(--token-spacing-16);
+    align-items: stretch;
+  }
+
+  .left-actions {
+    flex-wrap: wrap;
+  }
+
+  .pagination {
+    justify-content: center;
+  }
+
+  .filters {
+    flex-direction: column;
+    gap: var(--token-spacing-16);
+  }
+
+  .filter-group select {
+    min-width: 100%;
+  }
+
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .criteria-table th,
+  .criteria-table td {
+    padding: var(--token-spacing-12) 0.5rem;
+    font-size: var(--token-font-size-sm-plus);
+  }
+}
+
+@media (max-width: 480px) {
+  .criteria-container {
+    padding: var(--token-spacing-12);
+  }
+
+  .left-actions button,
+  .pagination button {
+    padding: var(--token-spacing-10) 0.9rem;
+    font-size: var(--token-font-size-sm-minus);
+  }
+
+  .criteria-table th,
+  .criteria-table td {
+    padding: var(--token-spacing-10) 0.4rem;
+    font-size: var(--token-font-size-sm-minus);
+  }
+
+  .delete-button {
+    padding: var(--token-spacing-4) 0.5rem;
+    font-size: var(--token-font-size-sm-minus);
+  }
+}
+
+/* Sticky action column rules - keep actions visible during horizontal scroll */
+.sticky-action {
+  position: -webkit-sticky;
+  position: sticky;
+  right: 0;
+  background: var(--token-layer-surface, #ffffff);
+  z-index: 5;
+  white-space: nowrap;
+  box-shadow: var(--token-shadow-soft);
+}
+.sticky-action {
+  z-index: 6;
+}
+
+@media (max-width: 480px) {
+  .sticky-action {
+    position: static;
+    box-shadow: none;
+    z-index: auto;
+  }
+}

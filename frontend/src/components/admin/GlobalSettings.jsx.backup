@@ -1,0 +1,1496 @@
+import React, { useState, useEffect } from 'react';
+import { useSupabase } from '../../contexts/SupabaseContext';
+import NotificationModal from '../modals/NotificationModal';
+import { LOCALSTORAGE_CONSTANTS_KEY } from '../../config/constants';
+import '../../styles/GlobalSettings.css';
+
+// Default label aliases for BTL Calculator (28 labels)
+const DEFAULT_LABEL_ALIASES_BTL = {
+  'APRC': 'APRC',
+  'Admin Fee': 'Admin Fee',
+  'Broker Client Fee': 'Broker Client Fee',
+  'Broker Commission (Proc Fee %)': 'Broker Commission (Proc Fee %)',
+  'Broker Commission (Proc Fee £)': 'Broker Commission (Proc Fee £)',
+  'Deferred Interest %': 'Deferred Interest %',
+  'Deferred Interest £': 'Deferred Interest £',
+  'Direct Debit': 'Direct Debit',
+  'ERC': 'ERC',
+  'Exit Fee': 'Exit Fee',
+  'Gross Loan': 'Gross Loan',
+  'ICR': 'ICR',
+  'LTV': 'LTV',
+  'Monthly Interest Cost': 'Monthly Interest Cost',
+  'NBP': 'NBP',
+  'Net Loan': 'Net Loan',
+  'Net LTV': 'Net LTV',
+  'Pay Rate': 'Pay Rate',
+  'Product Fee %': 'Product Fee %',
+  'Product Fee £': 'Product Fee £',
+  'Revert Rate': 'Revert Rate',
+  'Revert Rate DD': 'Revert Rate DD',
+  'Rolled Months': 'Rolled Months',
+  'Rolled Months Interest': 'Rolled Months Interest',
+  'Serviced Interest': 'Serviced Interest',
+  'Title Insurance Cost': 'Title Insurance Cost',
+  'Total Cost to Borrower': 'Total Cost to Borrower',
+  'Total Loan Term': 'Total Loan Term',
+};
+
+// Default label aliases for Bridging Calculator (33 labels)
+const DEFAULT_LABEL_ALIASES_BRIDGE = {
+  'APRC': 'APRC',
+  'Admin Fee': 'Admin Fee',
+  'Broker Client Fee': 'Broker Client Fee',
+  'Broker Commission (Proc Fee %)': 'Broker Commission (Proc Fee %)',
+  'Broker Commission (Proc Fee £)': 'Broker Commission (Proc Fee £)',
+  'Commitment Fee £': 'Commitment Fee £',
+  'Deferred Interest %': 'Deferred Interest %',
+  'Deferred Interest £': 'Deferred Interest £',
+  'Direct Debit': 'Direct Debit',
+  'ERC 1 £': 'ERC 1 £',
+  'ERC 2 £': 'ERC 2 £',
+  'Exit Fee': 'Exit Fee',
+  'Full Int BBR £': 'Full Int BBR £',
+  'Full Int Coupon £': 'Full Int Coupon £',
+  'Gross Loan': 'Gross Loan',
+  'ICR': 'ICR',
+  'LTV': 'LTV',
+  'Monthly Interest Cost': 'Monthly Interest Cost',
+  'NBP': 'NBP',
+  'Net Loan': 'Net Loan',
+  'Net LTV': 'Net LTV',
+  'Pay Rate': 'Pay Rate',
+  'Product Fee %': 'Product Fee %',
+  'Product Fee £': 'Product Fee £',
+  'Rates': 'Rates',
+  'Revert Rate': 'Revert Rate',
+  'Revert Rate DD': 'Revert Rate DD',
+  'Rolled Months': 'Rolled Months',
+  'Rolled Months Interest': 'Rolled Months Interest',
+  'Serviced Interest': 'Serviced Interest',
+  'Title Insurance Cost': 'Title Insurance Cost',
+  'Total Interest': 'Total Interest',
+  'Total Loan Term': 'Total Loan Term',
+};
+
+// Default label aliases for Core Calculator (28 labels)
+const DEFAULT_LABEL_ALIASES_CORE = {
+  'APRC': 'APRC',
+  'Admin Fee': 'Admin Fee',
+  'Broker Client Fee': 'Broker Client Fee',
+  'Broker Commission (Proc Fee %)': 'Broker Commission (Proc Fee %)',
+  'Broker Commission (Proc Fee £)': 'Broker Commission (Proc Fee £)',
+  'Deferred Interest %': 'Deferred Interest %',
+  'Deferred Interest £': 'Deferred Interest £',
+  'Direct Debit': 'Direct Debit',
+  'ERC': 'ERC',
+  'Exit Fee': 'Exit Fee',
+  'Gross Loan': 'Gross Loan',
+  'ICR': 'ICR',
+  'LTV': 'LTV',
+  'Monthly Interest Cost': 'Monthly Interest Cost',
+  'NBP': 'NBP',
+  'Net Loan': 'Net Loan',
+  'Net LTV': 'Net LTV',
+  'Pay Rate': 'Pay Rate',
+  'Product Fee %': 'Product Fee %',
+  'Product Fee £': 'Product Fee £',
+  'Revert Rate': 'Revert Rate',
+  'Revert Rate DD': 'Revert Rate DD',
+  'Rolled Months': 'Rolled Months',
+  'Rolled Months Interest': 'Rolled Months Interest',
+  'Serviced Interest': 'Serviced Interest',
+  'Title Insurance Cost': 'Title Insurance Cost',
+  'Total Cost to Borrower': 'Total Cost to Borrower',
+  'Total Loan Term': 'Total Loan Term',
+};
+
+// Helper function to apply header colors to CSS custom properties
+const applyHeaderColorsToCss = (allColors) => {
+  const root = document.documentElement;
+  const loanTypes = ['btl', 'bridge', 'core'];
+  
+  loanTypes.forEach(loanType => {
+    const colors = allColors[loanType];
+    if (!colors) return;
+    
+    const prefix = `--results-header-${loanType}`;
+    
+    // Apply label colors
+    root.style.setProperty(`${prefix}-label-bg`, colors.labelBg || '#f4f6f9');
+    root.style.setProperty(`${prefix}-label-text`, colors.labelText || '#181818');
+    
+    // Apply column colors
+    const columns = colors.columns || [];
+    columns.forEach((col, idx) => {
+      root.style.setProperty(`${prefix}-col${idx + 1}-bg`, col.bg);
+      root.style.setProperty(`${prefix}-col${idx + 1}-text`, col.text);
+    });
+  });
+  
+  // Also update the default (non-prefixed) colors using BTL as default
+  const defaultColors = allColors.btl;
+  if (defaultColors) {
+    root.style.setProperty('--results-header-label-bg', defaultColors.labelBg || '#f4f6f9');
+    root.style.setProperty('--results-header-label-text', defaultColors.labelText || '#181818');
+    
+    const columns = defaultColors.columns || [];
+    columns.forEach((col, idx) => {
+      root.style.setProperty(`--results-header-col${idx + 1}-bg`, col.bg);
+      root.style.setProperty(`--results-header-col${idx + 1}-text`, col.text);
+    });
+  }
+};
+
+/**
+ * GlobalSettings Component
+ * Allows admins to control which rows are visible in the calculator results tables
+ * and their display order
+ */
+export default function GlobalSettings() {
+  const { supabase } = useSupabase();
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [notification, setNotification] = useState({ show: false, type: '', title: '', message: '' });
+  const [activeTab, setActiveTab] = useState('btl'); // 'btl', 'bridge', or 'core'
+  
+  // Accordion state - track which sections are expanded
+  const [expandedSections, setExpandedSections] = useState({
+    visibility: true,
+    rowOrder: false,
+    labelAliases: false,
+    headerColors: false
+  });
+
+  const toggleSection = (section) => {
+    setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }));
+  };
+  
+  // Default rows for BTL Calculator
+  const DEFAULT_BTL_ROWS = [
+    'APRC',
+    'Admin Fee',
+    'Broker Client Fee',
+    'Broker Commission (Proc Fee %)',
+    'Broker Commission (Proc Fee £)',
+    'Deferred Interest %',
+    'Deferred Interest £',
+    'Direct Debit',
+    'ERC',
+    'Exit Fee',
+    'Gross Loan',
+    'ICR',
+    'LTV',
+    'Monthly Interest Cost',
+    'NBP',
+    'Net Loan',
+    'Net LTV',
+    'Pay Rate',
+    'Product Fee %',
+    'Product Fee £',
+    'Revert Rate',
+    'Revert Rate DD',
+    'Rolled Months',
+    'Rolled Months Interest',
+    'Serviced Interest',
+    'Title Insurance Cost',
+    'Total Cost to Borrower',
+    'Total Loan Term'
+  ];
+
+  // Default rows for Bridging Calculator
+  const DEFAULT_BRIDGE_ROWS = [
+    'APRC',
+    'Admin Fee',
+    'Broker Client Fee',
+    'Broker Commission (Proc Fee %)',
+    'Broker Commission (Proc Fee £)',
+    'Commitment Fee £',
+    'Deferred Interest %',
+    'Deferred Interest £',
+    'Direct Debit',
+    'ERC 1 £',
+    'ERC 2 £',
+    'Exit Fee',
+    'Full Int BBR £',
+    'Full Int Coupon £',
+    'Gross Loan',
+    'ICR',
+    'LTV',
+    'Monthly Interest Cost',
+    'NBP',
+    'Net Loan',
+    'Net LTV',
+    'Pay Rate',
+    'Product Fee %',
+    'Product Fee £',
+    'Revert Rate',
+    'Revert Rate DD',
+    'Rolled Months',
+    'Rolled Months Interest',
+    'Serviced Interest',
+    'Title Insurance Cost',
+    'Total Interest',
+    'Total Loan Term'
+  ];
+
+  // Default rows for Core Range Calculator
+  const DEFAULT_CORE_ROWS = [
+    'APRC',
+    'Admin Fee',
+    'Broker Client Fee',
+    'Broker Commission (Proc Fee %)',
+    'Broker Commission (Proc Fee £)',
+    'Deferred Interest %',
+    'Deferred Interest £',
+    'Direct Debit',
+    'ERC',
+    'Exit Fee',
+    'Gross Loan',
+    'ICR',
+    'LTV',
+    'Monthly Interest Cost',
+    'NBP',
+    'Net Loan',
+    'Net LTV',
+    'Pay Rate',
+    'Product Fee %',
+    'Product Fee £',
+    'Revert Rate',
+    'Revert Rate DD',
+    'Rolled Months',
+    'Rolled Months Interest',
+    'Serviced Interest',
+    'Title Insurance Cost',
+    'Total Cost to Borrower',
+    'Total Loan Term'
+  ];
+
+  const [btlVisibleRows, setBtlVisibleRows] = useState(() => 
+    DEFAULT_BTL_ROWS.reduce((acc, row) => ({ ...acc, [row]: true }), {})
+  );
+  
+  const [bridgeVisibleRows, setBridgeVisibleRows] = useState(() => 
+    DEFAULT_BRIDGE_ROWS.reduce((acc, row) => ({ ...acc, [row]: true }), {})
+  );
+
+  const [coreVisibleRows, setCoreVisibleRows] = useState(() => 
+    DEFAULT_CORE_ROWS.reduce((acc, row) => ({ ...acc, [row]: true }), {})
+  );
+
+  const [btlRowOrder, setBtlRowOrder] = useState([...DEFAULT_BTL_ROWS]);
+  const [bridgeRowOrder, setBridgeRowOrder] = useState([...DEFAULT_BRIDGE_ROWS]);
+  const [coreRowOrder, setCoreRowOrder] = useState([...DEFAULT_CORE_ROWS]);
+
+  // Label aliases state
+  const [btlLabelAliases, setBtlLabelAliases] = useState({ ...DEFAULT_LABEL_ALIASES_BTL });
+  const [bridgeLabelAliases, setBridgeLabelAliases] = useState({ ...DEFAULT_LABEL_ALIASES_BRIDGE });
+  const [coreLabelAliases, setCoreLabelAliases] = useState({ ...DEFAULT_LABEL_ALIASES_CORE });
+  const [editingLabel, setEditingLabel] = useState(null);
+  const [tempLabelValue, setTempLabelValue] = useState('');
+
+  // Header colors state - separate colors for each loan type with dynamic columns
+  // Each loan type has a labelBg/labelText plus an array of column colors
+  const DEFAULT_COLUMN_COLOR = { bg: '#002855', text: '#ffffff' };
+  const DEFAULT_HEADER_COLORS = {
+    btl: {
+      labelBg: '#f4f6f9',
+      labelText: '#181818',
+      columns: [
+        { bg: '#002855', text: '#ffffff' },  // Column 1 - navy
+        { bg: '#1B3B6F', text: '#ffffff' },  // Column 2 - navy-500
+        { bg: '#ED8B00', text: '#ffffff' }   // Column 3 - orange
+      ]
+    },
+    bridge: {
+      labelBg: '#f4f6f9',
+      labelText: '#181818',
+      columns: [
+        { bg: '#002855', text: '#ffffff' },  // Column 1 - navy
+        { bg: '#1B3B6F', text: '#ffffff' },  // Column 2 - navy-500
+        { bg: '#ED8B00', text: '#ffffff' }   // Column 3 - orange
+      ]
+    },
+    core: {
+      labelBg: '#f4f6f9',
+      labelText: '#181818',
+      columns: [
+        { bg: '#002855', text: '#ffffff' },  // Column 1 - navy
+        { bg: '#1B3B6F', text: '#ffffff' },  // Column 2 - navy-500
+        { bg: '#ED8B00', text: '#ffffff' }   // Column 3 - orange
+      ]
+    }
+  };
+  const [headerColors, setHeaderColors] = useState({ ...DEFAULT_HEADER_COLORS });
+
+  // Load settings from Supabase
+  useEffect(() => {
+    loadSettings();
+  }, []);
+
+  const loadSettings = async() => {
+    try {
+      setLoading(true);
+      
+      // Load visibility settings
+      const { data: visibilityData, error: visibilityError } = await supabase
+        .from('app_constants')
+        .select('*')
+        .eq('key', 'results_table_visibility')
+        .maybeSingle();
+
+      if (visibilityError && visibilityError.code !== 'PGRST116') {
+        throw visibilityError;
+      }
+
+      if (visibilityData && visibilityData.value) {
+        const settings = typeof visibilityData.value === 'string' ? JSON.parse(visibilityData.value) : visibilityData.value;
+        
+        if (settings.btl) {
+          // Merge with defaults to ensure all fields are present
+          const mergedBtl = { ...DEFAULT_BTL_ROWS.reduce((acc, row) => ({ ...acc, [row]: true }), {}), ...settings.btl };
+          setBtlVisibleRows(mergedBtl);
+        }
+        if (settings.bridge) {
+          // Merge with defaults to ensure all fields are present
+          const mergedBridge = { ...DEFAULT_BRIDGE_ROWS.reduce((acc, row) => ({ ...acc, [row]: true }), {}), ...settings.bridge };
+          setBridgeVisibleRows(mergedBridge);
+        }
+        if (settings.core) {
+          // Merge with defaults to ensure all fields are present
+          const mergedCore = { ...DEFAULT_CORE_ROWS.reduce((acc, row) => ({ ...acc, [row]: true }), {}), ...settings.core };
+          setCoreVisibleRows(mergedCore);
+        }
+      }
+
+      // Load row order settings
+      const { data: orderData, error: orderError } = await supabase
+        .from('app_constants')
+        .select('*')
+        .eq('key', 'results_table_row_order')
+        .maybeSingle();
+
+      if (orderError && orderError.code !== 'PGRST116') {
+        throw orderError;
+      }
+
+      if (orderData && orderData.results_row_order) {
+        const settings = typeof orderData.results_row_order === 'string' 
+          ? JSON.parse(orderData.results_row_order) 
+          : orderData.results_row_order;
+        
+        if (settings.btl && Array.isArray(settings.btl)) {
+          // Filter to only include valid fields from defaults, then add any missing ones
+          const validFields = settings.btl.filter(row => DEFAULT_BTL_ROWS.includes(row));
+          const missingBtlFields = DEFAULT_BTL_ROWS.filter(row => !validFields.includes(row));
+          setBtlRowOrder([...validFields, ...missingBtlFields]);
+        }
+        if (settings.bridge && Array.isArray(settings.bridge)) {
+          // Filter to only include valid fields from defaults, then add any missing ones
+          const validFields = settings.bridge.filter(row => DEFAULT_BRIDGE_ROWS.includes(row));
+          const missingBridgeFields = DEFAULT_BRIDGE_ROWS.filter(row => !validFields.includes(row));
+          setBridgeRowOrder([...validFields, ...missingBridgeFields]);
+        }
+        if (settings.core && Array.isArray(settings.core)) {
+          // Filter to only include valid fields from defaults, then add any missing ones
+          const validFields = settings.core.filter(row => DEFAULT_CORE_ROWS.includes(row));
+          const missingCoreFields = DEFAULT_CORE_ROWS.filter(row => !validFields.includes(row));
+          setCoreRowOrder([...validFields, ...missingCoreFields]);
+        }
+      }
+
+      // Load label aliases from Supabase (primary storage) - uses dedicated label_aliases column
+      const { data: labelData, error: labelError } = await supabase
+        .from('app_constants')
+        .select('*')
+        .eq('key', 'results_table_label_aliases')
+        .maybeSingle();
+
+      if (labelError && labelError.code !== 'PGRST116') {
+        throw labelError;
+      }
+
+      let labelAliasesLoaded = false;
+      // Check for label_aliases column first (new), then fall back to value column (legacy)
+      const labelAliasData = labelData?.label_aliases || labelData?.value;
+      if (labelData && labelAliasData) {
+        const settings = typeof labelAliasData === 'string' ? JSON.parse(labelAliasData) : labelAliasData;
+        
+        if (settings.btl) {
+          setBtlLabelAliases({ ...DEFAULT_LABEL_ALIASES_BTL, ...settings.btl });
+          labelAliasesLoaded = true;
+        }
+        if (settings.bridge) {
+          setBridgeLabelAliases({ ...DEFAULT_LABEL_ALIASES_BRIDGE, ...settings.bridge });
+          labelAliasesLoaded = true;
+        }
+        if (settings.core) {
+          setCoreLabelAliases({ ...DEFAULT_LABEL_ALIASES_CORE, ...settings.core });
+          labelAliasesLoaded = true;
+        }
+        
+        // Also update localStorage for the hook to use
+        if (labelAliasesLoaded) {
+          const mergedForHook = {
+            ...settings.btl,
+            ...settings.bridge,
+            ...settings.core
+          };
+          let existingConstants = {};
+          try {
+            const stored = localStorage.getItem(LOCALSTORAGE_CONSTANTS_KEY);
+            if (stored) existingConstants = JSON.parse(stored);
+          } catch (e) { /* ignore */ }
+          
+          localStorage.setItem(LOCALSTORAGE_CONSTANTS_KEY, JSON.stringify({
+            ...existingConstants,
+            resultsLabelAliases: mergedForHook
+          }));
+        }
+      }
+
+      // Fallback: Load label aliases from localStorage if not in Supabase
+      if (!labelAliasesLoaded) {
+        try {
+          const stored = localStorage.getItem(LOCALSTORAGE_CONSTANTS_KEY);
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            if (parsed.resultsLabelAliases && typeof parsed.resultsLabelAliases === 'object') {
+              // Merge with defaults for each loan type
+              setBtlLabelAliases({ ...DEFAULT_LABEL_ALIASES_BTL, ...parsed.resultsLabelAliases });
+              setBridgeLabelAliases({ ...DEFAULT_LABEL_ALIASES_BRIDGE, ...parsed.resultsLabelAliases });
+              setCoreLabelAliases({ ...DEFAULT_LABEL_ALIASES_CORE, ...parsed.resultsLabelAliases });
+            }
+          }
+        } catch (labelErr) {
+          console.warn('Failed to load label aliases from localStorage:', labelErr);
+        }
+      }
+
+      // Load header colors from Supabase
+      const { data: headerColorData, error: headerColorError } = await supabase
+        .from('app_constants')
+        .select('*')
+        .eq('key', 'results_table_header_colors')
+        .maybeSingle();
+
+      if (headerColorError && headerColorError.code !== 'PGRST116') {
+        throw headerColorError;
+      }
+
+      if (headerColorData && headerColorData.value) {
+        const colors = typeof headerColorData.value === 'string' 
+          ? JSON.parse(headerColorData.value) 
+          : headerColorData.value;
+        
+        // Helper to migrate old format (col1Bg, col2Bg...) to new format (columns array)
+        const migrateToColumnsFormat = (loanTypeColors, defaults) => {
+          if (loanTypeColors?.columns) {
+            // Already in new format
+            return {
+              labelBg: loanTypeColors.labelBg || defaults.labelBg,
+              labelText: loanTypeColors.labelText || defaults.labelText,
+              columns: loanTypeColors.columns
+            };
+          }
+          // Migrate from old format
+          const columns = [];
+          let i = 1;
+          while (loanTypeColors?.[`col${i}Bg`] !== undefined || i <= 3) {
+            columns.push({
+              bg: loanTypeColors?.[`col${i}Bg`] || defaults.columns[i-1]?.bg || '#002855',
+              text: loanTypeColors?.[`col${i}Text`] || defaults.columns[i-1]?.text || '#ffffff'
+            });
+            i++;
+            if (i > 10) break; // Safety limit
+          }
+          return {
+            labelBg: loanTypeColors?.labelBg || defaults.labelBg,
+            labelText: loanTypeColors?.labelText || defaults.labelText,
+            columns: columns.length > 0 ? columns : defaults.columns
+          };
+        };
+        
+        // Merge with defaults for each loan type
+        const mergedColors = {
+          btl: migrateToColumnsFormat(colors.btl, DEFAULT_HEADER_COLORS.btl),
+          bridge: migrateToColumnsFormat(colors.bridge, DEFAULT_HEADER_COLORS.bridge),
+          core: migrateToColumnsFormat(colors.core, DEFAULT_HEADER_COLORS.core)
+        };
+        setHeaderColors(mergedColors);
+        
+        // Save to localStorage for quick loading
+        localStorage.setItem('results_table_header_colors', JSON.stringify(mergedColors));
+      }
+    } catch (err) {
+      setNotification({
+        show: true,
+        type: 'error',
+        title: 'Error',
+        message: `Failed to load settings: ${err.message}`
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSave = async () => {
+    try {
+      setSaving(true);
+      
+      // Save visibility settings
+      const visibilitySettings = {
+        btl: btlVisibleRows,
+        bridge: bridgeVisibleRows,
+        core: coreVisibleRows
+      };
+
+      const { error: visibilityError } = await supabase
+        .from('app_constants')
+        .upsert({
+          key: 'results_table_visibility',
+          value: visibilitySettings,
+          updated_at: new Date().toISOString()
+        }, { onConflict: 'key' });
+
+      if (visibilityError) throw visibilityError;
+
+      // Save row order settings
+      const orderSettings = {
+        btl: btlRowOrder,
+        bridge: bridgeRowOrder,
+        core: coreRowOrder
+      };
+
+      const { error: orderError } = await supabase
+        .from('app_constants')
+        .upsert({
+          key: 'results_table_row_order',
+          results_row_order: orderSettings,
+          updated_at: new Date().toISOString()
+        }, { onConflict: 'key' });
+
+      if (orderError) throw orderError;
+
+      // Save label aliases - only save labels that differ from defaults
+      const labelAliasSettings = {
+        btl: Object.fromEntries(
+          Object.entries(btlLabelAliases).filter(([key, value]) => value !== DEFAULT_LABEL_ALIASES_BTL[key])
+        ),
+        bridge: Object.fromEntries(
+          Object.entries(bridgeLabelAliases).filter(([key, value]) => value !== DEFAULT_LABEL_ALIASES_BRIDGE[key])
+        ),
+        core: Object.fromEntries(
+          Object.entries(coreLabelAliases).filter(([key, value]) => value !== DEFAULT_LABEL_ALIASES_CORE[key])
+        )
+      };
+
+      // Save to dedicated label_aliases column
+      const { error: labelError } = await supabase
+        .from('app_constants')
+        .upsert({
+          key: 'results_table_label_aliases',
+          label_aliases: labelAliasSettings,
+          updated_at: new Date().toISOString()
+        }, { onConflict: 'key' });
+
+      if (labelError) throw labelError;
+
+      // Save header colors
+      const { error: headerColorError } = await supabase
+        .from('app_constants')
+        .upsert({
+          key: 'results_table_header_colors',
+          value: headerColors,
+          updated_at: new Date().toISOString()
+        }, { onConflict: 'key' });
+
+      if (headerColorError) throw headerColorError;
+
+      // Save header colors to localStorage for immediate effect
+      localStorage.setItem('results_table_header_colors', JSON.stringify(headerColors));
+      
+      // Apply header colors to CSS custom properties immediately
+      applyHeaderColorsToCss(headerColors);
+
+      setNotification({
+        show: true,
+        type: 'success',
+        title: 'Success',
+        message: 'Results table settings saved successfully!'
+      });
+
+      // Save to localStorage for immediate effect
+      localStorage.setItem('results_table_visibility', JSON.stringify(visibilitySettings));
+      localStorage.setItem('results_table_row_order', JSON.stringify(orderSettings));
+      
+      // Save label aliases to localStorage for immediate effect
+      // Merge all modified label aliases into one object for the hook to use
+      const mergedLabelAliases = {
+        ...labelAliasSettings.btl,
+        ...labelAliasSettings.bridge,
+        ...labelAliasSettings.core
+      };
+      
+      // Read existing constants and merge
+      let existingConstants = {};
+      try {
+        const stored = localStorage.getItem(LOCALSTORAGE_CONSTANTS_KEY);
+        if (stored) {
+          existingConstants = JSON.parse(stored);
+        }
+      } catch (e) {
+        // Ignore parse errors
+      }
+      
+      const updatedConstants = {
+        ...existingConstants,
+        resultsLabelAliases: mergedLabelAliases
+      };
+      localStorage.setItem(LOCALSTORAGE_CONSTANTS_KEY, JSON.stringify(updatedConstants));
+      
+      // Dispatch storage events to notify other components
+      window.dispatchEvent(new StorageEvent('storage', {
+        key: 'results_table_visibility',
+        newValue: JSON.stringify(visibilitySettings)
+      }));
+      window.dispatchEvent(new StorageEvent('storage', {
+        key: 'results_table_row_order',
+        newValue: JSON.stringify(orderSettings)
+      }));
+      window.dispatchEvent(new StorageEvent('storage', {
+        key: LOCALSTORAGE_CONSTANTS_KEY,
+        newValue: JSON.stringify(updatedConstants)
+      }));
+      
+      // Dispatch custom event for same-tab updates (used by useResultsLabelAlias hook)
+      window.dispatchEvent(new CustomEvent('constantsUpdated'));
+      
+    } catch (err) {
+      setNotification({
+        show: true,
+        type: 'error',
+        title: 'Error',
+        message: `Failed to save settings: ${err.message}`
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleToggleBtlRow = (row) => {
+    setBtlVisibleRows(prev => ({ ...prev, [row]: !prev[row] }));
+  };
+
+  const handleToggleBridgeRow = (row) => {
+    setBridgeVisibleRows(prev => ({ ...prev, [row]: !prev[row] }));
+  };
+
+  const handleToggleCoreRow = (row) => {
+    setCoreVisibleRows(prev => ({ ...prev, [row]: !prev[row] }));
+  };
+
+  const handleMoveRowUp = (index, type) => {
+    if (index === 0) return;
+    
+    if (type === 'btl') {
+      const newOrder = [...btlRowOrder];
+      [newOrder[index - 1], newOrder[index]] = [newOrder[index], newOrder[index - 1]];
+      setBtlRowOrder(newOrder);
+    } else if (type === 'bridge') {
+      const newOrder = [...bridgeRowOrder];
+      [newOrder[index - 1], newOrder[index]] = [newOrder[index], newOrder[index - 1]];
+      setBridgeRowOrder(newOrder);
+    } else if (type === 'core') {
+      const newOrder = [...coreRowOrder];
+      [newOrder[index - 1], newOrder[index]] = [newOrder[index], newOrder[index - 1]];
+      setCoreRowOrder(newOrder);
+    }
+  };
+
+  const handleMoveRowDown = (index, type) => {
+    const maxIndex = type === 'btl' ? btlRowOrder.length - 1 : 
+                     type === 'bridge' ? bridgeRowOrder.length - 1 : 
+                     coreRowOrder.length - 1;
+    if (index === maxIndex) return;
+    
+    if (type === 'btl') {
+      const newOrder = [...btlRowOrder];
+      [newOrder[index], newOrder[index + 1]] = [newOrder[index + 1], newOrder[index]];
+      setBtlRowOrder(newOrder);
+    } else if (type === 'bridge') {
+      const newOrder = [...bridgeRowOrder];
+      [newOrder[index], newOrder[index + 1]] = [newOrder[index + 1], newOrder[index]];
+      setBridgeRowOrder(newOrder);
+    } else if (type === 'core') {
+      const newOrder = [...coreRowOrder];
+      [newOrder[index], newOrder[index + 1]] = [newOrder[index + 1], newOrder[index]];
+      setCoreRowOrder(newOrder);
+    }
+  };
+
+  const handleSelectAllBtl = () => {
+    setBtlVisibleRows(DEFAULT_BTL_ROWS.reduce((acc, row) => ({ ...acc, [row]: true }), {}));
+  };
+
+  const handleDeselectAllBtl = () => {
+    setBtlVisibleRows(DEFAULT_BTL_ROWS.reduce((acc, row) => ({ ...acc, [row]: false }), {}));
+  };
+
+  const handleSelectAllBridge = () => {
+    setBridgeVisibleRows(DEFAULT_BRIDGE_ROWS.reduce((acc, row) => ({ ...acc, [row]: true }), {}));
+  };
+
+  const handleDeselectAllBridge = () => {
+    setBridgeVisibleRows(DEFAULT_BRIDGE_ROWS.reduce((acc, row) => ({ ...acc, [row]: false }), {}));
+  };
+
+  const handleSelectAllCore = () => {
+    setCoreVisibleRows(DEFAULT_CORE_ROWS.reduce((acc, row) => ({ ...acc, [row]: true }), {}));
+  };
+
+  const handleDeselectAllCore = () => {
+    setCoreVisibleRows(DEFAULT_CORE_ROWS.reduce((acc, row) => ({ ...acc, [row]: false }), {}));
+  };
+
+  const handleReset = () => {
+    setBtlVisibleRows(DEFAULT_BTL_ROWS.reduce((acc, row) => ({ ...acc, [row]: true }), {}));
+    setBridgeVisibleRows(DEFAULT_BRIDGE_ROWS.reduce((acc, row) => ({ ...acc, [row]: true }), {}));
+    setCoreVisibleRows(DEFAULT_CORE_ROWS.reduce((acc, row) => ({ ...acc, [row]: true }), {}));
+    setBtlRowOrder([...DEFAULT_BTL_ROWS]);
+    setBridgeRowOrder([...DEFAULT_BRIDGE_ROWS]);
+    setCoreRowOrder([...DEFAULT_CORE_ROWS]);
+    // Reset label aliases
+    setBtlLabelAliases({ ...DEFAULT_LABEL_ALIASES_BTL });
+    setBridgeLabelAliases({ ...DEFAULT_LABEL_ALIASES_BRIDGE });
+    setCoreLabelAliases({ ...DEFAULT_LABEL_ALIASES_CORE });
+    // Reset header colors for all loan types
+    setHeaderColors({ ...DEFAULT_HEADER_COLORS });
+  };
+
+  // Label alias handlers
+  const handleStartEditLabel = (key, currentValue) => {
+    setEditingLabel(key);
+    setTempLabelValue(currentValue);
+  };
+
+  const handleSaveLabel = (type) => {
+    if (!editingLabel) return;
+    
+    if (type === 'btl') {
+      setBtlLabelAliases(prev => ({ ...prev, [editingLabel]: tempLabelValue }));
+    } else if (type === 'bridge') {
+      setBridgeLabelAliases(prev => ({ ...prev, [editingLabel]: tempLabelValue }));
+    } else if (type === 'core') {
+      setCoreLabelAliases(prev => ({ ...prev, [editingLabel]: tempLabelValue }));
+    }
+    setEditingLabel(null);
+    setTempLabelValue('');
+  };
+
+  const handleCancelEditLabel = () => {
+    setEditingLabel(null);
+    setTempLabelValue('');
+  };
+
+  const handleResetLabel = (type, key) => {
+    if (type === 'btl') {
+      setBtlLabelAliases(prev => ({ ...prev, [key]: DEFAULT_LABEL_ALIASES_BTL[key] }));
+    } else if (type === 'bridge') {
+      setBridgeLabelAliases(prev => ({ ...prev, [key]: DEFAULT_LABEL_ALIASES_BRIDGE[key] }));
+    } else if (type === 'core') {
+      setCoreLabelAliases(prev => ({ ...prev, [key]: DEFAULT_LABEL_ALIASES_CORE[key] }));
+    }
+  };
+
+  const handleResetAllLabels = (type) => {
+    if (type === 'btl') {
+      setBtlLabelAliases({ ...DEFAULT_LABEL_ALIASES_BTL });
+    } else if (type === 'bridge') {
+      setBridgeLabelAliases({ ...DEFAULT_LABEL_ALIASES_BRIDGE });
+    } else if (type === 'core') {
+      setCoreLabelAliases({ ...DEFAULT_LABEL_ALIASES_CORE });
+    }
+  };
+
+  // Helper function to render visibility checkboxes
+  const renderVisibilitySection = (rows, visibleRows, toggleHandler, selectAllHandler, deselectAllHandler) => (
+    <div className="settings-accordion-section">
+      <section className="slds-accordion__section">
+        <div className={`slds-accordion__summary ${expandedSections.visibility ? 'slds-is-open' : ''}`}>
+          <h3 className="slds-accordion__summary-heading">
+            <button
+              className="slds-button slds-button_reset slds-accordion__summary-action"
+              aria-controls="accordion-visibility-content"
+              aria-expanded={expandedSections.visibility}
+              onClick={() => toggleSection('visibility')}
+              type="button"
+            >
+              <svg className="slds-accordion__summary-action-icon slds-button__icon slds-button__icon_left" aria-hidden="true">
+                <use xlinkHref="/assets/icons/utility-sprite/svg/symbols.svg#switch"></use>
+              </svg>
+              <span className="slds-accordion__summary-content">Row Visibility</span>
+            </button>
+            <div className="visibility-actions">
+              <button
+                className="slds-button slds-button_brand slds-button_small"
+                onClick={selectAllHandler}
+                disabled={saving}
+                type="button"
+              >
+                Select All
+              </button>
+              <button
+                className="slds-button slds-button_neutral slds-button_small"
+                onClick={deselectAllHandler}
+                disabled={saving}
+                type="button"
+              >
+                Deselect All
+              </button>
+            </div>
+          </h3>
+        </div>
+        <div
+          id="accordion-visibility-content"
+          className="slds-accordion__content"
+          hidden={!expandedSections.visibility}
+        >
+          <div className="visibility-grid">
+            {rows.map(row => (
+              <div key={row} className="slds-form-element">
+                <div className="slds-form-element__control">
+                  <div className="slds-checkbox">
+                    <input
+                      type="checkbox"
+                      id={`${activeTab}-${row}`}
+                      checked={visibleRows[row] || false}
+                      onChange={() => toggleHandler(row)}
+                      disabled={saving}
+                    />
+                    <label className="slds-checkbox__label" htmlFor={`${activeTab}-${row}`}>
+                      <span className="slds-checkbox_faux"></span>
+                      <span className="slds-form-element__label">{row}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+<br />
+  // Helper function to render row order section
+  const renderRowOrderSection = (rowOrder, visibleRows, type) => (
+    <div className="slds-m-bottom_x-large">
+      <br />
+      <div className="slds-box">
+        <h4 className="slds-text-heading_small slds-m-bottom_medium" style={{ fontWeight: '600' }}>
+          Row Display Order
+        </h4>
+        
+        <div 
+          style={{ 
+            maxHeight: '500px', 
+            overflowY: 'auto',
+            border: '1px solid var(--token-border-subtle)',
+            borderRadius: 'var(--token-spacing-xs)',
+            padding: 'var(--token-spacing-sm)',
+            backgroundColor: 'var(--token-layer-background)'
+          }}
+        >
+          {rowOrder.map((row, index) => (
+            <div 
+              key={row} 
+              style={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'center',
+                padding: 'var(--token-spacing-sm) var(--token-spacing-md)',
+                marginBottom: 'var(--token-spacing-xs)',
+                backgroundColor: visibleRows[row] === false ? 'var(--token-layer-surface-hover)' : 'var(--token-layer-surface)',
+                border: '1px solid var(--token-border-subtle)',
+                borderRadius: 'var(--token-spacing-xs)',
+                transition: 'all 0.1s ease'
+              }}
+            >
+              <span style={{ 
+                flex: 1,
+                color: visibleRows[row] === false ? 'var(--token-text-secondary)' : 'var(--token-text-primary)',
+                fontSize: 'var(--token-font-size-sm)',
+                fontWeight: '400'
+              }}>
+                <span style={{ 
+                  display: 'inline-block',
+                  width: '2rem',
+                  color: 'var(--token-text-secondary)',
+                  fontWeight: '500'
+                }}>
+                  {index + 1}.
+                </span>
+                {row}
+                {visibleRows[row] === false && (
+                  <span style={{ 
+                    marginLeft: 'var(--token-spacing-sm)', 
+                    fontSize: 'var(--token-font-size-xs)',
+                    color: 'var(--token-text-secondary)',
+                    fontStyle: 'italic'
+                  }}>
+                    (Hidden)
+                  </span>
+                )}
+              </span>
+              <div style={{ display: 'flex', gap: 'var(--token-spacing-xs)' }}>
+                <button
+                  className="slds-button slds-button_neutral"
+                  onClick={() => handleMoveRowUp(index, type)}
+                  disabled={saving || index === 0}
+                  title="Move up"
+                  style={{
+                    width: '2rem',
+                    height: '2rem',
+                    padding: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '1rem',
+                    opacity: index === 0 ? 0.4 : 1
+                  }}
+                >
+                  ▲
+                </button>
+                <button
+                  className="slds-button slds-button_neutral"
+                  onClick={() => handleMoveRowDown(index, type)}
+                  disabled={saving || index === rowOrder.length - 1}
+                  title="Move down"
+                  style={{
+                    width: '2rem',
+                    height: '2rem',
+                    padding: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '1rem',
+                    opacity: index === rowOrder.length - 1 ? 0.4 : 1
+                  }}
+                >
+                  ▼
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  // Helper function to render label aliases section
+  const renderLabelAliasSection = (type, labelAliases, defaultAliases) => (
+    <div className="slds-m-bottom_x-large">
+      <br />
+      <div className="slds-box">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--token-spacing-lg)' }}>
+          <h4 className="slds-text-heading_small" style={{ fontWeight: '600', margin: 0 }}>
+            Label Aliases
+          </h4>
+          <button
+            className="slds-button slds-button_text-destructive"
+            onClick={() => handleResetAllLabels(type)}
+            disabled={saving}
+            style={{ fontSize: 'var(--token-font-size-xs)' }}
+          >
+            Reset All Labels
+          </button>
+        </div>
+        <p style={{ fontSize: 'var(--token-font-size-sm)', color: 'var(--token-text-muted)', marginBottom: 'var(--token-spacing-md)' }}>
+          Customize how field names appear in the results table. Click on a label to edit it.
+        </p>
+        
+        <div 
+          style={{ 
+            maxHeight: '350px', 
+            overflowY: 'auto',
+            border: '1px solid var(--token-border-subtle)',
+            borderRadius: 'var(--token-spacing-xs)',
+            padding: 'var(--token-spacing-md)',
+            backgroundColor: 'var(--token-layer-background)'
+          }}
+        >
+          <div 
+            style={{ 
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+              gap: 'var(--token-spacing-sm)'
+            }}
+          >
+            {Object.keys(defaultAliases).map(key => {
+              const isModified = labelAliases[key] !== defaultAliases[key];
+              const isEditing = editingLabel === key;
+              
+              return (
+                <div 
+                  key={key} 
+                  style={{ 
+                    padding: 'var(--token-spacing-sm)',
+                    backgroundColor: isModified ? 'var(--token-warning-bg)' : 'var(--token-layer-surface)',
+                    border: isModified ? '1px solid var(--token-warning)' : '1px solid var(--token-border-subtle)',
+                    borderRadius: 'var(--token-spacing-xs)'
+                  }}
+                >
+                  <div style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'space-between',
+                    marginBottom: 'var(--token-spacing-xs)'
+                  }}>
+                    <span style={{ 
+                      fontFamily: 'monospace', 
+                      fontSize: '0.7rem', 
+                      color: 'var(--token-text-secondary)',
+                      fontWeight: '500'
+                    }}>
+                      {key}
+                    </span>
+                    {isModified && (
+                      <span style={{ 
+                        fontSize: '0.6rem', 
+                        backgroundColor: 'var(--token-warning)', 
+                        color: 'var(--token-text-inverse)',
+                        padding: '2px 6px',
+                        borderRadius: '3px'
+                      }}>
+                        Modified
+                      </span>
+                    )}
+                  </div>
+                  
+                  {isEditing ? (
+                    <div style={{ display: 'flex', gap: 'var(--token-spacing-xs)' }}>
+                      <input
+                        type="text"
+                        className="slds-input"
+                        value={tempLabelValue}
+                        onChange={(e) => setTempLabelValue(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') handleSaveLabel(type);
+                          if (e.key === 'Escape') handleCancelEditLabel();
+                        }}
+                        autoFocus
+                        style={{ flex: 1, fontSize: 'var(--token-font-size-sm)' }}
+                      />
+                      <button
+                        className="slds-button slds-button_brand"
+                        onClick={() => handleSaveLabel(type)}
+                        style={{ minWidth: '32px', padding: '0 8px' }}
+                        title="Save"
+                      >
+                        ✓
+                      </button>
+                      <button
+                        className="slds-button slds-button_neutral"
+                        onClick={handleCancelEditLabel}
+                        style={{ minWidth: '32px', padding: '0 8px' }}
+                        title="Cancel"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ) : (
+                    <div style={{ display: 'flex', gap: 'var(--token-spacing-xs)', alignItems: 'center' }}>
+                      <span 
+                        onClick={() => handleStartEditLabel(key, labelAliases[key])}
+                        style={{ 
+                          flex: 1,
+                          padding: 'var(--token-spacing-xs) var(--token-spacing-sm)',
+                          backgroundColor: 'var(--token-layer-surface-hover)',
+                          borderRadius: 'var(--token-spacing-xs)',
+                          cursor: 'pointer',
+                          fontSize: 'var(--token-font-size-sm)',
+                          minHeight: '32px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          color: 'var(--token-text-primary)'
+                        }}
+                        title="Click to edit"
+                      >
+                        {labelAliases[key]}
+                      </span>
+                      <button
+                        className="slds-button slds-button_neutral"
+                        onClick={() => handleStartEditLabel(key, labelAliases[key])}
+                        style={{ minWidth: '32px', padding: '0 8px' }}
+                        title="Edit"
+                      >
+                        ✎
+                      </button>
+                      {isModified && (
+                        <button
+                          className="slds-button slds-button_text-destructive"
+                          onClick={() => handleResetLabel(type, key)}
+                          style={{ minWidth: '32px', padding: '0 8px' }}
+                          title="Reset to default"
+                        >
+                          ↺
+                        </button>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Helper function to render header colors section for each loan type
+  const renderHeaderColorsSection = (loanType) => {
+    const colors = headerColors[loanType] || DEFAULT_HEADER_COLORS[loanType];
+    const columns = colors?.columns || DEFAULT_HEADER_COLORS[loanType].columns;
+    
+    const addColumn = () => {
+      setHeaderColors(prev => ({
+        ...prev,
+        [loanType]: {
+          ...prev[loanType],
+          columns: [...(prev[loanType]?.columns || []), { bg: '#002855', text: '#ffffff' }]
+        }
+      }));
+    };
+    
+    const removeColumn = (index) => {
+      setHeaderColors(prev => ({
+        ...prev,
+        [loanType]: {
+          ...prev[loanType],
+          columns: prev[loanType].columns.filter((_, i) => i !== index)
+        }
+      }));
+    };
+    
+    const updateColumnColor = (index, field, value) => {
+      setHeaderColors(prev => ({
+        ...prev,
+        [loanType]: {
+          ...prev[loanType],
+          columns: prev[loanType].columns.map((col, i) => 
+            i === index ? { ...col, [field]: value } : col
+          )
+        }
+      }));
+    };
+    
+    const updateLabelColor = (field, value) => {
+      setHeaderColors(prev => ({
+        ...prev,
+        [loanType]: {
+          ...prev[loanType],
+          [field]: value
+        }
+      }));
+    };
+    
+    const resetColors = () => {
+      setHeaderColors(prev => ({
+        ...prev,
+        [loanType]: { ...DEFAULT_HEADER_COLORS[loanType] }
+      }));
+    };
+    
+    return (
+      <div className="slds-m-bottom_x-large">
+        <br />
+        <div className="slds-box">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--token-spacing-lg)' }}>
+            <h4 className="slds-text-heading_small" style={{ fontWeight: '600', margin: 0 }}>
+              Header Column Colors
+            </h4>
+            <div style={{ display: 'flex', gap: 'var(--token-spacing-sm)' }}>
+              <button
+                className="slds-button slds-button_neutral"
+                onClick={addColumn}
+                disabled={saving || columns.length >= 10}
+                style={{ fontSize: 'var(--token-font-size-xs)' }}
+              >
+                + Add Column
+              </button>
+              <button
+                className="slds-button slds-button_text-destructive"
+                onClick={resetColors}
+                disabled={saving}
+                style={{ fontSize: 'var(--token-font-size-xs)' }}
+              >
+                Reset Colors
+              </button>
+            </div>
+          </div>
+          <p style={{ fontSize: 'var(--token-font-size-sm)', color: 'var(--token-text-muted)', marginBottom: 'var(--token-spacing-md)' }}>
+            Customize the header colors for this calculator's results table. Add or remove columns as needed.
+          </p>
+          
+          {/* Preview */}
+          <div className="slds-m-bottom_large">
+            <h5 style={{ fontWeight: '500', marginBottom: 'var(--token-spacing-sm)', fontSize: 'var(--token-font-size-sm)' }}>
+              Preview
+            </h5>
+            <div style={{ display: 'flex', borderRadius: 'var(--token-radius-sm)', overflow: 'hidden', border: '1px solid var(--token-ui-border-medium)', flexWrap: 'wrap' }}>
+              <div style={{ 
+                padding: 'var(--token-spacing-md) var(--token-spacing-lg)', 
+                backgroundColor: colors.labelBg || '#f4f6f9',
+                color: colors.labelText || '#181818',
+                fontWeight: '600',
+                fontSize: 'var(--token-font-size-sm)',
+                minWidth: '100px'
+              }}>
+                Label
+              </div>
+              {columns.map((col, idx) => (
+                <div key={idx} style={{ 
+                  padding: 'var(--token-spacing-md) var(--token-spacing-lg)', 
+                  backgroundColor: col.bg,
+                  color: col.text,
+                  fontWeight: '600',
+                  fontSize: 'var(--token-font-size-sm)',
+                  minWidth: '80px',
+                  textAlign: 'center'
+                }}>
+                  Col {idx + 1}
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Color Pickers */}
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', 
+            gap: 'var(--token-spacing-md)'
+          }}>
+            {/* Label Column */}
+            <div className="slds-box" style={{ backgroundColor: 'var(--token-ui-background-subtle)', padding: 'var(--token-spacing-md)' }}>
+              <h5 style={{ fontWeight: '600', marginBottom: 'var(--token-spacing-sm)', fontSize: 'var(--token-font-size-sm)' }}>
+                Label Column
+              </h5>
+              <div style={{ display: 'flex', gap: 'var(--token-spacing-sm)', alignItems: 'center', marginBottom: 'var(--token-spacing-xs)' }}>
+                <label style={{ width: '40px', fontSize: 'var(--token-font-size-xs)' }}>BG:</label>
+                <input 
+                  type="color" 
+                  value={colors.labelBg || '#f4f6f9'}
+                  onChange={(e) => updateLabelColor('labelBg', e.target.value)}
+                  style={{ width: '40px', height: '28px', cursor: 'pointer', border: '1px solid var(--token-ui-border-medium)', borderRadius: '4px' }}
+                />
+                <input 
+                  type="text" 
+                  value={colors.labelBg || '#f4f6f9'}
+                  onChange={(e) => updateLabelColor('labelBg', e.target.value)}
+                  className="slds-input"
+                  style={{ width: '80px', fontSize: 'var(--token-font-size-xs)' }}
+                />
+              </div>
+              <div style={{ display: 'flex', gap: 'var(--token-spacing-sm)', alignItems: 'center' }}>
+                <label style={{ width: '40px', fontSize: 'var(--token-font-size-xs)' }}>Text:</label>
+                <input 
+                  type="color" 
+                  value={colors.labelText || '#181818'}
+                  onChange={(e) => updateLabelColor('labelText', e.target.value)}
+                  style={{ width: '40px', height: '28px', cursor: 'pointer', border: '1px solid var(--token-ui-border-medium)', borderRadius: '4px' }}
+                />
+                <input 
+                  type="text" 
+                  value={colors.labelText || '#181818'}
+                  onChange={(e) => updateLabelColor('labelText', e.target.value)}
+                  className="slds-input"
+                  style={{ width: '80px', fontSize: 'var(--token-font-size-xs)' }}
+                />
+              </div>
+            </div>
+            
+            {/* Data Columns */}
+            {columns.map((col, idx) => (
+              <div key={idx} className="slds-box" style={{ backgroundColor: 'var(--token-ui-background-subtle)', padding: 'var(--token-spacing-md)', position: 'relative' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--token-spacing-sm)' }}>
+                  <h5 style={{ fontWeight: '600', fontSize: 'var(--token-font-size-sm)', margin: 0 }}>
+                    Column {idx + 1}
+                  </h5>
+                  {columns.length > 1 && (
+                    <button
+                      onClick={() => removeColumn(idx)}
+                      style={{ 
+                        background: 'none', 
+                        border: 'none', 
+                        color: '#d32f2f', 
+                        cursor: 'pointer',
+                        fontSize: 'var(--token-font-size-sm)',
+                        padding: '2px 6px'
+                      }}
+                      title="Remove column"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+                <div style={{ display: 'flex', gap: 'var(--token-spacing-sm)', alignItems: 'center', marginBottom: 'var(--token-spacing-xs)' }}>
+                  <label style={{ width: '40px', fontSize: 'var(--token-font-size-xs)' }}>BG:</label>
+                  <input 
+                    type="color" 
+                    value={col.bg}
+                    onChange={(e) => updateColumnColor(idx, 'bg', e.target.value)}
+                    style={{ width: '40px', height: '28px', cursor: 'pointer', border: '1px solid var(--token-ui-border-medium)', borderRadius: '4px' }}
+                  />
+                  <input 
+                    type="text" 
+                    value={col.bg}
+                    onChange={(e) => updateColumnColor(idx, 'bg', e.target.value)}
+                    className="slds-input"
+                    style={{ width: '80px', fontSize: 'var(--token-font-size-xs)' }}
+                  />
+                </div>
+                <div style={{ display: 'flex', gap: 'var(--token-spacing-sm)', alignItems: 'center' }}>
+                  <label style={{ width: '40px', fontSize: 'var(--token-font-size-xs)' }}>Text:</label>
+                  <input 
+                    type="color" 
+                    value={col.text}
+                    onChange={(e) => updateColumnColor(idx, 'text', e.target.value)}
+                    style={{ width: '40px', height: '28px', cursor: 'pointer', border: '1px solid var(--token-ui-border-medium)', borderRadius: '4px' }}
+                  />
+                  <input 
+                    type="text" 
+                    value={col.text}
+                    onChange={(e) => updateColumnColor(idx, 'text', e.target.value)}
+                    className="slds-input"
+                    style={{ width: '80px', fontSize: 'var(--token-font-size-xs)' }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  if (loading) {
+    return (
+      <div className="loading-overlay">
+        <div className="loading-spinner"></div>
+        <div className="loading-text">Loading settings...</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="admin-table-container">
+      <h1 className="font-size-2rem font-weight-bold margin-bottom-1">Global Settings</h1>
+      <h4 className="slds-text-heading_large slds-m-bottom_medium">Results Table Configuration</h4>
+      
+      {/* Tab Navigation */}
+      <div className="slds-tabs_default slds-tabs_default_medium slds-m-bottom_medium">
+        <ul className="slds-tabs_default__nav" role="tablist">
+          <li 
+            className={`slds-tabs_default__item ${activeTab === 'btl' ? 'slds-is-active' : ''}`}
+            role="presentation"
+          >
+            <button
+              className="slds-tabs_default__link"
+              onClick={() => setActiveTab('btl')}
+              role="tab"
+              aria-selected={activeTab === 'btl'}
+              type="button"
+            >
+              BTL Calculator
+            </button>
+          </li>
+          <li 
+            className={`slds-tabs_default__item ${activeTab === 'bridge' ? 'slds-is-active' : ''}`}
+            role="presentation"
+          >
+            <button
+              className="slds-tabs_default__link"
+              onClick={() => setActiveTab('bridge')}
+              role="tab"
+              aria-selected={activeTab === 'bridge'}
+              type="button"
+            >
+              Bridging Calculator
+            </button>
+          </li>
+          <li 
+            className={`slds-tabs_default__item ${activeTab === 'core' ? 'slds-is-active' : ''}`}
+            role="presentation"
+          >
+            <button
+              className="slds-tabs_default__link"
+              onClick={() => setActiveTab('core')}
+              role="tab"
+              aria-selected={activeTab === 'core'}
+              type="button"
+            >
+              Core Range
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      {/* BTL Tab Content */}
+      {activeTab === 'btl' && (
+        <>
+          {renderVisibilitySection(DEFAULT_BTL_ROWS, btlVisibleRows, handleToggleBtlRow, handleSelectAllBtl, handleDeselectAllBtl)}
+          {renderRowOrderSection(btlRowOrder, btlVisibleRows, 'btl')}
+          {renderLabelAliasSection('btl', btlLabelAliases, DEFAULT_LABEL_ALIASES_BTL)}
+          {renderHeaderColorsSection('btl')}
+        </>
+      )}
+
+      {/* Bridge Tab Content */}
+      {activeTab === 'bridge' && (
+        <>
+          {renderVisibilitySection(DEFAULT_BRIDGE_ROWS, bridgeVisibleRows, handleToggleBridgeRow, handleSelectAllBridge, handleDeselectAllBridge)}
+          {renderRowOrderSection(bridgeRowOrder, bridgeVisibleRows, 'bridge')}
+          {renderLabelAliasSection('bridge', bridgeLabelAliases, DEFAULT_LABEL_ALIASES_BRIDGE)}
+          {renderHeaderColorsSection('bridge')}
+        </>
+      )}
+
+      {/* Core Tab Content */}
+      {activeTab === 'core' && (
+        <>
+          {renderVisibilitySection(DEFAULT_CORE_ROWS, coreVisibleRows, handleToggleCoreRow, handleSelectAllCore, handleDeselectAllCore)}
+          {renderRowOrderSection(coreRowOrder, coreVisibleRows, 'core')}
+          {renderLabelAliasSection('core', coreLabelAliases, DEFAULT_LABEL_ALIASES_CORE)}
+          {renderHeaderColorsSection('core')}
+        </>
+      )}
+
+      {/* Action Buttons - right-aligned */}
+      <div className="slds-actions slds-actions_bordered">
+        <button
+          className="slds-button slds-button_neutral"
+          onClick={handleReset}
+          disabled={saving}
+        >
+          Reset to Defaults
+        </button>
+        <button
+          className="slds-button slds-button_brand"
+          onClick={handleSave}
+          disabled={saving}
+        >
+          {saving ? 'Saving...' : 'Save Settings'}
+        </button>
+      </div>
+
+      {/* Notification Modal */}
+      <NotificationModal
+        isOpen={notification.show}
+        onClose={() => setNotification({ ...notification, show: false })}
+        type={notification.type}
+        title={notification.title}
+        message={notification.message}
+      />
+    </div>
+  );
+}

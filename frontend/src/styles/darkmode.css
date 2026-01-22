@@ -1,0 +1,1938 @@
+/* ============================================
+   DARK MODE THEME STYLES - REFACTORED
+   ============================================ */
+
+/* ============================================
+   1. CSS VARIABLES
+   ============================================ */
+:root[data-carbon-theme="g100"],
+.dark-mode {
+  /* Background Colors */
+  --token-layer-background: #161616;
+  --token-layer-surface: #262626;
+  --token-layer-surface-hover: #333333;
+  --token-layer-active: #4b4b4b;
+  --token-layer-elevated: #4c4c4c; /* Elevated surfaces, buttons on hover */
+  
+  /* Border Colors */
+  --token-border-subtle: #393939;
+  --token-border-strong: #525252;
+  --token-border-danger: #a2191f; /* For error/critical borders */
+  
+  /* Text Colors */
+  --token-text-primary: #f4f4f4;
+  --token-text-secondary: #c6c6c6;
+  --token-text-placeholder: #6f6f6f;
+  --token-text-inverse: #ffffff; /* White text on dark backgrounds */
+  --token-text-muted: #706e6b; /* Muted/disabled text */
+  
+  /* Interactive Colors */
+  --token-interactive: #78a9ff;
+  --token-interactive-hover: #a6c8ff;
+  --token-interactive-brand: #0f62fe;
+  --token-interactive-brand-hover: #0353e9;
+  
+  /* Status Colors */
+  --token-success: #42be65;
+  --token-success-bg: #1f3a1f;
+  --token-success-text: #b3ffb3;
+  --token-error: #ff8389;
+  --token-error-bg: #3a1f1f;
+  --token-error-text: #ffb3b3;
+  --token-warning: #F59E0B;
+  --token-warning-bg: #3a321f;
+  --token-warning-text: #ffd9b3;
+  --token-danger: #da1e28;
+  --token-danger-hover: #ba1b23;
+  --token-critical: #ff8389;
+  --token-critical-hover: #ba1b23;
+  --token-info: #78a9ff;
+  --token-info-bg: #1e3a5f;
+  
+  /* UI element colors for dark mode */
+  --token-ui-background-subtle: #2a2a2a;
+  --token-ui-background-light: #2e2e2e;
+  --token-ui-background-disabled: #3a3a3a;
+  --token-ui-border-light: #4a4a4a;
+  --token-ui-border-medium: #525252;
+  --token-ui-border-subtle: #3a3a3a;
+  --token-ui-text-dark: #f4f4f4;
+  --token-ui-text-medium: #c6c6c6;
+  --token-ui-text-disabled: #6f6f6f;
+  --token-brand-primary: #78a9ff;
+  --token-brand-header: #4a7ac7;
+  --token-ui-background-neutral: #2a2a2a;
+  
+  /* Special Purpose */
+  --token-first-charge-warning: #3d2e00;
+  --token-shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.6);
+  --token-shadow-modal: 0 2px 12px 0 rgba(0, 0, 0, 0.8);
+  --token-focus-ring: rgba(120, 169, 255, 0.3);
+  
+  /* Issue Quote button - same color in dark mode */
+  --token-color-issue-quote: #ff5d2d;
+  --token-color-issue-quote-hover: #e54a1a;
+  
+  /* Chart colors - Dashboard volume charts */
+  --token-chart-blue: #5b8def;
+  --token-chart-blue-light: #6CB4EE;
+  --token-chart-purple: #c47bde;
+  --token-chart-pink: #e91e63;
+  --token-chart-yellow: #ffc107;
+  --token-chart-orange: #ff9800;
+}
+
+/* ============================================
+   2. BASE ELEMENTS
+   ============================================ */
+.dark-mode body,
+.dark-mode #root,
+body.dark-mode,
+body.dark-mode #root {
+  background-color: var(--token-layer-background) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3,
+.dark-mode h4,
+.dark-mode h5,
+.dark-mode h6 {
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode p {
+  color: var(--token-text-secondary);
+}
+
+.dark-mode a {
+  color: var(--token-interactive) !important;
+}
+
+.dark-mode a:hover {
+  color: var(--token-interactive-hover) !important;
+}
+
+.dark-mode hr,
+.dark-mode .slds-border_top,
+.dark-mode .slds-border_bottom {
+  border-color: var(--token-border-subtle) !important;
+}
+
+.dark-mode code,
+.dark-mode pre {
+  background-color: var(--token-layer-background) !important;
+  border: 1px solid var(--token-border-subtle) !important;
+  color: var(--token-text-primary) !important;
+}
+
+/* ============================================
+   3. LAYOUT COMPONENTS
+   ============================================ */
+.dark-mode .app-shell {
+  background-color: var(--token-layer-background) !important;
+}
+
+.dark-mode .app-header {
+  background-color: var(--token-layer-surface) !important;
+  border-bottom-color: var(--token-border-subtle) !important;
+  box-shadow: var(--token-shadow-soft);
+}
+
+.dark-mode .app-header__title {
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .app-layout {
+  background-color: var(--token-layer-background) !important;
+}
+
+.dark-mode .app-content {
+  background-color: transparent !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .app-card {
+  background-color: var(--token-layer-surface) !important;
+  border-color: var(--token-border-subtle) !important;
+  color: var(--token-text-primary) !important;
+}
+
+/* Navigation */
+.dark-mode nav {
+  background-color: var(--token-layer-surface) !important;
+  border-right-color: var(--token-border-subtle) !important;
+}
+
+.dark-mode nav a {
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode nav a:hover {
+  background-color: var(--token-layer-surface-hover) !important;
+  color: var(--token-interactive-hover) !important;
+}
+
+/* ============================================
+   4. FORMS
+   ============================================ */
+.dark-mode .slds-form-element__label,
+.dark-mode .slds-text-heading_small,
+.dark-mode .slds-text-heading_medium,
+.dark-mode .slds-text-body_small {
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-input,
+.dark-mode .slds-textarea,
+.dark-mode .slds-select,
+.dark-mode select,
+.dark-mode input[type="text"],
+.dark-mode input[type="date"],
+.dark-mode input[type="search"],
+.dark-mode input[type="email"],
+.dark-mode input[type="number"],
+.dark-mode input[type="password"] {
+  background-color: var(--token-layer-background) !important;
+  border-color: var(--token-border-strong) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-input:focus,
+.dark-mode .slds-textarea:focus,
+.dark-mode .slds-select:focus,
+.dark-mode select:focus,
+.dark-mode input[type="text"]:focus,
+.dark-mode input[type="date"]:focus,
+.dark-mode input[type="search"]:focus,
+.dark-mode input[type="email"]:focus,
+.dark-mode input[type="number"]:focus,
+.dark-mode input[type="password"]:focus {
+  border-color: var(--token-interactive) !important;
+  background-color: var(--token-layer-surface) !important;
+  color: var(--token-text-primary) !important;
+  outline: none;
+  box-shadow: 0 0 0 2px var(--token-focus-ring);
+}
+
+.dark-mode .slds-input::placeholder,
+.dark-mode .slds-textarea::placeholder,
+.dark-mode input::placeholder {
+  color: var(--token-text-placeholder) !important;
+}
+
+.dark-mode select option {
+  background-color: var(--token-layer-surface) !important;
+  color: var(--token-text-primary) !important;
+}
+
+/* Checkboxes and Radio Buttons */
+.dark-mode input[type="checkbox"],
+.dark-mode input[type="radio"] {
+  border-color: var(--token-border-strong) !important;
+  background-color: var(--token-layer-background) !important;
+}
+
+.dark-mode input[type="checkbox"]:checked,
+.dark-mode input[type="radio"]:checked {
+  background-color: var(--token-interactive-brand) !important;
+  border-color: var(--token-interactive-brand) !important;
+}
+
+/* Date Picker */
+.dark-mode input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+/* Helper Text */
+.dark-mode .slds-form-element__help,
+.dark-mode .help-text,
+.dark-mode .helper-text {
+  color: var(--token-text-secondary) !important;
+}
+
+.dark-mode .slds-required {
+  color: var(--token-error) !important;
+}
+
+/* Form Containers */
+.dark-mode .modal-form input,
+.dark-mode .modal-form select,
+.dark-mode .modal-form textarea {
+  background-color: var(--token-layer-background) !important;
+  border: 1px solid var(--token-border-strong) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .modal-form input:focus,
+.dark-mode .modal-form select:focus,
+.dark-mode .modal-form textarea:focus {
+  border-color: var(--token-interactive) !important;
+  background-color: var(--token-layer-surface) !important;
+}
+
+.dark-mode .modal-form label {
+  color: var(--token-text-primary) !important;
+}
+
+/* ============================================
+   5. BUTTONS
+   ============================================ */
+.dark-mode .slds-button_neutral,
+.dark-mode button[type="button"]:not(.slds-button_brand):not(.slds-button_icon) {
+  background-color: transparent ;
+  
+  border-color: var(--token-border-strong) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-button_neutral:hover,
+.dark-mode button[type="button"]:not(.slds-button_brand):not(.slds-button_icon):hover {
+  background-color: var(--token-layer-elevated) !important;
+}
+
+.dark-mode .slds-button_brand {
+  background-color: var(--token-interactive-brand) !important;
+  border-color: var(--token-interactive-brand) !important;
+  color: var(--token-text-inverse) !important;
+}
+
+.dark-mode .slds-button_brand:hover {
+  background-color: var(--token-interactive-brand-hover) !important;
+}
+
+/* Icon Buttons */
+.dark-mode .slds-button_icon,
+.dark-mode .slds-button_icon-border,
+.dark-mode .slds-button_icon-border-filled,
+.dark-mode .slds-button_icon-container {
+  background-color: var(--token-border-subtle) !important;
+  border-color: var(--token-border-strong) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-button_icon:hover,
+.dark-mode .slds-button_icon-border:hover,
+.dark-mode .slds-button_icon-border-filled:hover,
+.dark-mode .slds-button_icon-container:hover {
+  background-color: var(--token-layer-elevated) !important;
+  border-color: var(--token-text-placeholder) !important;
+}
+
+.dark-mode .slds-button_icon svg,
+.dark-mode .slds-button_icon-border svg,
+.dark-mode .slds-button_icon-border-filled svg {
+  fill: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-button_icon-inverse {
+  background-color: transparent !important;
+  color: var(--token-text-primary) !important;
+}
+
+/* Special Button Types */
+.dark-mode .export-button {
+  background-color: var(--token-interactive-brand) !important;
+  border-color: var(--token-interactive-brand) !important;
+  color: #ffffff !important;
+}
+
+.dark-mode .export-button:hover {
+  background-color: var(--token-interactive-brand-hover) !important;
+}
+
+.dark-mode .load-button {
+  background-color: var(--token-border-subtle) !important;
+  border: 1px solid var(--token-border-strong) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .load-button:hover {
+  background-color: var(--token-layer-elevated) !important;
+}
+
+.dark-mode .delete-button {
+  background-color: var(--token-danger) !important;
+  border: 1px solid var(--token-border-danger) !important;
+  color: var(--token-text-inverse) !important;
+}
+
+.dark-mode .delete-button:hover {
+  background-color: var(--token-danger-hover) !important;
+}
+
+/* Remove Focus Outlines */
+.slds-button:focus,
+.slds-button:active,
+.slds-button_brand:focus,
+.slds-button_brand:active,
+.slds-button_neutral:focus,
+.slds-button_neutral:active,
+.range-button:focus,
+.range-button:active,
+.switch-track:focus,
+.switch-track:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Button Groups */
+.dark-mode .slds-button-group .slds-button_brand {
+  background: var(--token-interactive-brand) !important;
+  border-color: var(--token-interactive-brand) !important;
+  color: var(--token-text-inverse) !important;
+}
+
+.dark-mode .slds-button-group .slds-button_brand:hover {
+  background: var(--token-interactive-brand-hover) !important;
+  border-color: var(--token-interactive-brand-hover) !important;
+}
+
+/* ============================================
+   6. TABLES
+   ============================================ */
+.dark-mode .slds-table,
+.dark-mode .quotes-table {
+  background-color: var(--token-layer-surface) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-table thead th,
+.dark-mode .quotes-table th {
+  background-color: var(--token-layer-surface) !important;
+  color: var(--token-text-primary) !important;
+  border-bottom-color: var(--token-border-subtle) !important;
+}
+
+.dark-mode .slds-table tbody td,
+.dark-mode .quotes-table td {
+  border-top-color: var(--token-border-subtle) !important;
+  color: var(--token-text-primary) !important;
+}
+
+/* ============================================
+   UW REQUIREMENTS CHECKLIST
+   ============================================ */
+.dark-mode .uw-checklist {
+  background-color: var(--token-layer-surface) !important;
+  border: 1px solid var(--token-ui-border-medium) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .uw-checklist--empty {
+  color: var(--token-text-secondary) !important;
+}
+
+.dark-mode .uw-checklist__header {
+  border-bottom-color: var(--token-ui-border-subtle) !important;
+}
+
+.dark-mode .uw-checklist__header h3,
+.dark-mode .uw-checklist__header .slds-text-heading_small {
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .uw-checklist__stage-filter .slds-select {
+  background-color: var(--token-layer-background) !important;
+  color: var(--token-text-primary) !important;
+  border-color: var(--token-border-strong) !important;
+}
+
+.dark-mode .uw-checklist__export-btn {
+  background-color: var(--token-border-subtle) !important;
+  border-color: var(--token-border-strong) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .uw-checklist__export-btn:hover {
+  background-color: var(--token-layer-elevated) !important;
+}
+
+.dark-mode .uw-checklist__progress .slds-progress-bar {
+  background-color: var(--token-ui-border-subtle) !important;
+}
+
+.dark-mode .uw-checklist__progress .slds-progress-bar__value {
+  background-color: var(--token-interactive-brand) !important;
+}
+
+/* Progress text (counts and percent) */
+.dark-mode .uw-checklist__progress-text {
+  color: var(--token-text-secondary) !important;
+}
+
+.dark-mode .uw-checklist__category {
+  border-color: var(--token-ui-border-subtle) !important;
+  background-color: transparent !important;
+}
+
+.dark-mode .uw-checklist__category-header {
+  background-color: var(--token-ui-background-neutral) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .uw-checklist__category-header:hover {
+  background-color: var(--token-layer-surface-hover) !important;
+}
+
+.dark-mode .uw-checklist__category-header .slds-badge {
+  background-color: var(--token-ui-border-subtle) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .uw-checklist__category-header .slds-badge--complete {
+  background-color: var(--token-success) !important;
+  color: var(--token-text-inverse) !important;
+}
+
+.dark-mode .uw-checklist__item {
+  border-top-color: var(--token-ui-border-subtle) !important;
+}
+
+.dark-mode .uw-checklist__item-label {
+  background-color: transparent !important;
+}
+
+.dark-mode .uw-checklist__item-label:hover {
+  background-color: var(--token-layer-surface-hover) !important;
+}
+
+.dark-mode .uw-checklist__item--checked .uw-checklist__item-label {
+  background-color: var(--token-success-bg) !important;
+}
+
+.dark-mode .uw-checklist__item--checked .uw-checklist__item-text {
+  color: var(--token-text-secondary) !important;
+}
+
+.dark-mode .uw-checklist__item-checkbox {
+  background-color: var(--token-layer-background) !important;
+  border-color: var(--token-ui-border-medium) !important;
+}
+
+.dark-mode .uw-checklist__item--checked .uw-checklist__item-checkbox {
+  background-color: var(--token-success) !important;
+  border-color: var(--token-success) !important;
+}
+
+.dark-mode .uw-checklist__item-guidance {
+  background-color: var(--token-ui-background-light) !important;
+  color: var(--token-text-secondary) !important;
+  border-top-color: var(--token-ui-border-subtle) !important;
+}
+
+.dark-mode .uw-checklist__item-optional-tag {
+  color: var(--token-text-secondary) !important;
+}
+
+.dark-mode .uw-checklist__footer {
+  border-top-color: var(--token-ui-border-subtle) !important;
+}
+
+.dark-mode .uw-checklist__status {
+  color: var(--token-warning) !important;
+}
+
+.dark-mode .uw-checklist__status--complete {
+  color: var(--token-success) !important;
+}
+
+.dark-mode .uw-checklist__status svg {
+  fill: currentColor !important;
+}
+
+.dark-mode .slds-table tbody tr:hover,
+.dark-mode .quotes-table tr:hover {
+  background-color: var(--token-layer-surface-hover) !important;
+}
+
+/* Table Striping */
+.dark-mode .slds-table tbody tr:nth-child(even) {
+  background-color: var(--token-layer-background) !important;
+}
+
+.dark-mode .slds-table tbody tr:nth-child(odd) {
+  background-color: var(--token-layer-surface) !important;
+}
+
+/* Sticky Columns */
+.dark-mode .sticky-actions-header,
+.dark-mode .sticky-actions-cell {
+  background: var(--token-layer-surface) !important;
+}
+
+.dark-mode .sticky-actions-header[style*="background: white"],
+.dark-mode .sticky-actions-cell[style*="background: white"] {
+  background: var(--token-layer-surface) !important;
+}
+
+/* ============================================
+   7. MODALS & OVERLAYS
+   ============================================ */
+.dark-mode .slds-modal__container {
+  background-color: var(--token-layer-surface) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-modal__header {
+  background-color: var(--token-layer-surface) !important;
+  border-bottom-color: var(--token-border-subtle) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-modal__content {
+  background-color: var(--token-layer-surface) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-modal__footer {
+  background-color: var(--token-layer-surface) !important;
+  border-top-color: var(--token-border-subtle) !important;
+}
+
+.dark-mode .slds-modal__footer > *,
+.dark-mode .slds-modal__footer button {
+  background-color: transparent !important;
+}
+
+.dark-mode .modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Dropdown Menus */
+.dark-mode .slds-dropdown {
+  background-color: var(--token-layer-surface) !important;
+  border-color: var(--token-border-subtle) !important;
+  box-shadow: var(--token-shadow-modal) !important;
+}
+
+.dark-mode .slds-dropdown__item-link {
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-dropdown__item-link:hover {
+  background-color: var(--token-layer-surface-hover) !important;
+}
+
+.dark-mode .slds-border_bottom {
+  border-bottom-color: var(--token-border-subtle) !important;
+}
+
+/* Notification Modals */
+.dark-mode .notification-modal {
+  background-color: var(--token-layer-surface) !important;
+  border: 1px solid var(--token-border-subtle) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .notification-modal-header {
+  background-color: var(--token-layer-surface) !important;
+  border-bottom: 1px solid var(--token-border-subtle) !important;
+}
+
+.dark-mode .notification-modal-content {
+  background-color: var(--token-layer-surface) !important;
+}
+
+/* Tooltips */
+.dark-mode [title]:hover::after,
+.dark-mode .tooltip {
+  background-color: var(--token-border-subtle) !important;
+  color: var(--token-text-primary) !important;
+  border: 1px solid var(--token-border-strong) !important;
+}
+
+/* ============================================
+   8. NOTIFICATIONS & ALERTS
+   ============================================ */
+.dark-mode .slds-notify {
+  background-color: var(--token-layer-surface) !important;
+  border-color: var(--token-border-subtle) !important;
+}
+
+.dark-mode .slds-theme_error {
+  background-color: var(--token-error-bg) !important;
+  color: var(--token-error-text) !important;
+}
+
+.dark-mode .slds-theme_success {
+  background-color: var(--token-success-bg) !important;
+  color: var(--token-success-text) !important;
+}
+
+.dark-mode .slds-theme_warning {
+  background-color: var(--token-warning-bg) !important;
+  color: var(--token-warning-text) !important;
+}
+
+/* ============================================
+   9. COMPONENT-SPECIFIC STYLES
+   ============================================ */
+
+/* Calculator Components */
+/* DEPRECATED: .calculator-container - Use .page-container instead */
+.dark-mode .calculator-container,
+.dark-mode .page-container,
+.dark-mode .rates-table-container {
+  background-color: var(--token-layer-surface) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .collapsible-section {
+  background: var(--token-layer-background) !important;
+}
+
+.dark-mode .collapsible-header {
+  background: transparent !important;
+  border-color: var(--token-border-strong) !important;
+}
+
+.dark-mode .collapsible-header:hover {
+  background: var(--token-layer-active) !important;
+  border-color: var(--slds-g-color-border-2) !important;
+}
+
+.dark-mode .collapsible-header.expanded {
+  background: var(--token-layer-active) !important;
+  border-color: var(--slds-g-color-surface-container-1) !important;
+}
+
+.dark-mode .collapsible-body {
+  background: var(--token-layer-background) !important;
+}
+
+.dark-mode .product-config-section,
+.dark-mode .btl-product-selector {
+  background: var(--token-layer-background) !important;
+}
+
+/* Toggle Switches */
+.dark-mode .modern-switch .switch-track {
+  background: var(--token-border-strong) !important;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+
+.dark-mode .modern-switch .switch-track .switch-thumb {
+  background: var(--token-color-white) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+}
+
+.dark-mode .modern-switch .switch-track.checked {
+  background: linear-gradient(90deg, var(--token-interactive-brand), var(--token-interactive-hover)) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.dark-mode .modern-switch .switch-track.checked .switch-thumb {
+  background: var(--token-color-white) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+/* Range Toggle Buttons */
+.dark-mode .range-toggle-buttons .range-button,
+:root[data-carbon-theme="g100"] .range-toggle-buttons .range-button {
+  background: var(--token-layer-background) !important;
+  color: var(--token-text-secondary) !important;
+  border-right: 1px solid var(--token-border-strong) !important;
+}
+
+.dark-mode .range-toggle-buttons .range-button:last-child,
+:root[data-carbon-theme="g100"] .range-toggle-buttons .range-button:last-child {
+  border-right: none !important;
+}
+
+.dark-mode .range-toggle-buttons .range-button:not(.active):hover,
+:root[data-carbon-theme="g100"] .range-toggle-buttons .range-button:not(.active):hover {
+  background: var(--token-layer-active) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .range-toggle-buttons .range-button.active,
+:root[data-carbon-theme="g100"] .range-toggle-buttons .range-button.active {
+  background: var(--token-interactive-brand) !important;
+  border-color: var(--token-interactive-brand) !important;
+  color: #ffffff !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .range-toggle-buttons .range-button.active:hover,
+:root[data-carbon-theme="g100"] .range-toggle-buttons .range-button.active:hover {
+  background: var(--token-interactive-brand-hover) !important;
+}
+
+/* First Charge Warning */
+.dark-mode .first-charge-warning {
+  background: var(--token-first-charge-warning) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .first-charge-label {
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .first-charge-hint {
+  color: var(--token-text-secondary) !important;
+}
+
+/* Quotes Filter Section */
+.dark-mode .quotes-filter-section {
+  background: var(--token-layer-surface) !important;
+  border: 1px solid var(--token-border-subtle) !important;
+}
+
+.dark-mode .quotes-showing-count {
+  color: var(--token-text-secondary) !important;
+}
+
+/* Filter Containers */
+.dark-mode .filters-container,
+.dark-mode .search-container,
+.dark-mode .filter-bar {
+  background-color: var(--token-layer-surface) !important;
+  border: 1px solid var(--token-border-subtle) !important;
+}
+
+/* User Management */
+.dark-mode .user-management-container {
+  background-color: var(--token-layer-background) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .user-management-header {
+  background-color: var(--token-layer-surface) !important;
+  border-bottom: 1px solid var(--token-border-subtle) !important;
+}
+
+.dark-mode .status-active {
+  color: var(--token-success) !important;
+}
+
+.dark-mode .status-inactive {
+  color: var(--token-error) !important;
+}
+
+.dark-mode .access-level-badge {
+  background-color: var(--token-border-subtle) !important;
+  border: 1px solid var(--token-border-strong) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .actions-cell {
+  background-color: transparent !important;
+}
+
+/* Pagination */
+.dark-mode .pagination,
+.dark-mode .pagination-controls {
+  background-color: var(--token-layer-surface) !important;
+  border-top: 1px solid var(--token-border-subtle) !important;
+}
+
+.dark-mode .pagination button {
+  background-color: var(--token-border-subtle) !important;
+  border: 1px solid var(--token-border-strong) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .pagination button:hover:not(:disabled) {
+  background-color: var(--token-layer-elevated) !important;
+}
+
+.dark-mode .pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.dark-mode .pagination span {
+  color: var(--token-text-secondary) !important;
+}
+
+/* Badges */
+.dark-mode .slds-badge {
+  border-color: var(--token-border-strong) !important;
+}
+
+/* Card Containers */
+.dark-mode .card-container {
+  background-color: var(--token-layer-surface) !important;
+  border: 1px solid var(--token-border-subtle) !important;
+  border-radius: var(--token-spacing-4);
+}
+
+.dark-mode .grid-container {
+  background-color: transparent !important;
+}
+
+/* Loading States */
+.dark-mode .loading-spinner {
+  border-color: var(--token-border-subtle) !important;
+  border-top-color: var(--token-interactive) !important;
+}
+
+.dark-mode .empty-state {
+  color: var(--token-text-secondary) !important;
+}
+
+/* ============================================
+   10. CARBON COMPONENTS
+   ============================================ */
+.dark-mode .cds--content,
+.dark-mode .cds--layer,
+.dark-mode .cds--layer-one {
+  background-color: var(--token-layer-background) !important;
+}
+
+.dark-mode .cds--layer-two {
+  background-color: var(--token-layer-surface) !important;
+}
+
+.dark-mode .cds--tabs,
+.dark-mode .cds--tab-content {
+  background-color: transparent !important;
+}
+
+.dark-mode .cds--tabs__nav-item {
+  color: var(--token-text-secondary) !important;
+  border-bottom-color: var(--token-border-subtle) !important;
+}
+
+.dark-mode .cds--tabs__nav-item--selected {
+  color: var(--token-text-primary) !important;
+  border-bottom-color: var(--token-interactive) !important;
+}
+
+.dark-mode .cds--toggle__switch {
+  background-color: var(--token-border-subtle) !important;
+}
+
+.dark-mode .cds--toggle__switch:checked {
+  background-color: var(--token-interactive-brand) !important;
+}
+
+.dark-mode .cds--radio-button__label {
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .cds--radio-button__appearance {
+  border-color: var(--token-border-strong) !important;
+}
+
+/* ============================================
+   11. SCROLLBARS
+   ============================================ */
+.dark-mode ::-webkit-scrollbar {
+  width: var(--token-spacing-12);
+  height: var(--token-spacing-12);
+}
+
+.dark-mode ::-webkit-scrollbar-track {
+  background: var(--token-layer-surface);
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+  background: var(--token-border-strong);
+  border-radius: var(--token-spacing-6);
+}
+
+.dark-mode ::-webkit-scrollbar-thumb:hover {
+  background: var(--token-text-placeholder);
+}
+
+/* ============================================
+   12. ACCESSIBILITY
+   ============================================ */
+.dark-mode *:focus-visible {
+  outline: var(--token-spacing-2) solid var(--token-interactive) !important;
+  outline-offset: var(--token-spacing-2);
+}
+
+.dark-mode .slds-button:focus-visible,
+.dark-mode .range-toggle-buttons .range-button:focus-visible,
+.dark-mode .modern-switch .switch-track:focus-visible {
+  outline: 1px solid var(--token-interactive-hover) !important;
+  outline-offset: 1px !important;
+  box-shadow: none !important;
+}
+
+/* ============================================
+   13. INLINE STYLE OVERRIDES (Last Resort)
+   ============================================ */
+
+/* Generic Background Overrides */
+.dark-mode div[style*="background: #f3f3f3"],
+.dark-mode div[style*="background:#f3f3f3"],
+.dark-mode div[style*="backgroundColor: #f3f3f3"],
+.dark-mode div[style*="backgroundColor:#f3f3f3"],
+.dark-mode div[style*="background-color: #f3f3f3"],
+.dark-mode div[style*="background-color:#f3f3f3"],
+.dark-mode div[style*="backgroundColor: #f3f2f2"],
+.dark-mode div[style*="backgroundColor:#f3f2f2"],
+.dark-mode div[style*="background-color: #f3f2f2"],
+.dark-mode div[style*="background-color:#f3f2f2"],
+.dark-mode div[style*="backgroundColor: rgb(243, 242, 242)"],
+.dark-mode div[style*="background-color: rgb(243, 242, 242)"] {
+  background-color: var(--token-layer-surface) !important;
+}
+
+/* Modal Footer Inline Styles */
+.dark-mode .slds-modal__footer[style*="rgb(244, 246, 249)"],
+.dark-mode .slds-modal__footer[style*="background: rgb(244, 246, 249)"],
+.dark-mode div[style*="background: rgb(244, 246, 249)"] {
+  background: var(--token-layer-surface) !important;
+}
+
+.dark-mode .slds-modal__footer[style*="rgb(224, 230, 237)"],
+.dark-mode .slds-modal__footer[style*="border-top: 1px solid rgb(224, 230, 237)"],
+.dark-mode div[style*="border-top: 1px solid rgb(224, 230, 237)"] {
+  border-top-color: var(--token-border-subtle) !important;
+}
+
+/* Text Color Overrides */
+.dark-mode div[style*="color: #666"],
+.dark-mode div[style*="color:#666"],
+.dark-mode .helper-text[style*="color: #666"] {
+  color: var(--token-text-secondary) !important;
+}
+
+.dark-mode p[style*="color: #706e6b"],
+.dark-mode p[style*="color:#706e6b"],
+.dark-mode .slds-text-body_small[style*="color: #706e6b"],
+.dark-mode .slds-text-body_small[style*="color:#706e6b"] {
+  color: var(--token-text-secondary) !important;
+}
+
+.dark-mode .slds-text-body_small strong {
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode div[style*="color: red"] {
+  color: var(--token-error) !important;
+}
+
+/* Border Overrides */
+.dark-mode div[style*="borderTop: 1px solid #dddbda"],
+.dark-mode div[style*="borderTop:1px solid #dddbda"],
+.dark-mode div[style*="border-top: 1px solid #dddbda"],
+.dark-mode div[style*="border-top:1px solid #dddbda"] {
+  border-top-color: var(--token-border-subtle) !important;
+}
+
+/* Demo Credentials Box (Login Page) */
+.dark-mode .auth-demo-box {
+  background-color: var(--token-layer-surface) !important;
+  border: 1px solid var(--token-border-subtle) !important;
+  color: var(--token-text-primary) !important;
+}
+
+/* Created By Section (SaveQuote Modal) */
+.dark-mode .background-gray-light {
+  background-color: var(--token-layer-surface) !important;
+  border: 1px solid var(--token-border-subtle) !important;
+  color: var(--token-text-primary) !important;
+}
+
+/* Sticky Table Cells - Actions Column (QuotesList) */
+.dark-mode .sticky-table-header {
+  background-color: var(--token-layer-surface) !important;
+  border-left: 1px solid var(--token-border-subtle) !important;
+}
+
+.dark-mode .sticky-table-cell {
+  background-color: var(--token-layer-surface) !important;
+  border-left: 1px solid var(--token-border-subtle) !important;
+}
+
+/* Legacy inline style overrides */
+.dark-mode .slds-m-top_medium[style*="backgroundColor"],
+.dark-mode .slds-m-top_medium[style*="background-color"] {
+  background-color: var(--token-layer-surface) !important;
+  border: 1px solid var(--token-border-subtle) !important;
+}
+
+/* Created By Section (SaveQuote Modal) */
+.dark-mode .slds-form-element[style*="backgroundColor: #f3f2f2"],
+.dark-mode .slds-form-element[style*="background-color: #f3f2f2"],
+.dark-mode .slds-form-element[style*="backgroundColor:#f3f2f2"],
+.dark-mode .slds-form-element[style*="background-color:#f3f2f2"] {
+  background-color: var(--token-layer-surface) !important;
+  border: 1px solid var(--token-border-subtle) !important;
+}
+
+.dark-mode .slds-form-element[style*="backgroundColor: #f3f2f2"] .slds-form-element__label,
+.dark-mode .slds-form-element[style*="background-color: #f3f2f2"] .slds-form-element__label {
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-form-element[style*="backgroundColor: #f3f2f2"] .slds-form-element__control,
+.dark-mode .slds-form-element[style*="background-color: #f3f2f2"] .slds-form-element__control {
+  color: var(--token-text-primary) !important;
+  background-color: transparent !important;
+}
+
+.dark-mode .slds-form-element[style*="backgroundColor: #f3f2f2"] .slds-form-element__control[style*="fontWeight"],
+.dark-mode .slds-form-element[style*="background-color: #f3f2f2"] .slds-form-element__control[style*="font-weight"] {
+  color: var(--token-text-primary) !important;
+}
+
+/* ============================================
+   SLDS Toggle Switches (Constants UI Preferences)
+   ============================================ */
+.dark-mode .slds-checkbox_toggle .slds-form-element__label,
+[data-carbon-theme="g100"] .slds-checkbox_toggle .slds-form-element__label {
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-checkbox_faux_container,
+[data-carbon-theme="g100"] .slds-checkbox_faux_container {
+  background-color: transparent !important;
+}
+
+.dark-mode .slds-checkbox_faux,
+[data-carbon-theme="g100"] .slds-checkbox_faux {
+  background-color: var(--token-border-strong) !important;
+  border-color: var(--token-border-strong) !important;
+}
+
+.dark-mode input:checked ~ .slds-checkbox_faux_container .slds-checkbox_faux,
+[data-carbon-theme="g100"] input:checked ~ .slds-checkbox_faux_container .slds-checkbox_faux {
+  background-color: var(--token-interactive-brand) !important;
+  border-color: var(--token-interactive-brand) !important;
+}
+
+.dark-mode .slds-checkbox_on,
+.dark-mode .slds-checkbox_off,
+[data-carbon-theme="g100"] .slds-checkbox_on,
+[data-carbon-theme="g100"] .slds-checkbox_off {
+  color: var(--token-text-primary) !important;
+}
+
+/* Ensure toggle labels are visible */
+.dark-mode .slds-form-element__label.slds-m-bottom_none,
+[data-carbon-theme="g100"] .slds-form-element__label.slds-m-bottom_none {
+  color: var(--token-text-primary) !important;
+  font-weight: 500;
+}
+
+/* Helper text for toggles */
+.dark-mode .helper-text.slds-m-top_x-small,
+[data-carbon-theme="g100"] .helper-text.slds-m-top_x-small {
+  color: var(--token-text-secondary) !important;
+}
+
+/* Carbon Toast Notifications - Ensure visibility in dark mode */
+.dark-mode .cds--toast-notification,
+.dark-mode .cds--inline-notification,
+[data-carbon-theme="g100"] .cds--toast-notification,
+[data-carbon-theme="g100"] .cds--inline-notification {
+  background-color: var(--token-layer-01) !important;
+  border-color: var(--token-border-subtle) !important;
+}
+
+.dark-mode .cds--toast-notification__title,
+.dark-mode .cds--toast-notification__subtitle,
+.dark-mode .cds--inline-notification__title,
+.dark-mode .cds--inline-notification__subtitle,
+[data-carbon-theme="g100"] .cds--toast-notification__title,
+[data-carbon-theme="g100"] .cds--toast-notification__subtitle,
+[data-carbon-theme="g100"] .cds--inline-notification__title,
+[data-carbon-theme="g100"] .cds--inline-notification__subtitle {
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .cds--toast-notification__close-button,
+.dark-mode .cds--inline-notification__close-button,
+[data-carbon-theme="g100"] .cds--toast-notification__close-button,
+[data-carbon-theme="g100"] .cds--inline-notification__close-button {
+  color: var(--token-text-secondary) !important;
+}
+
+.dark-mode .cds--toast-notification__close-button:hover,
+.dark-mode .cds--inline-notification__close-button:hover,
+[data-carbon-theme="g100"] .cds--toast-notification__close-button:hover,
+[data-carbon-theme="g100"] .cds--inline-notification__close-button:hover {
+  background-color: var(--token-layer-hover) !important;
+  color: var(--token-text-primary) !important;
+}
+
+/* NotificationModal - Ensure text is readable in dark mode */
+.dark-mode .notification-message-text {
+  color: var(--token-text-primary) !important;
+}
+
+/* ============================================
+   14. LOGIN PAGE (email/password) — dark focus
+   ============================================ */
+/* Keep inputs dark on focus and ensure readable text */
+.dark-mode .auth-container .slds-input,
+[data-carbon-theme="g100"] .auth-container .slds-input {
+  background-color: var(--token-layer-background) !important;
+  border: 1px solid var(--token-border-strong) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .auth-container .slds-input:focus,
+[data-carbon-theme="g100"] .auth-container .slds-input:focus {
+  background-color: var(--token-layer-background) !important; /* prevent white flash */
+  border-color: var(--token-interactive) !important;
+  color: var(--token-text-primary) !important;
+  box-shadow: 0 0 0 2px var(--token-focus-ring) !important;
+}
+
+.dark-mode .auth-container .slds-input::placeholder,
+[data-carbon-theme="g100"] .auth-container .slds-input::placeholder {
+  color: var(--token-text-placeholder) !important;
+}
+
+/* Override autofill background in Chromium-based browsers */
+.dark-mode .auth-container input.slds-input:-webkit-autofill,
+.dark-mode .auth-container input.slds-input:-webkit-autofill:focus,
+[data-carbon-theme="g100"] .auth-container input.slds-input:-webkit-autofill,
+[data-carbon-theme="g100"] .auth-container input.slds-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--token-text-primary) !important;
+  caret-color: var(--token-text-primary) !important;
+  transition: background-color 9999s ease-in-out 0s;
+  box-shadow: 0 0 0 1000px var(--token-layer-background) inset !important;
+  -webkit-box-shadow: 0 0 0 1000px var(--token-layer-background) inset !important;
+}
+
+/* ============================================
+   15. GLOBAL SETTINGS — Row Visibility/Order
+   ============================================ */
+/* Scope to Admin > GlobalSettings container */
+.dark-mode .slds-p-around_medium .slds-box,
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box {
+  background-color: var(--token-layer-surface) !important;
+  border: 1px solid var(--token-border-subtle) !important;
+  color: var(--token-text-primary) !important;
+}
+
+/* Section titles */
+.dark-mode .slds-p-around_medium .slds-text-heading_small,
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-text-heading_small {
+  color: var(--token-text-primary) !important;
+}
+
+/* Row Visibility scroll box (inline style background #fafafa) */
+.dark-mode .slds-p-around_medium .slds-box div[style*="background: #fafafa"],
+.dark-mode .slds-p-around_medium .slds-box div[style*="background-color: #fafafa"],
+[class][data-carbon-theme="g100"] .slds-p-around_medium .slds-box div[style*="background: rgb(250, 250, 250)"],
+[class][data-carbon-theme="g100"] .slds-p-around_medium .slds-box div[style*="background-color: rgb(250, 250, 250)"],
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box div[style*="background: #fafafa"],
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box div[style*="background-color: #fafafa"],
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box div[style*="background: rgb(250, 250, 250)"],
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box div[style*="background-color: rgb(250, 250, 250)"] {
+  background-color: var(--token-layer-background) !important;
+  border-color: var(--token-border-subtle) !important;
+}
+
+/* Row Display Order scroll box (inline style background #fafaf9) */
+.dark-mode .slds-p-around_medium .slds-box div[style*="background: #fafaf9"],
+.dark-mode .slds-p-around_medium .slds-box div[style*="background-color: #fafaf9"],
+[class][data-carbon-theme="g100"] .slds-p-around_medium .slds-box div[style*="background: rgb(250, 250, 249)"],
+[class][data-carbon-theme="g100"] .slds-p-around_medium .slds-box div[style*="background-color: rgb(250, 250, 249)"],
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box div[style*="background: #fafaf9"],
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box div[style*="background-color: #fafaf9"],
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box div[style*="background: rgb(250, 250, 249)"],
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box div[style*="background-color: rgb(250, 250, 249)"] {
+  background-color: var(--token-layer-background) !important;
+  border-color: var(--token-border-subtle) !important;
+}
+
+/* Each row chip (white bg inline) */
+.dark-mode .slds-p-around_medium .slds-box div[style*="background: white"],
+.dark-mode .slds-p-around_medium .slds-box div[style*="background-color: white"],
+.dark-mode .slds-p-around_medium .slds-box div[style*="backgroundColor: white"],
+[class][data-carbon-theme="g100"] .slds-p-around_medium .slds-box div[style*="background: rgb(255, 255, 255)"],
+[class][data-carbon-theme="g100"] .slds-p-around_medium .slds-box div[style*="background-color: rgb(255, 255, 255)"],
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box div[style*="background: white"],
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box div[style*="background-color: white"],
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box div[style*="backgroundColor: white"] {
+  background-color: var(--token-layer-surface) !important;
+  border-color: var(--token-border-subtle) !important;
+}
+
+/* Hidden rows (inline #f3f2f2) */
+.dark-mode .slds-p-around_medium .slds-box div[style*="background: #f3f2f2"],
+.dark-mode .slds-p-around_medium .slds-box div[style*="background-color: #f3f2f2"],
+.dark-mode .slds-p-around_medium .slds-box div[style*="backgroundColor: #f3f2f2"],
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box div[style*="background: #f3f2f2"],
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box div[style*="background-color: #f3f2f2"],
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box div[style*="backgroundColor: #f3f2f2"] {
+  background-color: #1e1e1e !important;
+  border-color: var(--token-border-subtle) !important;
+}
+
+/* Row numbers/labels text */
+.dark-mode .slds-p-around_medium .slds-box span[style*="color: #706e6b"],
+.dark-mode .slds-p-around_medium .slds-box span[style*="color: #080707"],
+.dark-mode .slds-p-around_medium .slds-box span[style*="color:#080707"],
+.dark-mode .slds-p-around_medium .slds-box span[style*="color: rgb(8, 7, 7)"],
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box span[style*="color: #706e6b"],
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box span[style*="color: #080707"],
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box span[style*="color:#080707"],
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box span[style*="color: rgb(8, 7, 7)"] {
+  color: var(--token-text-primary) !important;
+}
+
+/* (Hidden) text */
+.dark-mode .slds-p-around_medium .slds-box span[style*="color: #999"],
+.dark-mode .slds-p-around_medium .slds-box span[style*="color:#999"],
+.dark-mode .slds-p-around_medium .slds-box span[style*="color: rgb(153, 153, 153)"],
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box span[style*="color: #999"],
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box span[style*="color:#999"],
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-box span[style*="color: rgb(153, 153, 153)"] {
+  color: var(--token-text-secondary) !important;
+}
+
+/* Up/Down neutral buttons beside each row */
+.dark-mode .slds-p-around_medium .slds-button.slds-button_neutral,
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-button.slds-button_neutral {
+  background-color: var(--token-layer-surface) !important;
+  border: 1px solid var(--token-border-strong) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-p-around_medium .slds-button.slds-button_neutral:hover:not(:disabled),
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-button.slds-button_neutral:hover:not(:disabled) {
+  background-color: var(--token-layer-active) !important;
+}
+
+.dark-mode .slds-p-around_medium .slds-button.slds-button_neutral:disabled,
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-button.slds-button_neutral:disabled {
+  opacity: 0.45;
+}
+
+/* Checkbox label + faux box */
+.dark-mode .slds-p-around_medium .slds-checkbox__label .slds-form-element__label,
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-checkbox__label .slds-form-element__label {
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-p-around_medium .slds-checkbox_faux,
+[data-carbon-theme="g100"] .slds-p-around_medium .slds-checkbox_faux {
+  background-color: var(--token-layer-background) !important;
+  border: 1px solid var(--token-border-strong) !important;
+}
+
+.dark-mode .slds-p-around_medium input:checked ~ .slds-checkbox__label .slds-checkbox_faux,
+[data-carbon-theme="g100"] .slds-p-around_medium input:checked ~ .slds-checkbox__label .slds-checkbox_faux {
+  background-color: var(--token-interactive-brand) !important;
+  border-color: var(--token-interactive-brand) !important;
+}
+
+/* Tabs bar underline */
+.dark-mode .slds-p-around_medium div[style*="border-bottom: var(--token-spacing-2) solid #e5e5e5"],
+.dark-mode .slds-p-around_medium div[style*="border-bottom: var(--token-spacing-2) solid #e5e5e5"],
+.dark-mode .slds-p-around_medium div[style*="border-bottom: var(--token-spacing-2) solid rgb(229, 229, 229)"],
+.dark-mode .slds-p-around_medium div[style*="border-bottom: var(--token-spacing-2) solid rgb(229,229,229)"],
+[data-carbon-theme="g100"] .slds-p-around_medium div[style*="border-bottom: var(--token-spacing-2) solid #e5e5e5"],
+[data-carbon-theme="g100"] .slds-p-around_medium div[style*="border-bottom: var(--token-spacing-2) solid #e5e5e5"],
+[data-carbon-theme="g100"] .slds-p-around_medium div[style*="border-bottom: var(--token-spacing-2) solid rgb(229, 229, 229)"],
+[data-carbon-theme="g100"] .slds-p-around_medium div[style*="border-bottom: var(--token-spacing-2) solid rgb(229,229,229)"] {
+  border-bottom-color: var(--token-border-subtle) !important;
+}
+
+/* Remove faint light borders above sections within Global Settings */
+.dark-mode .slds-p-around_medium [style*="border-top: 1px solid #e5e5e5"],
+.dark-mode .slds-p-around_medium [style*="border-top:1px solid #e5e5e5"],
+.dark-mode .slds-p-around_medium [style*="border-top: 1px solid #dddbda"],
+.dark-mode .slds-p-around_medium [style*="border-top:1px solid #dddbda"],
+.dark-mode .slds-p-around_medium [style*="border: 1px solid #c9c7c5"],
+.dark-mode .slds-p-around_medium [style*="border:1px solid #c9c7c5"],
+[data-carbon-theme="g100"] .slds-p-around_medium [style*="border-top: 1px solid #e5e5e5"],
+[data-carbon-theme="g100"] .slds-p-around_medium [style*="border-top:1px solid #e5e5e5"],
+[data-carbon-theme="g100"] .slds-p-around_medium [style*="border-top: 1px solid #dddbda"],
+[data-carbon-theme="g100"] .slds-p-around_medium [style*="border-top:1px solid #dddbda"],
+[data-carbon-theme="g100"] .slds-p-around_medium [style*="border: 1px solid #c9c7c5"],
+[data-carbon-theme="g100"] .slds-p-around_medium [style*="border:1px solid #c9c7c5"] {
+  border-color: var(--token-border-subtle) !important;
+}
+
+/* ============================================
+   16. GLOBAL SETTINGS — Row Display Order & Label Aliases
+   ============================================ */
+
+/* Row Display Order - Container with token background */
+.dark-mode .slds-box div[style*="backgroundColor: 'var(--token-ui-background-light)'"],
+.dark-mode .slds-box div[style*="background-color: var(--token-ui-background-light)"],
+[data-carbon-theme="g100"] .slds-box div[style*="backgroundColor: 'var(--token-ui-background-light)'"],
+[data-carbon-theme="g100"] .slds-box div[style*="background-color: var(--token-ui-background-light)"] {
+  background-color: var(--token-layer-background) !important;
+}
+
+/* Row items with white background */
+.dark-mode .slds-box div[style*="backgroundColor: 'white'"],
+.dark-mode .slds-box div[style*="background-color: white"],
+[data-carbon-theme="g100"] .slds-box div[style*="backgroundColor: 'white'"],
+[data-carbon-theme="g100"] .slds-box div[style*="background-color: white"] {
+  background-color: var(--token-layer-surface) !important;
+  border-color: var(--token-border-subtle) !important;
+}
+
+/* Label Aliases - Container with subtle background */
+.dark-mode .slds-box div[style*="backgroundColor: 'var(--token-ui-background-subtle)'"],
+.dark-mode .slds-box div[style*="background-color: var(--token-ui-background-subtle)"],
+[data-carbon-theme="g100"] .slds-box div[style*="backgroundColor: 'var(--token-ui-background-subtle)'"],
+[data-carbon-theme="g100"] .slds-box div[style*="background-color: var(--token-ui-background-subtle)"] {
+  background-color: var(--token-layer-background) !important;
+}
+
+/* Label alias cards - white and modified (#fffde7) backgrounds */
+.dark-mode .slds-box div[style*="backgroundColor: '#fffde7'"],
+.dark-mode .slds-box div[style*="background-color: #fffde7"],
+[data-carbon-theme="g100"] .slds-box div[style*="backgroundColor: '#fffde7'"],
+[data-carbon-theme="g100"] .slds-box div[style*="background-color: #fffde7"] {
+  background-color: #3d3200 !important;
+  border-color: #665200 !important;
+}
+
+/* Label value display with #f3f3f3 background */
+.dark-mode .slds-box span[style*="backgroundColor: '#f3f3f3'"],
+.dark-mode .slds-box span[style*="background-color: #f3f3f3"],
+[data-carbon-theme="g100"] .slds-box span[style*="backgroundColor: '#f3f3f3'"],
+[data-carbon-theme="g100"] .slds-box span[style*="background-color: #f3f3f3"] {
+  background-color: var(--token-layer-surface-hover) !important;
+  color: var(--token-text-primary) !important;
+}
+
+/* Key labels with #666 color */
+.dark-mode .slds-box span[style*="color: '#666'"],
+.dark-mode .slds-box span[style*="color: #666"],
+[data-carbon-theme="g100"] .slds-box span[style*="color: '#666'"],
+[data-carbon-theme="g100"] .slds-box span[style*="color: #666"] {
+  color: var(--token-text-secondary) !important;
+}
+
+/* Modified badge with #ffc107 background */
+.dark-mode .slds-box span[style*="backgroundColor: '#ffc107'"],
+.dark-mode .slds-box span[style*="background-color: #ffc107"],
+[data-carbon-theme="g100"] .slds-box span[style*="backgroundColor: '#ffc107'"],
+[data-carbon-theme="g100"] .slds-box span[style*="background-color: #ffc107"] {
+  background-color: #b38600 !important;
+  color: #ffffff !important;
+}
+
+/* Modified badge text */
+.dark-mode .slds-box span[style*="color: '#333'"],
+.dark-mode .slds-box span[style*="color: #333"],
+[data-carbon-theme="g100"] .slds-box span[style*="color: '#333'"],
+[data-carbon-theme="g100"] .slds-box span[style*="color: #333"] {
+  color: #ffffff !important;
+}
+
+/* Fix slds-box sections in GlobalSettings */
+.dark-mode .slds-box,
+[data-carbon-theme="g100"] .slds-box {
+  background-color: var(--token-layer-surface) !important;
+  border-color: var(--token-border-subtle) !important;
+}
+
+/* Row Display Order and Label Aliases scroll containers */
+.dark-mode .slds-box > div[style*="maxHeight"],
+.dark-mode .slds-box > div[style*="max-height"],
+[data-carbon-theme="g100"] .slds-box > div[style*="maxHeight"],
+[data-carbon-theme="g100"] .slds-box > div[style*="max-height"] {
+  background-color: var(--token-layer-background) !important;
+  border-color: var(--token-border-subtle) !important;
+}
+
+/* All direct child divs with flex display (row items) */
+.dark-mode .slds-box > div > div[style*="display: 'flex'"],
+.dark-mode .slds-box > div > div[style*="display: flex"],
+[data-carbon-theme="g100"] .slds-box > div > div[style*="display: 'flex'"],
+[data-carbon-theme="g100"] .slds-box > div > div[style*="display: flex"] {
+  border-color: var(--token-border-subtle) !important;
+}
+
+/* Grid items in Label Aliases section */
+.dark-mode .slds-box > div > div[style*="display: 'grid'"] > div,
+.dark-mode .slds-box > div > div[style*="display: grid"] > div,
+[data-carbon-theme="g100"] .slds-box > div > div[style*="display: 'grid'"] > div,
+[data-carbon-theme="g100"] .slds-box > div > div[style*="display: grid"] > div {
+  background-color: var(--token-layer-surface) !important;
+  border-color: var(--token-border-subtle) !important;
+}
+
+/* Muted text override */
+.dark-mode .slds-box span[style*="color: 'var(--token-text-muted)'"],
+.dark-mode .slds-box span[style*="color: var(--token-text-muted)"],
+[data-carbon-theme="g100"] .slds-box span[style*="color: 'var(--token-text-muted)'"],
+[data-carbon-theme="g100"] .slds-box span[style*="color: var(--token-text-muted)"] {
+  color: var(--token-text-secondary) !important;
+}
+
+/* Disabled background for hidden rows */
+.dark-mode .slds-box div[style*="backgroundColor: 'var(--token-ui-background-disabled)'"],
+.dark-mode .slds-box div[style*="background-color: var(--token-ui-background-disabled)"],
+[data-carbon-theme="g100"] .slds-box div[style*="backgroundColor: 'var(--token-ui-background-disabled)'"],
+[data-carbon-theme="g100"] .slds-box div[style*="background-color: var(--token-ui-background-disabled)"] {
+  background-color: #1e1e1e !important;
+}
+
+/* Text colors for disabled items */
+.dark-mode .slds-box span[style*="color: 'var(--token-ui-text-disabled)'"],
+.dark-mode .slds-box span[style*="color: var(--token-ui-text-disabled)"],
+[data-carbon-theme="g100"] .slds-box span[style*="color: 'var(--token-ui-text-disabled)'"],
+[data-carbon-theme="g100"] .slds-box span[style*="color: var(--token-ui-text-disabled)"] {
+  color: #6f6f6f !important;
+}
+
+
+/* ============================================
+   17. FIXES FOR TOOLTIPS, TABS, AND BUTTONS
+   ============================================ */
+
+/* Tooltips - Ensure high contrast in dark mode */
+.dark-mode .app-tooltip__content {
+  background-color: var(--token-layer-elevated) !important;
+  color: var(--token-text-primary) !important;
+  border: 1px solid var(--token-border-subtle) !important;
+  box-shadow: var(--token-shadow-modal) !important;
+}
+
+.dark-mode .app-tooltip__arrow {
+  background-color: var(--token-layer-elevated) !important;
+}
+
+/* Toggle Buttons (Direct Client / Broker) */
+.dark-mode .slds-button-group_toggle .slds-button.slds-is-selected {
+  background-color: var(--token-interactive) !important;
+  border-color: var(--token-interactive) !important;
+  color: #ffffff !important;
+  background-image: none !important;
+  z-index: 1;
+}
+
+.dark-mode .slds-button-group_toggle .slds-button:not(.slds-is-selected) {
+  background-color: var(--token-layer-background) !important;
+  border-color: var(--token-border-strong) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-button-group_toggle .slds-button:not(.slds-is-selected):hover {
+  background-color: var(--token-layer-surface-hover) !important;
+}
+
+/* Tabs (Specialist/Core Range & Global Settings) */
+.dark-mode .slds-tabs_default__link {
+  background-color: transparent !important;
+  border-bottom: var(--token-spacing-2) solid transparent !important;
+}
+
+.dark-mode .slds-tabs_default__item.slds-is-active .slds-tabs_default__link {
+  color: var(--token-interactive) !important;
+  border-bottom-color: var(--token-interactive) !important;
+  font-weight: 700;
+  background-color: transparent !important;
+}
+
+.dark-mode .slds-tabs_default__item:not(.slds-is-active) .slds-tabs_default__link {
+  color: var(--token-text-secondary) !important;
+  border-bottom-color: transparent !important;
+}
+
+.dark-mode .slds-tabs_default__item:not(.slds-is-active) .slds-tabs_default__link:hover {
+  color: var(--token-interactive-hover) !important;
+  text-decoration: none;
+}
+
+/* Ensure tab content backgrounds are correct */
+.dark-mode .slds-tabs_default__content {
+  background-color: transparent !important;
+  color: var(--token-text-primary) !important;
+}
+
+
+/* Fix for slds-tabs_card in dark mode (Range Toggle) */
+.dark-mode .slds-tabs_card .slds-tabs_default__item.slds-is-active .slds-tabs_default__link {
+  color: var(--token-interactive) !important;
+  border-bottom-color: var(--token-interactive) !important;
+  background-color: transparent !important;
+}
+
+.dark-mode .slds-tabs_card .slds-tabs_default__item:not(.slds-is-active) .slds-tabs_default__link {
+  color: var(--token-text-secondary) !important;
+}
+
+/* Scoped Tabs (Products page sub-tabs) */
+.dark-mode .slds-tabs_scoped {
+  background-color: transparent !important;
+}
+
+.dark-mode .slds-tabs_scoped__nav {
+  background-color: var(--token-layer-surface) !important;
+  border-color: var(--token-border-strong) !important;
+}
+
+.dark-mode .slds-tabs_scoped__item {
+  background-color: transparent !important;
+}
+
+.dark-mode .slds-tabs_scoped__link {
+  color: var(--token-text-secondary) !important;
+  background-color: transparent !important;
+  border-color: var(--token-border-subtle) !important;
+}
+
+.dark-mode .slds-tabs_scoped__link:hover {
+  color: var(--token-text-primary) !important;
+  background-color: var(--token-layer-surface-hover) !important;
+}
+
+.dark-mode .slds-tabs_scoped__item.slds-is-active .slds-tabs_scoped__link {
+  color: var(--token-interactive) !important;
+  background-color: var(--token-layer-surface) !important;
+  border-color: var(--token-interactive) !important;
+  border-bottom-color: var(--token-interactive) !important;
+}
+
+/* Fix for Global Settings and Constants Accordion Sections */
+.dark-mode .settings-accordion-section {
+  background: var(--token-layer-surface) !important;
+}
+
+.dark-mode .settings-accordion-section .slds-accordion__summary {
+  background-color: var(--token-layer-surface) !important;
+  border-color: var(--token-border-subtle) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .settings-accordion-section .slds-accordion__summary:hover {
+  background-color: var(--token-layer-surface-hover) !important;
+  border-color: var(--token-border-strong) !important;
+}
+
+.dark-mode .settings-accordion-section .slds-accordion__summary.slds-is-open {
+  background-color: var(--token-layer-active) !important;
+  border-color: var(--token-text-inverse) !important;
+}
+
+.dark-mode .settings-accordion-section .slds-accordion__summary-heading {
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .settings-accordion-section .slds-accordion__summary-content {
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .settings-accordion-section .slds-accordion__summary-action-icon {
+  color: var(--token-text-secondary) !important;
+  fill: var(--token-text-secondary) !important;
+}
+
+.dark-mode .settings-accordion-section .slds-accordion__content {
+  background: var(--token-layer-surface) !important;
+  color: var(--token-text-primary) !important;
+}
+
+/* ========================================
+   Products Page - Rates Tables
+   ======================================== */
+
+/* Rate table base styles */
+.dark-mode .products-rates-table {
+  background-color: var(--token-layer-surface) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .products-rates-table th,
+.dark-mode .products-rates-table td {
+  border-color: var(--token-border-subtle) !important;
+  color: var(--token-text-primary) !important;
+}
+
+/* Label column */
+.dark-mode .products-rates-table__label-col,
+.dark-mode .products-rates-table__label-cell {
+  background-color: var(--token-layer-active) !important;
+  color: var(--token-text-primary) !important;
+  border-color: var(--token-border-strong) !important;
+}
+
+/* Fee range rows */
+.dark-mode .products-rates-table__fee-row {
+  background-color: var(--token-layer-surface) !important;
+}
+
+.dark-mode .products-rates-table__fee-row td {
+  color: var(--token-text-secondary) !important;
+}
+
+/* Rate rows */
+.dark-mode .products-rates-table__rate-row {
+  background-color: var(--token-layer-surface-hover) !important;
+}
+
+.dark-mode .products-rates-table__rate-row td {
+  color: var(--token-text-primary) !important;
+}
+
+/* Revert rate rows */
+.dark-mode .products-rates-table__revert-row {
+  background-color: var(--token-layer-surface) !important;
+}
+
+.dark-mode .products-rates-table__revert-row td {
+  color: var(--token-text-secondary) !important;
+}
+
+/* Info rows (Defer/Roll up/Loan Size) */
+.dark-mode .products-rates-table__info-row {
+  background-color: var(--token-layer-surface) !important;
+  border-color: var(--token-border-subtle) !important;
+}
+
+.dark-mode .products-rates-table__info-row td {
+  color: var(--token-text-secondary) !important;
+}
+
+/* Editable cell hover states */
+.dark-mode .products-rate-cell--editable:hover {
+  background-color: var(--token-layer-active) !important;
+}
+
+.dark-mode .products-rate-cell__value {
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .products-rate-cell__value:hover {
+  background-color: var(--token-layer-elevated) !important;
+}
+
+.dark-mode .products-rate-cell__edit-icon {
+  color: var(--token-interactive) !important;
+}
+
+/* Edit mode input */
+.dark-mode .products-rate-cell__input {
+  background-color: var(--token-layer-surface) !important;
+  color: var(--token-text-primary) !important;
+  border-color: var(--token-interactive) !important;
+}
+
+.dark-mode .products-rate-cell__input:focus {
+  box-shadow: 0 0 0 2px var(--token-interactive-hover) !important;
+}
+
+/* Product column headers */
+.dark-mode .products-rates-table__product-col {
+  background-color: var(--token-layer-active) !important;
+  color: var(--token-text-primary) !important;
+  border-color: var(--token-border-strong) !important;
+}
+
+/* Separator rows */
+.dark-mode .products-rates-table tr[style*="backgroundColor"] {
+  background-color: var(--token-layer-background) !important;
+}
+
+/* Fusion coupon rate cells - override inline background colors */
+.dark-mode .products-rates-table__rate-row td[style*="backgroundColor"],
+.dark-mode .products-rates-table__info-row td[style*="backgroundColor"],
+.dark-mode .products-rates-table__rate-row td[style*="background-color"],
+.dark-mode .products-rates-table__info-row td[style*="background-color"],
+.dark-mode .products-rates-table td[style*="#ecfdf5"],
+.dark-mode .products-rates-table td[style*="ecfdf5"] {
+  background-color: var(--token-layer-surface-hover) !important;
+  color: var(--token-text-primary) !important;
+}
+
+/* ========================================
+   Side Panels (Asset Class, LTV Restrictions, Support)
+   ======================================== */
+
+/* Panel containers - override inline white backgrounds */
+.dark-mode .slds-panel[style*="backgroundColor"] {
+  background-color: var(--token-layer-surface) !important;
+}
+
+/* Panel headers - override inline light gray backgrounds */
+.dark-mode .slds-panel__header,
+.dark-mode .slds-panel__header[style*="backgroundColor"],
+.dark-mode .slds-panel__header[style*="background-color"] {
+  background-color: var(--token-layer-active) !important;
+  border-color: var(--token-border-strong) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-panel__header-title,
+.dark-mode .slds-panel__header h2 {
+  color: var(--token-text-primary) !important;
+}
+
+/* Panel body */
+.dark-mode .slds-panel__body {
+  background-color: var(--token-layer-surface) !important;
+  color: var(--token-text-primary) !important;
+}
+
+/* Tables inside panels */
+.dark-mode .slds-panel__body .slds-table,
+.dark-mode .slds-panel__body .slds-table[style*="width"] {
+  background-color: var(--token-layer-surface) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-panel__body .slds-table th,
+.dark-mode .slds-panel__body .slds-table td,
+.dark-mode .slds-panel__body .slds-table th[style*="padding"],
+.dark-mode .slds-panel__body .slds-table td[style*="padding"],
+.dark-mode .slds-panel__body .slds-table th[style*="wordWrap"],
+.dark-mode .slds-panel__body .slds-table td[style*="wordWrap"] {
+  background-color: var(--token-layer-surface) !important;
+  color: var(--token-text-primary) !important;
+  border-color: var(--token-border-subtle) !important;
+}
+
+/* Table rows */
+.dark-mode .slds-panel__body .slds-table tbody tr {
+  background-color: var(--token-layer-surface) !important;
+}
+
+.dark-mode .slds-panel__body .slds-table tbody tr:hover {
+  background-color: var(--token-layer-surface-hover) !important;
+}
+
+/* Table headers with inline background colors */
+.dark-mode .slds-panel__body .slds-table th[style*="backgroundColor"],
+.dark-mode .slds-panel__body .slds-table th[style*="background-color"],
+.dark-mode .slds-panel__body .slds-table thead th {
+  background-color: var(--token-layer-active) !important;
+  color: var(--token-text-primary) !important;
+}
+
+/* Table cells with special background colors (Asset Class LTVs) */
+.dark-mode .slds-panel__body .slds-table td[style*="backgroundColor='#90ee90'"],
+.dark-mode .slds-panel__body .slds-table td[style*="backgroundColor: #90ee90"],
+.dark-mode .slds-panel__body .slds-table td[style*="background-color: rgb(144, 238, 144)"] {
+  background-color: rgba(66, 190, 101, 0.3) !important; /* Dark mode green */
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-panel__body .slds-table td[style*="backgroundColor='#d4edda'"],
+.dark-mode .slds-panel__body .slds-table td[style*="backgroundColor: #d4edda"],
+.dark-mode .slds-panel__body .slds-table td[style*="background-color: rgb(212, 237, 218)"] {
+  background-color: rgba(66, 190, 101, 0.2) !important; /* Dark mode lighter green */
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-panel__body .slds-table td[style*="backgroundColor='#fff3cd'"],
+.dark-mode .slds-panel__body .slds-table td[style*="backgroundColor: #fff3cd"],
+.dark-mode .slds-panel__body .slds-table td[style*="background-color: rgb(255, 243, 205)"] {
+  background-color: rgba(245, 158, 11, 0.3) !important; /* Dark mode yellow/warning */
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-panel__body .slds-table td[style*="backgroundColor='#f8d7da'"],
+.dark-mode .slds-panel__body .slds-table td[style*="backgroundColor: #f8d7da"],
+.dark-mode .slds-panel__body .slds-table td[style*="background-color: rgb(248, 215, 218)"] {
+  background-color: rgba(218, 30, 40, 0.3) !important; /* Dark mode red/danger */
+  color: var(--token-text-primary) !important;
+}
+
+/* LTV Restrictions Accordion inside panels */
+.dark-mode .slds-panel__body .slds-accordion__section,
+.dark-mode .slds-panel__body .slds-accordion__section[style*="border"] {
+  border-color: var(--token-border-subtle) !important;
+  background-color: var(--token-layer-surface) !important;
+}
+
+.dark-mode .slds-panel__body .slds-accordion__summary {
+  background-color: var(--token-layer-surface) !important;
+}
+
+.dark-mode .slds-panel__body .slds-accordion__summary button,
+.dark-mode .slds-panel__body .slds-accordion__summary-action,
+.dark-mode .slds-panel__body .slds-button_reset {
+  color: var(--token-text-primary) !important;
+  background-color: transparent !important;
+}
+
+.dark-mode .slds-panel__body .slds-accordion__summary button span {
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-panel__body .slds-accordion__summary:hover {
+  background-color: var(--token-layer-surface-hover) !important;
+}
+
+.dark-mode .slds-panel__body .slds-accordion__content,
+.dark-mode .slds-panel__body .slds-accordion__content[style*="padding"] {
+  background-color: var(--token-layer-surface) !important;
+  color: var(--token-text-primary) !important;
+}
+
+/* Support form inputs */
+.dark-mode .slds-panel__body .slds-form-element__label {
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-panel__body .slds-input,
+.dark-mode .slds-panel__body .slds-textarea,
+.dark-mode .slds-panel__body .slds-select {
+  background-color: var(--token-layer-surface) !important;
+  color: var(--token-text-primary) !important;
+  border-color: var(--token-border-strong) !important;
+}
+
+.dark-mode .slds-panel__body .slds-input:focus,
+.dark-mode .slds-panel__body .slds-textarea:focus,
+.dark-mode .slds-panel__body .slds-select:focus {
+  border-color: var(--token-interactive) !important;
+  box-shadow: 0 0 0 1px var(--token-interactive) !important;
+}
+
+/* Success buttons */
+.dark-mode .slds-button_success {
+  background-color: var(--token-success, #42be65) !important;
+  border-color: var(--token-success, #42be65) !important;
+  color: #ffffff !important;
+}
+
+.dark-mode .slds-button_success:hover:not(:disabled) {
+  background-color: #24a148 !important;
+  border-color: #24a148 !important;
+}
+
+.dark-mode .slds-button_success:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+
+/* Destructive buttons */
+.dark-mode .slds-button_destructive {
+  background-color: var(--token-danger, #da1e28) !important;
+  border-color: var(--token-danger, #da1e28) !important;
+  color: #ffffff !important;
+}
+
+.dark-mode .slds-button_destructive:hover:not(:disabled) {
+  background-color: var(--token-danger-hover, #ba1b23) !important;
+  border-color: var(--token-danger-hover, #ba1b23) !important;
+}
+
+.dark-mode .slds-button_destructive:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+
+/* Backdrop for panels */
+.dark-mode .slds-backdrop_open {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Panel footers - override inline backgrounds */
+.dark-mode .slds-panel footer,
+.dark-mode .slds-panel footer[style*="backgroundColor"],
+.dark-mode .slds-panel footer[style*="background-color"] {
+  background-color: var(--token-layer-active) !important;
+  border-color: var(--token-border-strong) !important;
+  color: var(--token-text-primary) !important;
+}
+
+.dark-mode .slds-panel footer div,
+.dark-mode .slds-panel footer span {
+  color: var(--token-text-secondary) !important;
+}
+

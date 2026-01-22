@@ -1,0 +1,283 @@
+# Azure DevOps Pipeline for Polaris Calculator
+# Builds and deploys both frontend and backend to Azure App Services
+
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+  paths:
+    include:
+      - frontend/*
+      - backend/*
+
+variables:
+  # Link to Key Vault variable group (created in Azure DevOps)
+  - group: calculator-keyvault-secrets
+  
+  # Node.js version
+  - name: nodeVersion
+    value: '20.x'
+  
+  # App Service names (update these with actual names)
+  - name: frontendAppName
+    value: 'wa-mfs-sf-calculator-frontend'
+  - name: backendAppName
+    value: 'wa-mfs-sf-calculator-backend'
+  
+  # Azure subscription service connection (update with actual name)
+  - name: azureSubscription
+    value: 'MFS-Azure-Service-Connection'
+
+stages:
+  # ============================================
+  # BUILD STAGE
+  # ============================================
+  - stage: Build
+    displayName: 'Build Frontend and Backend'
+    jobs:
+      # -------------------------------------
+      # Frontend Build Job
+      # -------------------------------------
+      - job: BuildFrontend
+        displayName: 'Build Frontend (React + Vite)'
+        pool:
+          vmImage: 'ubuntu-latest'
+        
+        steps:
+          - task: NodeTool@0
+            displayName: 'Install Node.js'
+            inputs:
+              versionSpec: '$(nodeVersion)'
+          
+          - script: |
+              cd frontend
+              npm ci
+            displayName: 'Install Frontend Dependencies'
+          
+          - script: |
+              cd frontend
+              npm run build
+            displayName: 'Build Frontend'
+            env:
+              # Build-time environment variables from Key Vault
+              VITE_SUPABASE_URL: $(VITE_SUPABASE_URL)
+              VITE_SUPABASE_ANON_KEY: $(VITE_SUPABASE_ANON_KEY)
+              VITE_API_URL: $(VITE_API_URL)
+              VITE_ENABLE_LOGGING: false
+          
+          # Package the dist folder and node_modules (for server.js)
+          - task: CopyFiles@2
+            displayName: 'Copy Frontend Build Output'
+            inputs:
+              SourceFolder: '$(System.DefaultWorkingDirectory)/frontend'
+              Contents: |
+                dist/**
+                server.js
+                package.json
+                package-lock.json
+              TargetFolder: '$(Build.ArtifactStagingDirectory)/frontend'
+          
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish Frontend Artifact'
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)/frontend'
+              ArtifactName: 'frontend-drop'
+              publishLocation: 'Container'
+      
+      # -------------------------------------
+      # Backend Build Job
+      # -------------------------------------
+      - job: BuildBackend
+        displayName: 'Build Backend (Node.js + Express)'
+        pool:
+          vmImage: 'ubuntu-latest'
+        
+        steps:
+          - task: NodeTool@0
+            displayName: 'Install Node.js'
+            inputs:
+              versionSpec: '$(nodeVersion)'
+          
+          - script: |
+              cd backend
+              npm ci --production
+            displayName: 'Install Backend Dependencies (Production Only)'
+          
+          # Copy backend files to artifact staging
+          - task: CopyFiles@2
+            displayName: 'Copy Backend Files'
+            inputs:
+              SourceFolder: '$(System.DefaultWorkingDirectory)/backend'
+              Contents: |
+                **/*
+                !node_modules/**/test/**
+                !node_modules/**/tests/**
+                !__tests__/**
+                !*.test.js
+              TargetFolder: '$(Build.ArtifactStagingDirectory)/backend'
+          
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish Backend Artifact'
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)/backend'
+              ArtifactName: 'backend-drop'
+              publishLocation: 'Container'
+
+  # ============================================
+  # DEPLOY STAGE (STAGING)
+  # ============================================
+  - stage: DeployStaging
+    displayName: 'Deploy to Staging'
+    dependsOn: Build
+    condition: succeeded()
+    jobs:
+      # -------------------------------------
+      # Deploy Frontend to Staging Slot
+      # -------------------------------------
+      - deployment: DeployFrontendStaging
+        displayName: 'Deploy Frontend to Staging'
+        pool:
+          vmImage: 'ubuntu-latest'
+        environment: 'staging'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: DownloadBuildArtifacts@1
+                  displayName: 'Download Frontend Artifact'
+                  inputs:
+                    buildType: 'current'
+                    artifactName: 'frontend-drop'
+                    downloadPath: '$(System.ArtifactsDirectory)'
+                
+                # Install production dependencies for server.js
+                - task: NodeTool@0
+                  displayName: 'Install Node.js'
+                  inputs:
+                    versionSpec: '$(nodeVersion)'
+                
+                - script: |
+                    cd $(System.ArtifactsDirectory)/frontend-drop
+                    npm ci --production
+                  displayName: 'Install Frontend Server Dependencies'
+                
+                - task: AzureWebApp@1
+                  displayName: 'Deploy Frontend to Azure App Service (Staging Slot)'
+                  inputs:
+                    azureSubscription: '$(azureSubscription)'
+                    appType: 'webAppLinux'
+                    appName: '$(frontendAppName)'
+                    deployToSlotOrASE: true
+                    resourceGroupName: 'rg-mfs-sf-calculator'
+                    slotName: 'staging'
+                    package: '$(System.ArtifactsDirectory)/frontend-drop'
+                    runtimeStack: 'NODE|20-lts'
+                    startUpCommand: 'node server.js'
+      
+      # -------------------------------------
+      # Deploy Backend to Staging Slot
+      # -------------------------------------
+      - deployment: DeployBackendStaging
+        displayName: 'Deploy Backend to Staging'
+        pool:
+          vmImage: 'ubuntu-latest'
+        environment: 'staging'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: DownloadBuildArtifacts@1
+                  displayName: 'Download Backend Artifact'
+                  inputs:
+                    buildType: 'current'
+                    artifactName: 'backend-drop'
+                    downloadPath: '$(System.ArtifactsDirectory)'
+                
+                - task: AzureWebApp@1
+                  displayName: 'Deploy Backend to Azure App Service (Staging Slot)'
+                  inputs:
+                    azureSubscription: '$(azureSubscription)'
+                    appType: 'webAppLinux'
+                    appName: '$(backendAppName)'
+                    deployToSlotOrASE: true
+                    resourceGroupName: 'rg-mfs-sf-calculator'
+                    slotName: 'staging'
+                    package: '$(System.ArtifactsDirectory)/backend-drop'
+                    runtimeStack: 'NODE|20-lts'
+                    startUpCommand: 'node server.js'
+
+  # ============================================
+  # DEPLOY STAGE (PRODUCTION)
+  # ============================================
+  - stage: DeployProduction
+    displayName: 'Deploy to Production'
+    dependsOn: DeployStaging
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      # -------------------------------------
+      # Swap Frontend Staging to Production
+      # -------------------------------------
+      - deployment: SwapFrontendProduction
+        displayName: 'Swap Frontend Staging → Production'
+        pool:
+          vmImage: 'ubuntu-latest'
+        environment: 'production'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureAppServiceManage@0
+                  displayName: 'Swap Frontend Slots (Staging → Production)'
+                  inputs:
+                    azureSubscription: '$(azureSubscription)'
+                    action: 'Swap Slots'
+                    webAppName: '$(frontendAppName)'
+                    resourceGroupName: 'rg-mfs-sf-calculator'
+                    sourceSlot: 'staging'
+                    targetSlot: 'production'
+      
+      # -------------------------------------
+      # Swap Backend Staging to Production
+      # -------------------------------------
+      - deployment: SwapBackendProduction
+        displayName: 'Swap Backend Staging → Production'
+        pool:
+          vmImage: 'ubuntu-latest'
+        environment: 'production'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureAppServiceManage@0
+                  displayName: 'Swap Backend Slots (Staging → Production)'
+                  inputs:
+                    azureSubscription: '$(azureSubscription)'
+                    action: 'Swap Slots'
+                    webAppName: '$(backendAppName)'
+                    resourceGroupName: 'rg-mfs-sf-calculator'
+                    sourceSlot: 'staging'
+                    targetSlot: 'production'
+
+  # ============================================
+  # POST-DEPLOYMENT TESTS
+  # ============================================
+  - stage: PostDeploymentTests
+    displayName: 'Post-Deployment Validation'
+    dependsOn: DeployProduction
+    condition: succeeded()
+    jobs:
+      - job: SmokeTests
+        displayName: 'Run Smoke Tests'
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - script: |
+              echo "Testing Frontend Health..."
+              curl -f https://$(frontendAppName).azurewebsites.net/ || exit 1
+              
+              echo "Testing Backend Health..."
+              curl -f https://$(backendAppName).azurewebsites.net/api/health || exit 1
+              
+              echo "All smoke tests passed!"
+            displayName: 'Run Health Check Tests'

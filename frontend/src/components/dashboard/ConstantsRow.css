@@ -1,0 +1,18 @@
+/* ConstantsRow Debug Info Styles */
+
+.constants-debug-pre {
+  font-size: var(--token-font-size-x-small, 10px);
+  max-height: 200px;
+  overflow: auto;
+  background-color: var(--token-layer-surface);
+  padding: var(--token-spacing-small);
+  border-radius: var(--token-border-radius-small);
+  margin: 0;
+}
+
+:root[data-carbon-theme="g100"],
+.dark-mode {
+  .constants-debug-pre {
+    background-color: var(--token-layer-background);
+  }
+}

@@ -1,0 +1,46 @@
+/* Error Components Styles */
+
+.error-fallback-container {
+  text-align: center;
+  padding: var(--token-spacing-48);
+}
+
+.error-text-muted {
+  color: var(--token-text-muted);
+}
+
+.error-details-box {
+  background-color: var(--token-ui-background-disabled);
+  text-align: left;
+  font-size: var(--token-font-size-xs);
+  font-family: monospace;
+}
+
+.error-details-pre {
+  color: var(--token-critical);
+  margin-top: var(--token-spacing-8);
+}
+
+.rates-error-container {
+  position: fixed;
+  top: var(--token-spacing-16);
+  right: var(--token-spacing-16);
+  z-index: 9999;
+}
+
+.error-summary {
+  cursor: pointer;
+}
+
+.error-stack-box {
+  background-color: var(--token-ui-background-disabled);
+  font-family: monospace;
+  font-size: var(--token-font-size-xs);
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+.error-message-critical {
+  color: var(--token-critical);
+  margin-bottom: var(--token-spacing-lg);
+}

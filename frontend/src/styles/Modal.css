@@ -1,0 +1,204 @@
+/* ⚠️ DEPRECATED: Use .slds-backdrop and .slds-modal classes instead!
+   Legacy modal classes kept for backward compatibility.
+   
+   Migration path:
+   .modal-backdrop → .slds-backdrop
+   .modal-overlay  → .slds-backdrop
+   .modal-content  → .slds-modal__container
+   .modal-header   → .slds-modal__header
+   .modal-body     → .slds-modal__content
+   .modal-footer   → .slds-modal__footer
+*/
+
+/* ⚠️ DEPRECATED: Use .slds-backdrop directly! */
+.modal-backdrop {
+  /* Extends .slds-backdrop */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9000;
+  opacity: 1;
+  transition: opacity 0.2s linear;
+}
+
+/* ⚠️ DEPRECATED: Use .slds-backdrop directly! */
+.modal-overlay {
+  /* Extends .slds-backdrop */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9000;
+  opacity: 1;
+  transition: opacity 0.2s linear;
+}
+
+/* ⚠️ DEPRECATED: Use .slds-modal__container directly! */
+.modal-content {
+  /* Extends .slds-modal__container */
+  position: relative;
+  background: var(--token-layer-surface, white);
+  border-radius: var(--slds-g-radius-border-2, 0.25rem);
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+}
+
+/* ⚠️ DEPRECATED: Use .slds-modal__header directly! */
+.modal-header {
+  /* Extends .slds-modal__header */
+  flex-shrink: 0;
+  padding: var(--slds-g-spacing-4) var(--slds-g-spacing-5);
+  border-bottom: 1px solid var(--slds-g-color-border-1);
+  border-radius: var(--slds-g-radius-border-2) var(--slds-g-radius-border-2) 0 0;
+}
+
+/* ⚠️ DEPRECATED: Use .slds-modal__content directly! */
+.modal-body {
+  /* Extends .slds-modal__content */
+  flex: 1 1 auto;
+  padding: var(--slds-g-spacing-4) var(--slds-g-spacing-5);
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--token-layer-surface, white);
+}
+
+/* ⚠️ DEPRECATED: Use .slds-modal__footer directly! */
+.modal-footer {
+  /* Extends .slds-modal__footer */
+  flex-shrink: 0;
+  padding: var(--slds-g-spacing-4) var(--slds-g-spacing-5);
+  border-top: 1px solid var(--slds-g-color-border-1);
+  text-align: right;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: var(--token-spacing-24);
+  color: var(--token-text-primary, #333);
+}
+
+/* ⚠️ DEPRECATED: Use .slds-form-element structure instead!
+   See auth.css for migration example. */
+.form-group {
+  margin-bottom: var(--token-spacing-16);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--token-spacing-8);
+  font-weight: 500;
+  color: var(--token-text-secondary, #666);
+  font-size: var(--token-font-size-sm);
+}
+
+/* ⚠️ DEPRECATED: Use .slds-input and .slds-textarea directly! */
+.form-group input,
+.form-group textarea {
+  /* Extends .slds-input / .slds-textarea */
+  width: 100%;
+  padding: 0 var(--slds-g-spacing-3);
+  border: 1px solid var(--slds-g-color-border-1);
+  border-radius: var(--slds-g-radius-border-2);
+  font-size: var(--token-font-size-md);
+  line-height: 1.875rem;
+  min-height: var(--slds-g-sizing-9);
+  background-color: var(--slds-g-color-surface-container-1);
+  color: var(--slds-g-color-on-surface-2);
+  font-family: var(--slds-font-family);
+  box-sizing: border-box;
+  transition: border-color 0.1s linear, box-shadow 0.1s linear;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+  padding: var(--slds-g-spacing-2) var(--slds-g-spacing-3);
+  line-height: 1.5;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: 0;
+  border-color: var(--slds-g-color-accent-2);
+  box-shadow: 0 0 0 2px rgba(2, 80, 217, 0.2);
+}
+
+.modal-actions {
+  margin-top: var(--token-spacing-32);
+  display: flex;
+  gap: var(--token-spacing-16);
+  justify-content: flex-end;
+}
+
+/* Legacy button classes removed - Use SLDS classes instead:
+   .slds-button .slds-button_brand (for save actions)
+   .slds-button .slds-button_neutral (for cancel actions) */
+
+/* Responsive Styles for Mobile and Tablet */
+/* Uses standard breakpoints: tablet (768px), mobile (480px) */
+@media (max-width: 768px) {
+  .modal-content {
+    padding: var(--token-spacing-24);
+    width: 95%;
+    max-height: 85vh;
+  }
+
+  .modal-content h2 {
+    font-size: var(--token-font-size-xl-small);
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    padding: var(--token-spacing-20);
+    width: 96%;
+    border-radius: var(--token-spacing-6);
+  }
+
+  .modal-content h2 {
+    font-size: var(--token-font-size-xl-minus);
+    margin-bottom: var(--token-spacing-16);
+  }
+
+  .form-group {
+    margin-bottom: var(--token-spacing-14);
+  }
+
+  .form-group label {
+    font-size: var(--token-font-size-sm-plus);
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: var(--token-spacing-10);
+    font-size: var(--token-font-size-base);
+  }
+
+  .modal-actions {
+    margin-top: var(--token-spacing-24);
+    flex-direction: column;
+    gap: var(--token-spacing-12);
+  }
+
+  .save-button,
+  .cancel-button {
+    width: 100%;
+    padding: var(--token-spacing-12);
+  }
+}

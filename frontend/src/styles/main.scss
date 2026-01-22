@@ -1,0 +1,25 @@
+/* Root cascade layers and core imports */
+@layer vendor, base, tokens, components, utilities, overrides;
+
+@layer tokens {
+  @use './tokens';
+}
+
+@layer utilities {
+  @use './utility-classes';
+}
+
+@layer base {
+  :root {
+    color-scheme: light dark;
+  }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    font-family: var(--token-font-family-base);
+    font-size: var(--token-font-size-md);
+    line-height: var(--token-line-height-base);
+    color: var(--token-text-primary);
+    background: var(--token-layer-background);
+  }
+}

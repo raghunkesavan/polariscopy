@@ -1,0 +1,29 @@
+/* Feature Icons Styles */
+
+.feature-icon-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--token-spacing-32);
+  height: var(--token-spacing-32);
+  border-radius: var(--token-spacing-4);
+  color: white;
+}
+
+.feature-icon-container.large {
+  width: var(--token-spacing-48);
+  height: var(--token-spacing-48);
+}
+
+.feature-icon-orange {
+  background-color: #ff9e2c !important; /* Adjust to match the orange in the image */
+}
+
+.feature-icon-green {
+  background-color: #4bca81 !important; /* Adjust to match the green in the image */
+}
+
+/* Ensure the SVG inside inherits the white color */
+.feature-icon-container svg {
+  fill: white !important;
+}

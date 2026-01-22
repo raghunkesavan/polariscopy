@@ -1,0 +1,733 @@
+/* Professional Admin Tables Styling - BTL & Bridge/Fusion Rates */
+/* Fully tokenized for theme compatibility */
+
+/* ============================================
+   DEPRECATED: Use .page-container instead!
+   Kept for backward compatibility only.
+   ============================================ */
+
+/* Container and Layout */
+.admin-table-container {
+  /* DEPRECATED: Use .page-container .page-container--table */
+  padding: var(--token-spacing-xl);
+  max-width: 100%;
+  background-color: var(--token-layer-surface);
+  border-radius: var(--token-radius-md);
+  box-shadow: var(--token-shadow-soft);
+}
+
+/* Header Section with Actions */
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--token-spacing-xl);
+  flex-wrap: wrap;
+  gap: var(--token-spacing-lg);
+  padding: var(--token-spacing-lg);
+  background: var(--token-layer-surface);
+  border-radius: var(--token-radius-md);
+}
+
+.table-actions-left {
+  display: flex;
+  gap: var(--token-spacing-md);
+  flex-wrap: wrap;
+  align-items: center;
+  order: 2; /* Move action buttons to the right */
+}
+
+.table-actions-right {
+  display: flex;
+  align-items: center;
+  gap: var(--token-spacing-lg);
+  order: 1; /* Move pagination to the left */
+}
+
+/* Stacked Header Layout (for admin pages) */
+.table-header-stacked {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--token-spacing-md);
+  margin-bottom: var(--token-spacing-xl);
+  background: var(--token-layer-surface);
+  border-radius: var(--slds-g-radius-border-3);
+}
+
+/* Title row: heading on left, action buttons on right */
+.table-header-stacked .table-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--token-spacing-lg);
+  width: 100%;
+}
+
+.table-header-stacked .table-title-row h1 {
+  margin: 0;
+  font-size: var(--token-font-size-xl-plus);
+  font-weight: bold;
+}
+
+.table-header-stacked .table-actions-row {
+  display: flex;
+  gap: var(--token-spacing-md);
+  align-items: center;
+}
+
+/* Pagination row with space above */
+.table-header-stacked .pagination-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: var(--token-spacing-sm);
+}
+
+/* Pagination row when positioned below table */
+.pagination-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: var(--token-spacing-xl);
+  padding-top: var(--token-spacing-lg);
+  border-top: 1px solid var(--token-border-subtle);
+}
+
+/* Filter date range grouping */
+.filter-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--token-spacing-xs);
+}
+
+.filter-field-group .filter-group-label {
+  font-size: var(--token-font-size-xs);
+  font-weight: var(--token-font-weight-medium);
+  color: var(--token-text-secondary);
+  letter-spacing: 0.5px;
+}
+
+.filter-date-range {
+  display: flex;
+  align-items: center;
+  gap: var(--token-spacing-xs);
+}
+
+/* ⚠️ DEPRECATED: Use .slds-input directly for date inputs! */
+.filter-date-range input[type="date"] {
+  /* Extends .slds-input */
+  padding: 0 var(--slds-g-spacing-3);
+  border: 1px solid var(--slds-g-color-border-1);
+  border-radius: var(--slds-g-radius-border-2);
+  font-size: var(--token-font-size-sm-minus);
+  line-height: 1.875rem;
+  height: var(--slds-g-sizing-9);
+  min-width: 130px;
+  background-color: var(--slds-g-color-surface-container-1);
+  color: var(--slds-g-color-on-surface-2);
+  box-sizing: border-box;
+  font-family: var(--slds-font-family);
+  transition: border-color 0.1s linear, box-shadow 0.1s linear;
+}
+
+.filter-date-range input[type="date"]:focus {
+  outline: 0;
+  border-color: var(--slds-g-color-accent-2);
+  box-shadow: 0 0 0 2px rgba(2, 80, 217, 0.2);
+}
+
+.filter-date-range .date-separator {
+  color: var(--token-text-secondary);
+  font-size: var(--token-font-size-sm);
+  padding: 0 var(--token-spacing-xs);
+}
+
+/* Advanced Filters Section */
+.filters-advanced {
+  background-color: var(--token-layer-surface);
+  border-top: 1px solid var(--token-border-subtle);
+  margin-top: calc(-1 * var(--token-spacing-md));
+  padding-top: var(--token-spacing-lg);
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Text destructive button style */
+.slds-button_text-destructive {
+  background: transparent;
+  color: var(--token-danger);
+  border: none;
+  padding: var(--token-spacing-sm) var(--token-spacing-md);
+  font-size: var(--token-font-size-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.slds-button_text-destructive:hover {
+  color: var(--token-danger-hover, #c23934);
+  text-decoration: underline;
+}
+
+/* Legacy button classes removed - Use SLDS classes instead:
+   .slds-button .slds-button_brand (primary actions)
+   .slds-button .slds-button_outline-brand (secondary actions)
+   .slds-button .slds-button_destructive (delete/dangerous actions)
+   .slds-button .slds-button_neutral (neutral actions) */
+}
+
+.btn-neutral:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-neutral:disabled:hover {
+  background: var(--slds-g-color-surface-container-1);
+  transform: none;
+}
+
+/* Total Count Badge */
+.total-count {
+  display: inline-flex;
+  align-items: center;
+  background: var(--token-layer-hover);
+  padding: var(--token-spacing-sm) var(--token-spacing-lg);
+  border-radius: var(--token-radius-md);
+  font-weight: var(--token-font-weight-semibold);
+  color: var(--token-interactive);
+  font-size: var(--token-font-size-sm);
+  border: 1px solid var(--token-border-subtle);
+}
+
+/* ============================================
+   PAGINATION CONTROLS
+   ⚠️ DEPRECATED: Use .slds-pagination classes instead!
+   
+   Migration path:
+   .pagination-controls → .slds-pagination
+   .pagination-info     → .slds-pagination__info
+   .rows-per-page       → .slds-pagination__rows
+   ============================================ */
+
+.pagination-controls {
+  /* Extends .slds-pagination */
+  display: flex;
+  align-items: center;
+  gap: var(--token-spacing-md);
+}
+
+.pagination-info {
+  /* Extends .slds-pagination__info */
+  font-weight: var(--token-font-weight-medium);
+  color: var(--token-text-primary);
+  white-space: nowrap;
+  font-size: var(--token-font-size-sm);
+}
+
+.rows-per-page {
+  /* Extends .slds-pagination__rows */
+  display: flex;
+  align-items: center;
+  gap: var(--token-spacing-sm);
+}
+
+.rows-per-page label {
+  /* Extends .slds-pagination__rows label */
+  font-weight: var(--token-font-weight-medium);
+  color: var(--token-text-secondary);
+  font-size: var(--token-font-size-xs);
+}
+
+.rows-per-page select {
+  /* Extends .slds-pagination__rows select (and .slds-select) */
+  padding: var(--slds-g-spacing-2) var(--slds-g-spacing-3);
+  border: 1px solid var(--slds-g-color-border-1);
+  border-radius: var(--slds-g-radius-border-2);
+  font-size: var(--token-font-size-sm);
+  line-height: 1.875rem;
+  min-height: var(--slds-g-sizing-9);
+  background: var(--slds-g-color-surface-container-1);
+  color: var(--slds-g-color-on-surface-2);
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.15s ease;
+  box-sizing: border-box;
+  font-family: var(--slds-font-family);
+}
+
+.rows-per-page select:hover {
+  border-color: var(--token-interactive);
+}
+
+.rows-per-page select:focus {
+  outline: 0;
+  border-color: var(--slds-g-color-accent-2);
+  box-shadow: 0 0 0 2px rgba(2, 80, 217, 0.2);
+}
+
+/* Filters Section */
+.filters-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--token-form-field-gap, 2rem);
+  padding: var(--token-spacing-xl);
+  background: var(--token-layer-surface);
+  border-radius: var(--slds-g-radius-border-3);
+  margin-bottom: var(--token-spacing-xl);
+  border: 1px solid var(--token-border-subtle);
+  box-shadow: var(--token-shadow-soft);
+}
+
+/* Compact variant when preceding section already provides spacing */
+.filters-section--compact {
+  margin-top: 0; /* token-friendly: explicit zero */
+}
+
+/* ⚠️ DEPRECATED: Use .slds-form-element instead!
+   Legacy filter field wrapper kept for backward compatibility.
+   Migration: Wrap inputs in .slds-form-element > .slds-form-element__control */
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--token-spacing-xs);
+  min-width: 160px;
+  flex: 1 1 auto;
+}
+
+.filter-field label {
+  font-weight: var(--token-font-weight-semibold);
+  color: var(--token-text-primary);
+  font-size: var(--token-font-size-xs);
+  letter-spacing: 0.5px;
+}
+
+/* ⚠️ DEPRECATED: These extend .slds-select - use .slds-select directly!
+   Kept for backward compatibility with existing admin components. */
+.filter-field select {
+  /* Extends .slds-select */
+  padding: 0 var(--slds-g-spacing-3);
+  border: 1px solid var(--slds-g-color-border-1);
+  border-radius: var(--slds-g-radius-border-2);
+  font-size: var(--token-font-size-sm);
+  line-height: 1.875rem;
+  height: var(--slds-g-sizing-9);
+  background: var(--slds-g-color-surface-container-1);
+  color: var(--slds-g-color-on-surface-2);
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.15s ease;
+  box-sizing: border-box;
+  font-family: var(--slds-font-family);
+}
+
+.filter-field select:hover {
+  border-color: var(--token-interactive);
+}
+
+.filter-field select:focus {
+  outline: none;
+  border-color: var(--slds-g-color-accent-2);
+  box-shadow: 0 0 0 3px rgba(2,80,217,0.08);
+}
+
+/* ⚠️ DEPRECATED: Use .slds-input directly! */
+.filter-field input {
+  /* Extends .slds-input */
+  padding: 0 var(--slds-g-spacing-3);
+  border: 1px solid var(--slds-g-color-border-1);
+  border-radius: var(--slds-g-radius-border-2);
+  font-size: var(--token-font-size-sm);
+  line-height: 1.875rem;
+  height: var(--slds-g-sizing-9);
+  background: var(--slds-g-color-surface-container-1);
+  color: var(--slds-g-color-on-surface-2);
+  transition: border-color 0.2s ease, box-shadow 0.15s ease;
+  box-sizing: border-box;
+  font-family: var(--slds-font-family);
+}
+
+.filter-field input:focus {
+  outline: none;
+  border-color: var(--slds-g-color-accent-2);
+  box-shadow: 0 0 0 3px rgba(2,80,217,0.08);
+}
+
+/* Table Container */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: var(--slds-g-radius-border-3);
+  box-shadow: var(--token-shadow-soft);
+  border: 1px solid var(--token-border-subtle);
+  background: var(--token-layer-surface);
+}
+
+/* When inside accordion sections, drop outer border to avoid double borders */
+.settings-accordion-section .table-wrapper {
+  border: none;
+  box-shadow: none;
+  border-radius: var(--slds-g-radius-border-2);
+}
+
+/* Generic section header/body helpers for tokenized spacing */
+.section-header {
+  padding: var(--token-spacing-lg);
+  border-bottom: 1px solid var(--token-border-subtle);
+}
+
+.section-body {
+  padding: var(--token-spacing-lg);
+}
+
+.section-subtitle {
+  padding: var(--token-spacing-sm) var(--token-spacing-md);
+  margin: 0;
+}
+
+/* ⚠️ DEPRECATED: Use .slds-table directly!
+   Legacy professional-table class kept for backward compatibility.
+   
+   Migration path:
+   .professional-table                    → .slds-table
+   .professional-table thead th.sortable  → .slds-table th.sortable
+   .professional-table thead th.sorted-asc → .slds-table th.sorted-asc
+   .professional-table thead th.sorted-desc → .slds-table th.sorted-desc
+   .professional-table thead th.sticky-action → .slds-table th.sticky-action
+   .professional-table tbody td.sticky-action → .slds-table td.sticky-action
+*/
+
+/* Professional Table Styling - Extends .slds-table */
+.professional-table {
+  /* Extends .slds-table */
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--token-layer-surface);
+  font-family: var(--slds-font-family);
+}
+
+.professional-table thead {
+  background: var(--token-layer-surface);
+}
+
+.professional-table thead th {
+  /* Extends .slds-table th */
+  padding: var(--token-spacing-lg) var(--token-spacing-md);
+  text-align: left;
+  font-weight: var(--token-font-weight-semibold);
+  font-size: var(--token-font-size-xs);
+  color: var(--token-text-primary);
+  letter-spacing: 0.5px;
+  border-bottom: var(--token-spacing-2) solid var(--token-interactive);
+  white-space: nowrap;
+  position: relative;
+  background: var(--token-layer-surface);
+  line-height: 1.5;
+}
+
+.professional-table thead th.sortable {
+  /* Extends .slds-table th.sortable */
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+.professional-table thead th.sortable:hover {
+  background: var(--token-layer-hover);
+}
+
+.professional-table thead th.sortable::after {
+  content: '⇅';
+  margin-left: var(--token-spacing-sm);
+  opacity: 0.3;
+  font-size: var(--token-font-size-sm);
+}
+
+.professional-table thead th.sorted-asc::after {
+  /* Extends .slds-table th.sorted-asc */
+  content: '▲';
+  opacity: 1;
+  color: var(--token-interactive);
+}
+
+.professional-table thead th.sorted-desc::after {
+  /* Extends .slds-table th.sorted-desc */
+  content: '▼';
+  opacity: 1;
+  color: var(--token-interactive);
+}
+
+.professional-table tbody td {
+  /* Extends .slds-table td */
+  padding: var(--token-spacing-lg) var(--token-spacing-md);
+  font-size: var(--token-font-size-sm);
+  color: var(--token-text-primary);
+  border-bottom: 1px solid var(--token-border-subtle);
+  white-space: nowrap;
+  background: var(--token-layer-surface);
+  line-height: 1.5;
+}
+
+/* Empty state cell padding using tokens */
+.empty-cell {
+  color: var(--token-text-secondary);
+  padding: var(--token-spacing-md) var(--token-spacing-lg) !important;
+}
+
+.professional-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.professional-table tbody tr:hover {
+  background: var(--token-layer-hover);
+}
+
+.professional-table tbody tr:hover td {
+  background: var(--token-layer-hover);
+}
+
+.professional-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Cell Alignment */
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* Checkbox Styling */
+.professional-table input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--token-interactive);
+}
+
+/* Row Actions */
+.row-actions {
+  display: flex;
+  gap: var(--token-spacing-sm);
+  align-items: center;
+  justify-content: center;
+}
+
+.row-actions .btn-neutral,
+.row-actions .btn-danger {
+  padding: var(--token-spacing-sm) var(--token-spacing-lg);
+  font-size: var(--token-font-size-xs);
+}
+
+/* Sticky Actions Column - Extends .slds-table sticky-action */
+.sticky-action {
+  position: sticky;
+  right: 0;
+  background: var(--token-layer-surface) !important;
+  z-index: var(--token-z-base);
+  box-shadow: var(--token-shadow-soft);
+}
+
+.professional-table thead th.sticky-action {
+  /* Extends .slds-table th.sticky-action */
+  background: var(--token-layer-surface) !important;
+  z-index: calc(var(--token-z-base) + 1) !important;
+  position: sticky;
+  right: 0;
+  box-shadow: var(--token-shadow-soft);
+}
+
+.professional-table tbody td.sticky-action {
+  /* Extends .slds-table td.sticky-action */
+  background: var(--token-layer-surface) !important;
+  position: sticky;
+  right: 0;
+  z-index: var(--token-z-base);
+  box-shadow: var(--token-shadow-soft);
+}
+
+.professional-table tbody tr:hover td.sticky-action {
+  background: var(--token-layer-hover) !important;
+}
+
+/* ============================================
+   LOADING & ERROR STATES
+   ⚠️ DEPRECATED: Use shared utility classes instead!
+   
+   Migration path:
+   .loading-overlay → .loading-state
+   .loading-spinner → .loading-spinner (from utilities.css)
+   .error-state     → .error-state (from utilities.css)
+   .error-box       → .error-message
+   ============================================ */
+
+.loading-overlay {
+  /* Extends .loading-state */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--token-spacing-2xl);
+  text-align: center;
+  background: var(--token-layer-background);
+}
+
+.loading-spinner {
+  /* Shared utility - defined in utilities.css */
+  width: var(--token-spacing-48);
+  height: var(--token-spacing-48);
+  border: var(--token-spacing-4) solid var(--token-border-subtle);
+  border-top: var(--token-spacing-4) solid var(--token-interactive);
+  border-radius: 50%;
+  animation: spinner-spin 1s linear infinite;
+  margin-bottom: var(--token-spacing-xl);
+}
+
+@keyframes spinner-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  /* Extends .loading-text from utilities.css */
+  color: var(--token-text-secondary);
+  font-size: var(--token-font-size-md);
+  font-weight: var(--token-font-weight-medium);
+}
+
+.error-state {
+  /* Shared utility - defined in utilities.css */
+  display: flex;
+  justify-content: center;
+  padding: var(--token-spacing-2xl);
+  background: var(--token-layer-background);
+}
+
+.error-box {
+  /* Extends .error-message */
+  background: var(--token-error-bg);
+  border: var(--token-spacing-2) solid var(--token-critical);
+  border-radius: var(--token-radius-md);
+  padding: var(--token-spacing-2xl);
+  max-width: 500px;
+  text-align: center;
+  box-shadow: var(--token-shadow-modal);
+}
+
+.error-box h3 {
+  color: var(--token-critical);
+  margin: 0 0 var(--token-spacing-lg) 0;
+  font-size: var(--token-font-size-lg);
+}
+
+.error-box p {
+  color: var(--token-text-secondary);
+  margin: 0 0 var(--token-spacing-xl) 0;
+  line-height: var(--token-line-height-base);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .table-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .table-actions-left,
+  .table-actions-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .pagination-controls {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-table-container {
+    padding: var(--token-spacing-lg);
+  }
+
+  .filters-section {
+    padding: var(--token-spacing-lg);
+  }
+
+  .filter-field {
+    min-width: 140px;
+  }
+
+  .professional-table thead th,
+  .professional-table tbody td {
+    padding: var(--token-spacing-sm);
+    font-size: var(--token-font-size-xs);
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-neutral,
+  .btn-danger {
+    padding: var(--token-spacing-sm) var(--token-spacing-lg);
+    font-size: var(--token-font-size-xs);
+  }
+
+  .sticky-action {
+    position: static;
+    box-shadow: none;
+  }
+  
+  .professional-table thead th.sticky-action,
+  .professional-table tbody td.sticky-action {
+    position: static;
+  }
+}
+
+@media (max-width: 480px) {
+  .table-actions-left {
+    flex-direction: column;
+    gap: var(--token-spacing-sm);
+  }
+
+  .table-actions-left button {
+    width: 100%;
+  }
+
+  .table-header-stacked {
+    align-items: stretch;
+  }
+
+  .table-header-stacked .table-actions-row,
+  .table-header-stacked .pagination-row {
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .filter-date-range {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-date-range .date-separator {
+    text-align: center;
+  }
+
+  .professional-table thead th,
+  .professional-table tbody td {
+    padding: var(--token-spacing-sm) var(--token-spacing-xs);
+    font-size: var(--token-font-size-xs);
+  }
+
+  .filter-field {
+    min-width: 100%;
+  }
+}

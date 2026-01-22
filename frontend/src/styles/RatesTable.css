@@ -1,0 +1,377 @@
+.rates-container {
+  padding: var(--token-spacing-20);
+}
+
+.table-actions {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-actions {
+  display: flex;
+  gap: var(--token-spacing-10);
+}
+
+/* ⚠️ DEPRECATED: Use .slds-pagination and .slds-pagination__button instead!
+   Migration path:
+   .pagination        → .slds-pagination__controls
+   .pagination button → .slds-pagination__button
+*/
+
+.pagination {
+  /* Extends .slds-pagination__controls */
+  display: flex;
+  align-items: center;
+  gap: var(--token-spacing-10);
+}
+
+.pagination button {
+  /* Extends .slds-pagination__button */
+  padding: var(--token-spacing-8) 16px;
+  border: 1px solid var(--token-border-subtle, #ddd);
+  background-color: var(--token-layer-surface, white);
+  cursor: pointer;
+  border-radius: var(--token-spacing-4);
+  font-size: var(--token-font-size-sm);
+  font-weight: var(--token-font-weight-medium);
+  transition: all 0.15s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: var(--slds-g-color-surface-container-3);
+  border-color: var(--token-interactive);
+}
+
+.pagination button:disabled {
+  background-color: var(--token-layer-background, #f5f5f5);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.pagination span {
+  margin: 0 10px;
+  font-size: var(--token-font-size-sm);
+  color: var(--token-text-primary);
+}
+
+input[type="checkbox"] {
+  width: var(--token-spacing-16);
+  height: var(--token-spacing-16);
+  cursor: pointer;
+}
+
+.table-actions button {
+  padding: var(--token-spacing-8) 16px;
+  border-radius: var(--token-spacing-4);
+  border: none;
+  cursor: pointer;
+  background-color: var(--token-interactive, #007bff);
+  color: var(--token-layer-surface, white);
+  font-weight: 500;
+}
+
+.table-actions button:hover {
+  background-color: var(--token-interactive-hover, #0056b3);
+}
+
+.add-button {
+  background-color: var(--token-success, #28a745) !important;
+}
+
+.add-button:hover {
+  background-color: color-mix(in srgb, var(--token-success, #28a745) 85%, black) !important;
+}
+
+.filters {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--token-spacing-15);
+  background-color: var(--token-layer-background, #f8f9fa);
+  padding: var(--token-spacing-15);
+  border-radius: var(--token-spacing-8);
+  box-shadow: var(--token-shadow-soft, 0 1px 3px rgba(0,0,0,0.1));
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--token-spacing-5);
+  min-width: 200px;
+}
+
+.filter-group label {
+  font-size: var(--token-font-size-xs);
+  font-weight: 600;
+  color: var(--token-text-secondary, #666);
+}
+
+/* ⚠️ DEPRECATED: Use .slds-input and .slds-select directly!
+   These extend SLDS classes for backward compatibility. */
+.filters input,
+.filters select {
+  /* Extends .slds-input / .slds-select */
+  padding: var(--slds-g-spacing-2) var(--slds-g-spacing-3);
+  border: 1px solid var(--slds-g-color-border-1);
+  border-radius: var(--slds-g-radius-border-2);
+  font-size: var(--token-font-size-sm);
+  line-height: 1.875rem;
+  min-height: var(--slds-g-sizing-9);
+  background-color: var(--slds-g-color-surface-container-1);
+  color: var(--slds-g-color-on-surface-2);
+  box-sizing: border-box;
+  font-family: var(--slds-font-family);
+  transition: border-color 0.1s linear, box-shadow 0.1s linear;
+}
+
+.filters select {
+  cursor: pointer;
+}
+
+.filters input:focus,
+.filters select:focus {
+  outline: none;
+  border-color: var(--slds-g-color-accent-2);
+  box-shadow: 0 0 0 3px rgba(2,80,217,0.08);
+}
+
+.filters select:hover {
+  border-color: var(--slds-g-color-border-2);
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+/* ⚠️ DEPRECATED: Use .slds-table directly!
+   Legacy rates-table class kept for backward compatibility.
+   Migration path: .rates-table → .slds-table
+*/
+.rates-table {
+  /* Extends .slds-table */
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+.rates-table th,
+.rates-table td {
+  /* Extends .slds-table th/td */
+  padding: var(--token-spacing-12);
+  text-align: left;
+  border-bottom: 1px solid var(--token-border-subtle, #ddd);
+}
+
+.rates-table th {
+  /* Extends .slds-table th */
+  background-color: var(--token-layer-background, #f8f9fa);
+  font-weight: 600;
+}
+
+.rates-table tr:hover {
+  /* Extends .slds-table tr:hover */
+  background-color: var(--token-layer-background, #f5f5f5);
+}
+
+.action-buttons {
+  display: flex;
+  gap: var(--token-spacing-8);
+}
+
+.edit-button,
+.delete-button {
+  padding: var(--token-spacing-6) var(--token-spacing-12);
+  border: none;
+  border-radius: var(--token-spacing-4);
+  cursor: pointer;
+  font-size: var(--token-font-size-sm);
+}
+
+.edit-button {
+  background-color: var(--token-interactive, #17a2b8);
+  color: var(--token-layer-surface, white);
+}
+
+.delete-button {
+  background-color: var(--token-critical, #dc3545);
+  color: var(--token-layer-surface, white);
+}
+
+.edit-button:hover {
+  background-color: color-mix(in srgb, var(--token-interactive, #17a2b8) 85%, black);
+}
+
+.delete-button:hover {
+  background-color: color-mix(in srgb, var(--token-critical, #dc3545) 90%, black);
+}
+
+/* ============================================
+   LOADING & ERROR STATES
+   ⚠️ DEPRECATED: Use shared utility classes instead!
+   
+   Migration path:
+   .loading-container → .loading-state
+   .loading-spinner   → .loading-spinner (from utilities.css)
+   .error-container   → .error-state
+   .error-message     → .error-message (from utilities.css)
+   ============================================ */
+
+.loading-container {
+  /* Extends .loading-state */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--token-spacing-40);
+  text-align: center;
+  color: var(--token-text-secondary, #666);
+}
+
+.loading-spinner {
+  /* Shared utility - defined in utilities.css */
+  border: var(--token-spacing-4) solid var(--token-layer-surface, #f3f3f3);
+  border-top: var(--token-spacing-4) solid var(--token-interactive, #007bff);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spinner-spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spinner-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-container {
+  /* Extends .error-state */
+  display: flex;
+  justify-content: center;
+  padding: var(--token-spacing-40);
+}
+
+.error-message {
+  /* Shared utility - defined in utilities.css */
+  background-color: color-mix(in srgb, var(--token-critical, #dc3545) 10%, white);
+  border: 1px solid var(--token-critical, #dc3545);
+  border-radius: var(--token-spacing-8);
+  padding: var(--token-spacing-20);
+  text-align: center;
+  max-width: 500px;
+}
+
+.error-message h3 {
+  /* Extends .error-message__title */
+  color: var(--token-critical, #dc3545);
+  margin: 0 0 10px 0;
+}
+
+.error-message p {
+  /* Extends .error-message__text */
+  margin: 0 0 20px 0;
+  color: var(--token-text-secondary, #666);
+}
+
+.error-message button {
+  /* Extends .error-message__button */
+  background-color: var(--token-critical, #dc3545);
+  color: var(--token-layer-surface, white);
+  border: none;
+  padding: var(--token-spacing-8) 16px;
+  border-radius: var(--token-spacing-4);
+  cursor: pointer;
+}
+
+.error-message button:hover {
+  background-color: color-mix(in srgb, var(--token-critical, #dc3545) 90%, black);
+}
+
+/* Responsive Styles for Mobile and Tablet */
+/* Uses standard breakpoints: tablet (768px), mobile (480px) */
+@media (max-width: 768px) {
+  .rates-container {
+    padding: var(--token-spacing-16);
+  }
+
+  .table-actions {
+    flex-direction: column;
+    gap: var(--token-spacing-12);
+    align-items: stretch;
+  }
+
+  .left-actions {
+    flex-wrap: wrap;
+  }
+
+  .pagination {
+    justify-content: center;
+  }
+
+  .slds-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table.slds-table {
+    font-size: var(--token-font-size-sm-plus);
+  }
+
+  .slds-table th,
+  .slds-table td {
+    padding: var(--token-spacing-10) var(--token-spacing-8);
+  }
+}
+
+@media (max-width: 480px) {
+  .rates-container {
+    padding: var(--token-spacing-12);
+  }
+
+  .table-actions button,
+  .pagination button {
+    padding: var(--token-spacing-10) var(--token-spacing-14);
+    font-size: var(--token-font-size-sm-plus);
+  }
+
+  table.slds-table {
+    font-size: var(--token-font-size-sm-minus);
+  }
+
+  .slds-table th,
+  .slds-table td {
+    padding: var(--token-spacing-8) 0.4rem;
+    white-space: nowrap;
+  }
+
+  /* Make checkboxes slightly smaller on mobile */
+  input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Sticky action column: keeps Actions visible when table scrolls horizontally */
+.sticky-action {
+  position: -webkit-sticky;
+  position: sticky;
+  right: 0;
+  background: var(--cds-background, #ffffff);
+  z-index: 5;
+  white-space: nowrap;
+  box-shadow: var(--token-shadow-soft, -6px 0 8px -6px rgba(0,0,0,0.08));
+}
+.sticky-action {
+  /* ensure header stands above body cells */
+  z-index: 6;
+}
+
+@media (max-width: 480px) {
+  /* On very small screens, sticky columns can interfere with layout; fall back to normal flow */
+  .sticky-action {
+    position: static;
+    box-shadow: none;
+    z-index: auto;
+  }
+}

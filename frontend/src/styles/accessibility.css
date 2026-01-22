@@ -1,0 +1,256 @@
+/* Accessibility Styles */
+
+/* Reduced Motion - Disable animations and transitions */
+.reduced-motion *,
+.reduced-motion *::before,
+.reduced-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* High Contrast Mode */
+.high-contrast {
+  --contrast-boost: 1.5;
+}
+
+.high-contrast * {
+  border-color: currentColor !important;
+}
+
+.high-contrast a {
+  color: var(--token-interactive) !important;
+  font-weight: 600 !important;
+}
+
+.high-contrast button,
+.high-contrast .slds-button {
+  border: var(--token-spacing-2) solid currentColor !important;
+  font-weight: 600 !important;
+}
+
+.high-contrast input,
+.high-contrast textarea,
+.high-contrast select {
+  border: var(--token-spacing-2) solid var(--token-border-strong) !important;
+}
+
+/* Font Size Settings */
+:root[data-font-size="small"] {
+  font-size: var(--token-font-size-xs);
+}
+
+:root[data-font-size="medium"] {
+  font-size: var(--token-font-size-sm);
+}
+
+:root[data-font-size="large"] {
+  font-size: var(--token-font-size-md);
+}
+
+:root[data-font-size="x-large"] {
+  font-size: var(--token-font-size-lg-minus);
+}
+
+/* Enhanced Focus Indicators */
+.enhanced-focus *:focus,
+.enhanced-focus *:focus-visible {
+  outline: var(--token-spacing-3) solid var(--token-interactive) !important;
+  outline-offset: var(--token-spacing-2) !important;
+  box-shadow: 0 0 0 3px var(--token-focus-ring) !important;
+}
+
+.enhanced-focus button:focus,
+.enhanced-focus a:focus,
+.enhanced-focus input:focus,
+.enhanced-focus select:focus,
+.enhanced-focus textarea:focus {
+  outline: var(--token-spacing-3) solid var(--token-interactive) !important;
+  outline-offset: var(--token-spacing-2) !important;
+}
+
+/* Text Spacing - Improved readability */
+.text-spacing {
+  line-height: 1.8 !important;
+  letter-spacing: 0.05em !important;
+}
+
+.text-spacing p,
+.text-spacing li,
+.text-spacing td,
+.text-spacing th {
+  line-height: 1.8 !important;
+  letter-spacing: 0.05em !important;
+  word-spacing: 0.16em !important;
+}
+
+.text-spacing h1,
+.text-spacing h2,
+.text-spacing h3,
+.text-spacing h4,
+.text-spacing h5,
+.text-spacing h6 {
+  line-height: 1.6 !important;
+  letter-spacing: 0.05em !important;
+  margin-bottom: 0.75em !important;
+}
+
+/* Link Underlines - Always visible */
+.link-underlines a {
+  text-decoration: underline !important;
+}
+
+.link-underlines a:hover {
+  text-decoration: underline !important;
+  text-decoration-thickness: var(--token-spacing-2) !important;
+}
+
+/* Ensure proper color contrast in dark mode */
+:root[data-carbon-theme="g100"] {
+  --cds-text-primary: var(--token-text-primary);
+  --cds-text-secondary: var(--token-text-secondary);
+  --cds-text-on-color: var(--token-layer-surface);
+}
+
+/* Skip to content link for keyboard navigation */
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: var(--token-interactive);
+  color: white;
+  padding: var(--token-spacing-12) 1.5rem;
+  text-decoration: none;
+  z-index: 9999;
+  border-radius: 0 0 0.25rem 0;
+  font-weight: 600;
+}
+
+.skip-to-content:focus {
+  top: 0;
+  outline: var(--token-spacing-3) solid var(--token-layer-surface);
+  outline-offset: var(--token-spacing-2);
+}
+
+/* Ensure interactive elements are keyboard accessible */
+[role="button"],
+[role="link"],
+[role="menuitem"] {
+  cursor: pointer;
+}
+
+[role="button"]:focus,
+[role="link"]:focus,
+[role="menuitem"]:focus {
+  outline: var(--token-spacing-2) solid var(--token-interactive);
+  outline-offset: var(--token-spacing-2);
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Accessible tooltips */
+[aria-describedby],
+[aria-labelledby] {
+  position: relative;
+}
+
+/* Ensure sufficient color contrast for disabled elements */
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* High contrast for form validation */
+.high-contrast input:invalid,
+.high-contrast textarea:invalid {
+  border-color: var(--token-critical) !important;
+  border-width: var(--token-spacing-3) !important;
+}
+
+.high-contrast input:valid,
+.high-contrast textarea:valid {
+  border-color: var(--token-success) !important;
+}
+
+/* Improved table accessibility */
+.enhanced-focus table th,
+.enhanced-focus table td {
+  padding: var(--token-spacing-16);
+}
+
+.enhanced-focus table tr:focus-within {
+  background-color: var(--token-focus-ring);
+  outline: var(--token-spacing-2) solid var(--token-interactive);
+}
+
+/* Ensure modals are properly focused */
+[role="dialog"] {
+  position: fixed;
+  z-index: 1000;
+}
+
+[role="dialog"]:focus {
+  outline: none;
+}
+
+/* Keyboard navigation helper */
+.keyboard-nav *:focus {
+  outline: var(--token-spacing-2) solid var(--token-interactive);
+  outline-offset: var(--token-spacing-2);
+}
+
+/* Print accessibility */
+@media print {
+  .skip-to-content,
+  nav,
+  .sidebar,
+  button:not([aria-label*="print"]) {
+    display: none;
+  }
+  
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: var(--token-text-primary);
+    background: var(--token-layer-surface);
+  }
+}
+
+/* Prefers reduced motion media query for system-level settings */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Prefers high contrast media query */
+@media (prefers-contrast: high) {
+  * {
+    border-color: currentColor !important;
+  }
+  
+  button,
+  a,
+  input {
+    border-width: var(--token-spacing-2) !important;
+  }
+}

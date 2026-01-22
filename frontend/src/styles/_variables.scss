@@ -1,0 +1,73 @@
+// Carbon-aligned theme tokens, surfaced as SCSS variables for legacy styles.
+$token-font-family: var(--token-font-family-base);
+$token-text-primary: var(--token-text-primary);
+$token-text-secondary: var(--token-text-secondary);
+$token-text-helper: var(--token-text-helper);
+$token-text-error: var(--token-text-error);
+$token-color-surface: var(--token-layer-surface);
+$token-color-background: var(--token-layer-background);
+$token-color-border-subtle: var(--token-border-subtle);
+$token-color-border-strong: var(--token-border-strong);
+$token-color-interactive: var(--token-interactive);
+$token-color-interactive-hover: var(--token-interactive-hover);
+$token-color-critical: var(--token-critical);
+$token-shadow-soft: var(--token-shadow-soft);
+$token-shadow-strong: var(--token-shadow-strong);
+$token-shadow-modal: var(--token-shadow-modal);
+$token-warning-bg: var(--token-warning-bg);
+$token-warning-text: var(--token-warning-text);
+$token-color-accent: var(--token-color-accent);
+$token-focus-ring: var(--token-focus-ring);
+$token-radius-sm: var(--token-radius-sm);
+$token-radius-md: var(--token-radius-md);
+
+$spacing-xs: var(--token-space-8);
+$spacing-sm: var(--token-space-12);
+$spacing-md: var(--token-space-16);
+$spacing-lg: var(--token-space-24);
+
+// =============================================================================
+// RESPONSIVE BREAKPOINTS
+// =============================================================================
+// Standardized breakpoint values for consistent responsive behavior across the app.
+// Use these variables with the mixins below for mobile-first responsive design.
+
+$breakpoint-mobile: 480px;   // Small phones
+$breakpoint-tablet: 768px;   // Tablets and large phones
+$breakpoint-desktop: 1024px; // Desktop and laptops
+$breakpoint-wide: 1440px;    // Wide desktop screens
+
+// =============================================================================
+// RESPONSIVE MIXINS
+// =============================================================================
+// Mobile-first approach: use max-width for smaller screens, min-width for larger.
+//
+// Usage examples:
+//   @include mobile { font-size: var(--token-font-size-sm); }
+//   @include tablet { grid-template-columns: repeat(2, 1fr); }
+//   @include desktop { grid-template-columns: repeat(4, 1fr); }
+
+@mixin mobile {
+  @media (max-width: $breakpoint-mobile) { @content; }
+}
+
+@mixin tablet {
+  @media (max-width: $breakpoint-tablet) { @content; }
+}
+
+@mixin desktop {
+  @media (min-width: $breakpoint-desktop) { @content; }
+}
+
+@mixin wide-desktop {
+  @media (min-width: $breakpoint-wide) { @content; }
+}
+
+// Additional utility mixins for precise control
+@mixin tablet-up {
+  @media (min-width: $breakpoint-tablet + 1px) { @content; }
+}
+
+@mixin desktop-down {
+  @media (max-width: $breakpoint-desktop - 1px) { @content; }
+}

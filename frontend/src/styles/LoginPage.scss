@@ -1,0 +1,267 @@
+// Import SLDS variables for consistent input styling
+@use './variables' as *;
+
+// Login Page Styles - Matching Design Specifications
+.login-page-container {
+  display: flex;
+  min-height: 100vh;
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--token-layer-hover);
+  font-family: var(--token-font-family-base);
+  position: relative;
+
+  // Left side - Login form
+  .login-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--token-spacing-32);
+    background-color: var(--token-layer-hover);
+
+    .login-card {
+      background: var(--token-layer-surface);
+      border-radius: var(--token-spacing-16);
+      padding: var(--token-spacing-48) 2.5rem;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: var(--token-shadow-soft);
+
+      .logo-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: var(--token-spacing-24);
+
+        img {
+          height: 80px;
+          width: auto;
+        }
+      }
+
+      .welcome-text {
+        text-align: center;
+        font-size: var(--token-font-size-md);
+        color: var(--token-text-primary);
+        margin-bottom: var(--token-spacing-32);
+        font-weight: 400;
+      }
+
+      .form-group {
+        margin-bottom: var(--token-spacing-20);
+
+        label {
+          display: block;
+          font-size: var(--token-font-size-sm);
+          color: var(--token-text-secondary);
+          margin-bottom: var(--token-spacing-2);
+          font-weight: 400;
+        }
+
+        .input-wrapper {
+          position: relative;
+
+          input {
+            width: 100%;
+            padding: 0 var(--token-spacing-lg) 0 var(--token-spacing-md);
+            line-height: 1.875rem;
+            min-height: calc(1.875rem + (1px * 2));
+            border: 1px solid var(--token-text-muted);
+            border-radius: var(--token-radius-md);
+            background-color: var(--token-layer-surface) !important;
+            color: var(--token-ui-text-dark);
+            transition: border 0.1s linear, background-color 0.1s linear;
+            font-family: var(--token-font-family-base);
+            font-size: var(--token-font-size-sm);
+
+            &:-webkit-autofill,
+            &:-webkit-autofill:hover, 
+            &:-webkit-autofill:focus, 
+            &:-webkit-autofill:active {
+                -webkit-box-shadow: 0 0 0 30px var(--token-layer-surface) inset !important;
+                -webkit-text-fill-color: var(--token-ui-text-dark) !important;
+            }
+
+            &:focus {
+              outline: 0;
+              border-color: var(--token-brand-primary);
+              box-shadow: 0 0 3px var(--token-focus-ring);
+            }
+
+            &::placeholder {
+              color: var(--token-text-muted);
+            }
+          }
+
+          .toggle-password {
+            position: absolute;
+            right: var(--token-spacing-12);
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--token-layer-surface);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            color: var(--token-text-secondary);
+
+            &:hover {
+              color: var(--token-text-primary);
+            }
+
+            svg {
+              width: var(--token-spacing-20);
+              height: var(--token-spacing-20);
+            }
+          }
+        }
+      }
+
+      .form-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--token-spacing-24);
+        margin-top: var(--token-spacing-16);
+
+        .remember-me-container {
+          display: flex;
+          align-items: center;
+
+          input[type="checkbox"] {
+            width: var(--token-spacing-16);
+            height: var(--token-spacing-16);
+            margin-right: var(--token-spacing-8);
+            cursor: pointer;
+            accent-color: var(--token-brand-primary);
+          }
+
+          label {
+            font-size: var(--token-font-size-sm);
+            color: var(--token-text-secondary);
+            cursor: pointer;
+            margin: 0;
+            user-select: none;
+          }
+        }
+
+        .login-button {
+          width: auto;
+          padding: var(--token-spacing-8) 2rem;
+          background-color: var(--token-brand-primary);
+          color: white;
+          border: none;
+          border-radius: var(--token-spacing-20);
+          font-size: var(--token-font-size-base-minus);
+          font-weight: 500;
+          cursor: pointer;
+          transition: background-color 0.2s ease;
+
+          &:hover:not(:disabled) {
+            background-color: var(--token-color-brand-blue-dark);
+          }
+
+          &:active:not(:disabled) {
+            background-color: var(--token-color-brand-blue-dark);
+          }
+
+          &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+          }
+        }
+      }
+
+      .forgot-password {
+        text-align: center;
+
+        a {
+          color: var(--token-brand-primary);
+          text-decoration: none;
+          font-size: var(--token-font-size-sm);
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .error-message {
+        background-color: var(--token-error-bg);
+        border: 1px solid var(--token-error);
+        color: var(--token-error);
+        padding: var(--token-spacing-12) 1rem;
+        border-radius: var(--token-spacing-6);
+        margin-bottom: var(--token-spacing-20);
+        font-size: var(--token-font-size-sm);
+      }
+    }
+
+    // Copyright footer - positioned below login card
+    .copyright {
+      text-align: center;
+      padding: var(--token-spacing-24);
+      margin-top: var(--token-spacing-32);
+      font-size: var(--token-font-size-xs-plus);
+      color: var(--token-text-secondary);
+    }
+  }
+
+  // Right side - Background image
+  .login-right {
+    flex: 1;
+    background-image: url('/assets/login_image.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+
+    // Overlay to darken the image slightly if needed
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  // Responsive design
+  @media (max-width: 1024px) {
+    flex-direction: column;
+
+    .login-left,
+    .login-right {
+      flex: none;
+    }
+
+    .login-left {
+      min-height: 100vh;
+    }
+
+    .login-right {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .login-left {
+      padding: var(--token-spacing-24);
+
+      .login-card {
+        padding: var(--token-spacing-32) 1.5rem;
+        max-width: 100%;
+      }
+
+      .copyright {
+        margin-top: var(--token-spacing-24);
+        font-size: var(--token-font-size-xs);
+      }
+    }
+  }
+}

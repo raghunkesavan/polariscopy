@@ -1,0 +1,142 @@
+{
+  "ui": {
+    "required_patterns": {
+      "design-system": "Must use Carbon Design System (@carbon/react) components as primary UI library with SLDS (Salesforce Lightning Design System) as secondary for specific patterns like icons",
+      "theme-management": "Must use ThemeContext and data-carbon-theme attribute for dark mode; support both .dark-mode class and [data-carbon-theme='g100'] selectors",
+      "modal-workflows": "Must use ModalShell wrapper component for all modals; modals drive key workflows (save quote, issue DIP, issue quote)",
+      "collapsible-sections": "Must use CollapsibleSection component for accordion patterns; typically only one section expanded at a time",
+      "responsive-breakpoints": "Must support 480px, 768px, 1024px, 1440px breakpoints; mobile-first approach"
+    },
+    "architectural_constraints": {
+      "styling-approach": "No inline styles except for dynamic values (width: ${val}%). Use CSS modules pattern with .scss files colocated with components. All color/spacing values must use design tokens (CSS variables starting with --token- or --slds-g-)",
+      "icon-usage": "Use SalesforceIcon component wrapper for all icons; icons come from Carbon (@carbon/icons-react) or custom SVG paths",
+      "component-structure": "Components should be functional with hooks; no class components. Use PropTypes for all component props",
+      "loading-states": "All data-fetching components must render loading state (Spinner or skeleton placeholders) and error states before showing data",
+      "accessibility": "All interactive elements must have proper ARIA labels, keyboard navigation support, and focus management"
+    }
+  },
+  "routing": {
+    "required_patterns": {
+      "client-side-routing": "Use React Router DOM v6 with declarative <Route> elements in App.jsx",
+      "protected-routes": "Must wrap authenticated pages with ProtectedRoute component which checks auth state from AuthContext",
+      "navigation-state": "Use location.state to pass data between routes (e.g., loadQuote object passed to calculator pages)"
+    },
+    "architectural_constraints": {
+      "route-structure": "Routes are flat (no nested routes); path patterns: /btl, /bridging, /quotes, /admin, /settings, /login, etc.",
+      "navigation-component": "Use Navigation or AppNav components for top-level navigation; Breadcrumbs for contextual navigation within calculators",
+      "route-guards": "Authentication checked at route level (ProtectedRoute); additional permission checks (canEditCalculators) performed within components"
+    }
+  },
+  "state-management": {
+    "required_patterns": {
+      "context-api": "Primary state management via React Context API; no Redux/Zustand/MobX",
+      "required-contexts": "Must use: AuthContext (user/auth), SupabaseContext (database client), ThemeContext (dark mode), ToastContext (notifications)",
+      "local-state": "Component-local state with useState for UI state; useEffect for side effects",
+      "custom-hooks": "Extract reusable stateful logic into custom hooks (prefix with 'use')"
+    },
+    "architectural_constraints": {
+      "context-providers": "All contexts wrapped at App root level; components access via useContext hooks",
+      "state-persistence": "User preferences stored in localStorage (theme, UI preferences, broker settings); quote data stored in Supabase",
+      "state-immutability": "Always use functional state updates for complex state (prev => ...), never mutate state directly",
+      "optimization": "Use React.memo, useMemo, useCallback for performance-critical calculations/renders"
+    }
+  },
+  "data-layer": {
+    "required_patterns": {
+      "supabase-client": "All database operations go through Supabase client from SupabaseContext",
+      "api-abstraction": "Frontend utility functions (quotes.js, generateDIPPDF.js, etc.) wrap Supabase calls",
+      "backend-api": "Backend Express server provides additional endpoints (PDF generation, rate imports, postcode lookup) via REST API",
+      "auth-integration": "Supabase auth for user authentication; JWT tokens for backend API calls"
+    },
+    "architectural_constraints": {
+      "data-fetching": "No React Query or SWR; direct Supabase queries with useEffect or in event handlers",
+      "error-handling": "Try-catch blocks with toast notifications for user feedback; errors logged to console/logger",
+      "caching": "No explicit caching layer; rely on browser cache and Supabase real-time subscriptions where needed",
+      "rls-policies": "Database access controlled by Supabase Row Level Security policies; frontend uses anon key, backend uses service role key"
+    }
+  },
+  "calculation-engines": {
+    "required_patterns": {
+      "btl-engine": "Must use btlCalculationEngine.js computeBTLLoan function for all BTL mortgage calculations",
+      "bridging-engine": "Must use BridgeFusionCalculator class from bridgeFusionCalculationEngine.js for bridging/fusion calculations",
+      "rate-filtering": "Must use rateFiltering.js functions (pickBestRate, computeTierFromAnswers) for rate selection logic",
+      "number-formatting": "Must use numberFormatting.js utilities (parseNumber, formatCurrency, formatPercent) for all financial display"
+    },
+    "architectural_constraints": {
+      "calculation-purity": "Calculation engines must be pure functions/classes with no side effects; deterministic outputs",
+      "validation": "All numeric inputs validated and sanitized before passing to calculation engines",
+      "optimization-strategies": "Engines support manual mode (user overrides) and auto mode (optimized values); sliders control rolled months and deferred interest",
+      "fee-column-structure": "Calculations performed per fee column (0-2%, 2-3%, 3%+); results stored in per-column state objects with column key"
+    }
+  },
+  "pdf-generation": {
+    "required_patterns": {
+      "client-side-pdf": "Use @react-pdf/renderer for quote PDFs generated in browser",
+      "server-side-pdf": "Use PDFKit on backend for DIP PDFs requiring server-side logic",
+      "pdf-components": "Create PDF-specific React components (BTLDIPPDF.jsx, BTLQuotePDF.jsx) using @react-pdf/renderer primitives",
+      "pdf-styling": "Define PDF styles in shared style files (BTLQuoteStyles.js, BTLDIPStyles.js) using @react-pdf/renderer StyleSheet"
+    },
+    "architectural_constraints": {
+      "pdf-data-flow": "PDF generation functions take quote data as input and return blob or trigger download; no direct database access in PDF components",
+      "broker-branding": "PDFs must include broker settings (company name, logo, procuration fee) from app_constants table",
+      "pdf-sections": "Use modular PDF section components (BrokerFeeSection, TitleInsuranceSection) for reusability",
+      "pdf-helpers": "Extract PDF data transformation logic into helper files (btlQuoteHelpers.js, dipHelpers.js)"
+    }
+  },
+  "authentication": {
+    "required_patterns": {
+      "supabase-auth": "Use Supabase Auth for authentication; email/password login with reset password flow",
+      "auth-context": "AuthContext provides currentUser, token, and permission methods (canEditCalculators, isUnderwriter, isAdmin)",
+      "access-levels": "4-level RBAC: 1=Admin, 2=Senior Broker, 3=Broker, 4=Underwriter (read-only)",
+      "protected-routes": "Wrap authenticated pages in ProtectedRoute component; redirects to /login if not authenticated"
+    },
+    "architectural_constraints": {
+      "token-management": "JWT token from Supabase stored in session; passed to backend in Authorization header",
+      "permission-checks": "Fine-grained permissions checked at component level (e.g., isReadOnly = !canEditCalculators())",
+      "logout-flow": "Clear auth state, remove tokens, redirect to login page",
+      "password-reset": "Email-based password reset via Supabase auth; separate ResetPasswordPage for token validation"
+    }
+  },
+  "design-system": {
+    "required_patterns": {
+      "carbon-components": "Primary: Carbon Design System (@carbon/react) - Button, Checkbox, InlineLoading, etc.",
+      "slds-utilities": "Secondary: SLDS utility classes (slds-button, slds-form-element, slds-table, slds-modal) for layout/styling",
+      "design-tokens": "All CSS values must reference design tokens (--token-*, --slds-g-*) defined in slds-tokens.css and tokens.scss",
+      "salesforce-icons": "Use SalesforceIcon component for consistent icon rendering; wraps Carbon icons with SLDS naming"
+    },
+    "architectural_constraints": {
+      "token-system": "Token values sourced from Figma (figma.config.json); pulled via scripts (pull-figma-tokens.mjs)",
+      "dark-mode-tokens": "Separate token values for light/dark themes; theme-aware CSS variables",
+      "no-hardcoded-values": "Zero magic numbers for colors, spacing, font sizes; all values via tokens",
+      "component-styling": "Components use mix of Carbon props and SLDS classes; colocated SCSS files for custom styles"
+    }
+  },
+  "admin-configuration": {
+    "required_patterns": {
+      "editable-constants": "Runtime-configurable settings via Constants admin panel; stored in app_constants table and localStorage",
+      "rate-management": "Admin can CRUD rates via RatesTable/RateEditModal; rates stored in rates table",
+      "broker-settings": "Per-user broker settings (company name, proc fee, product lists, fee columns) in app_constants; accessed via useBrokerSettings hook",
+      "uw-requirements": "Configurable underwriting requirements checklist via UWRequirementsAdmin; stored in localStorage and synced to app_constants"
+    },
+    "architectural_constraints": {
+      "settings-persistence": "Settings saved to both localStorage (immediate) and Supabase (sync); localStorage takes precedence",
+      "settings-reactivity": "Components listen to localStorage 'storage' events to reactively update when settings change",
+      "admin-access": "Admin-only pages protected by isAdmin() check; non-admins see read-only or limited views",
+      "validation": "All admin inputs validated (numeric ranges, required fields, data types) before persisting"
+    }
+  },
+  "testing": {
+    "required_patterns": {
+      "vitest-framework": "Use Vitest for unit/integration tests; vitest.config.js in frontend and backend",
+      "testing-library": "@testing-library/react for component tests; userEvent for interaction testing",
+      "test-structure": "Tests in __tests__ directories alongside source; use describe/it/expect pattern",
+      "calculation-tests": "Extensive tests for calculation engines (btlCalculationEngine.test.js, bridgeFusionCalculationEngine.test.js)"
+    },
+    "architectural_constraints": {
+      "test-coverage": "Critical paths (calculation engines, data transformations) must have >80% coverage",
+      "mock-strategy": "Mock Supabase client, external APIs, and browser APIs (localStorage, fetch)",
+      "snapshot-testing": "Minimal snapshot testing; prefer explicit assertions",
+      "e2e-tests": "Integration tests verify end-to-end calculator workflows (calculationE2E.test.js)"
+    }
+  }
+}

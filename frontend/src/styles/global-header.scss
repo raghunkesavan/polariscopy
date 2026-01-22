@@ -1,0 +1,177 @@
+/* Salesforce-style Global Header */
+/* Clean, minimal header matching Salesforce Lightning Design System */
+
+.sf-global-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 44px;
+  padding: 0 2rem;
+  background: var(--token-color-white);
+  border-bottom: 1px solid var(--token-border-medium);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.sf-global-header__left {
+  display: flex;
+  align-items: center;
+  gap: var(--token-spacing-12);
+}
+
+.sf-global-header__right {
+  display: flex;
+  align-items: center;
+  gap: var(--token-spacing-12);
+}
+
+/* Brand Section */
+.sf-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--token-spacing-8);
+}
+
+.sf-brand__logo {
+  height: var(--token-spacing-24);
+  width: auto;
+}
+
+.sf-brand__name {
+  font-size: var(--token-font-size-sm);
+  font-weight: 500;
+  color: var(--token-text-primary);
+  white-space: nowrap;
+}
+
+/* Icon Buttons in Header (Theme Toggle, Profile) */
+.sf-icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--token-spacing-32);
+  height: var(--token-spacing-32);
+  background: transparent;
+  border: none;
+  border-radius: var(--token-spacing-4);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  color: var(--token-text-muted);
+
+  &:hover {
+    background-color: var(--token-ui-background-subtle);
+    color: var(--token-text-primary);
+  }
+
+  &:active {
+    background-color: var(--token-ui-background-neutral);
+  }
+
+  .sf-icon {
+    width: var(--token-spacing-20);
+    height: var(--token-spacing-20);
+  }
+}
+
+/* Profile Button (with user image/avatar) */
+.sf-profile-button {
+  display: flex;
+  align-items: center;
+  gap: var(--token-spacing-8);
+  padding: var(--token-spacing-4) 0.5rem;
+  background: transparent;
+  border: none;
+  border-radius: var(--token-spacing-4);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: var(--token-ui-background-subtle);
+  }
+
+  &:active {
+    background-color: var(--token-ui-background-neutral);
+  }
+
+  .sf-profile-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--token-info);
+    color: var(--token-color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--token-font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .sf-profile-name {
+    font-size: var(--token-font-size-xs-plus);
+    color: var(--token-text-primary);
+  }
+}
+
+/* Dark Theme Support */
+[data-carbon-theme="g100"] {
+  .sf-global-header {
+    background: var(--token-layer-background);
+    border-bottom-color: var(--token-border-subtle);
+  }
+
+  .sf-brand__name {
+    color: var(--token-text-primary);
+  }
+
+  .sf-icon-button {
+    color: var(--token-text-muted);
+
+    &:hover {
+      background-color: var(--token-ui-background-hover);
+      color: var(--token-text-primary);
+    }
+
+    &:active {
+      background-color: var(--token-border-subtle);
+    }
+  }
+
+  .sf-profile-button {
+    &:hover {
+      background-color: var(--token-ui-background-hover);
+    }
+
+    &:active {
+      background-color: var(--token-border-subtle);
+    }
+
+    .sf-profile-name {
+      color: var(--token-text-primary);
+    }
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sf-global-header {
+    padding: 0 0.75rem;
+  }
+
+  .sf-brand__name {
+    display: none;
+  }
+
+  .sf-global-header__left {
+    gap: var(--token-spacing-8);
+  }
+
+  .sf-global-header__right {
+    gap: var(--token-spacing-8);
+  }
+
+  .sf-profile-name {
+    display: none;
+  }
+}

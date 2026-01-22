@@ -1,0 +1,93 @@
+/* Status Badges - Salesforce-style status indicators */
+
+.slds-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--token-spacing-4) 0.5rem;
+  font-size: var(--token-font-size-xs);
+  font-weight: 600;
+  line-height: 1;
+  border-radius: var(--token-spacing-4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* Status variants */
+.slds-badge_default {
+  background-color: var(--token-ui-background-subtle);
+  color: var(--token-text-secondary);
+  border: 1px solid var(--token-border-medium);
+}
+
+.slds-badge_inverse {
+  background-color: var(--token-text-gray-dark);
+  color: white;
+  border: 1px solid var(--token-text-gray-dark);
+}
+
+.slds-theme_success,
+.slds-badge_success {
+  background-color: var(--token-success);
+  color: white;
+  border: 1px solid var(--token-success);
+}
+
+.slds-theme_warning,
+.slds-badge_warning {
+  background-color: var(--token-warning);
+  color: var(--token-text-secondary);
+  border: 1px solid var(--token-warning);
+}
+
+.slds-theme_error,
+.slds-badge_error {
+  background-color: var(--token-error);
+  color: white;
+  border: 1px solid var(--token-error-dark);
+}
+
+.slds-theme_info,
+.slds-badge_info {
+  background-color: var(--token-interactive, #0250d9);
+  color: white;
+  border: 1px solid var(--token-interactive-hover, #022ac0);
+}
+
+/* Dark mode adjustments */
+.dark-mode .slds-badge_default,
+:root[data-carbon-theme="g100"] .slds-badge_default {
+  background-color: var(--token-text-secondary);
+  color: var(--token-ui-background-subtle);
+  border-color: var(--token-text-gray-dark);
+}
+
+.dark-mode .slds-badge_inverse,
+:root[data-carbon-theme="g100"] .slds-badge_inverse {
+  background-color: var(--token-ui-background-subtle);
+  color: var(--token-text-secondary);
+  border-color: var(--token-border-medium);
+}
+
+/* Size variants */
+.slds-badge_small {
+  padding: var(--token-spacing-2) 0.375rem;
+  font-size: var(--token-font-size-2xs);
+}
+
+.slds-badge_large {
+  padding: var(--token-spacing-6) 0.75rem;
+  font-size: var(--token-font-size-sm);
+}
+
+/* With icon */
+.slds-badge-with-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--token-spacing-4);
+}
+
+.slds-badge-with-icon svg {
+  width: var(--token-spacing-12);
+  height: var(--token-spacing-12);
+}

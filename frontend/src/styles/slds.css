@@ -1,0 +1,1421 @@
+/* Import Salesforce Sans font */
+@font-face {
+  font-family: 'Salesforce Sans';
+  src: url('https://www.sfdcstatic.com/system/shared/common/assets/fonts/SalesforceSans/SalesforceSans-Regular.woff2') format('woff2'),
+       url('https://www.sfdcstatic.com/system/shared/common/assets/fonts/SalesforceSans/SalesforceSans-Regular.woff') format('woff');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Salesforce Sans';
+  src: url('https://www.sfdcstatic.com/system/shared/common/assets/fonts/SalesforceSans/SalesforceSans-Bold.woff2') format('woff2'),
+       url('https://www.sfdcstatic.com/system/shared/common/assets/fonts/SalesforceSans/SalesforceSans-Bold.woff') format('woff');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Salesforce Sans';
+  src: url('https://www.sfdcstatic.com/system/shared/common/assets/fonts/SalesforceSans/SalesforceSans-Light.woff2') format('woff2'),
+       url('https://www.sfdcstatic.com/system/shared/common/assets/fonts/SalesforceSans/SalesforceSans-Light.woff') format('woff');
+  font-weight: 300;
+}
+
+/* Salesforce Lightning Design System inspired styles */
+:root {
+  --slds-font-family: 'Salesforce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --slds-color-blue-50: rgb(1, 68, 134);
+  --slds-color-blue-20: rgb(2, 126, 254);
+  --slds-color-gray-1: rgb(243, 243, 243);
+  --slds-color-gray-2: rgb(250, 250, 250);
+  --slds-color-gray-3: rgb(224, 229, 238);
+  --slds-color-gray-4: rgb(201, 199, 197);
+  --slds-color-text-default: rgb(8, 7, 7);
+  --slds-color-text-weak: rgb(62, 62, 60);
+  --slds-border-radius: 0.25rem;
+}
+
+/* Common Table Styles */
+/* Apply Salesforce Sans to all SLDS components */
+.slds-scope,
+[class*='slds-'],
+[class*='slds-'] * {
+  font-family: var(--slds-font-family);
+}
+
+/* Apply SLDS font globally for app shell and headers */
+body,
+.app-container {
+  font-family: var(--slds-font-family);
+}
+
+.slds-table {
+  background-color: var(--token-layer-surface, white);
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  font-family: var(--slds-font-family);
+}
+
+.slds-table th {
+  background: var(--token-layer-surface, var(--slds-color-gray-2));
+  padding: var(--token-spacing-lg, 0.75rem) var(--token-spacing-md, 0.5rem);
+  font-weight: var(--token-font-weight-semibold, 600);
+  text-align: left;
+  line-height: 1.5;
+  font-size: var(--token-font-size-xs, 0.75rem);
+  color: var(--token-text-primary, var(--slds-color-text-weak));
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  position: relative;
+}
+
+.slds-table td {
+  padding: var(--token-spacing-md, 0.5rem);
+  line-height: 1.5;
+  font-size: var(--token-font-size-sm, 0.875rem);
+  color: var(--token-text-primary, var(--slds-color-text-default));
+  border-bottom: 1px solid var(--token-border-subtle, var(--slds-color-gray-3));
+  white-space: nowrap;
+  background: var(--token-layer-surface, white);
+}
+
+.slds-table tr {
+  transition: background-color 0.15s ease;
+}
+
+.slds-table tr:hover {
+  background-color: var(--token-layer-hover, var(--slds-color-gray-1));
+}
+
+.slds-table tr:hover td {
+  background: var(--token-layer-hover, var(--slds-color-gray-1));
+}
+
+.slds-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Sortable table headers */
+.slds-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+.slds-table th.sortable:hover {
+  background: var(--token-layer-hover, var(--slds-color-gray-3));
+}
+
+.slds-table th.sortable::after {
+  content: '⇅';
+  margin-left: var(--token-spacing-sm, 0.25rem);
+  opacity: 0.3;
+  font-size: var(--token-font-size-sm, 0.875rem);
+}
+
+.slds-table th.sorted-asc::after {
+  content: '▲';
+  opacity: 1;
+  color: var(--token-interactive, #0176d3);
+}
+
+.slds-table th.sorted-desc::after {
+  content: '▼';
+  opacity: 1;
+  color: var(--token-interactive, #0176d3);
+}
+
+/* Sticky action column */
+.slds-table th.sticky-action {
+  position: sticky;
+  right: 0;
+  background: var(--token-layer-surface, white) !important;
+  z-index: calc(var(--token-z-base, 10) + 1) !important;
+  box-shadow: var(--token-shadow-soft, -2px 0 4px rgba(0,0,0,0.1));
+}
+
+.slds-table td.sticky-action {
+  position: sticky;
+  right: 0;
+  background: var(--token-layer-surface, white) !important;
+  z-index: var(--token-z-base, 10);
+  box-shadow: var(--token-shadow-soft, -2px 0 4px rgba(0,0,0,0.1));
+}
+
+.slds-table tr:hover td.sticky-action {
+  background: var(--token-layer-hover, var(--slds-color-gray-1)) !important;
+}
+
+/* Button Styles */
+.slds-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--slds-g-spacing-4);
+  border: 1px solid transparent;
+  border-radius: var(--slds-g-radius-border-2);
+  font-size: 0.8125rem;
+  line-height: 1.875rem;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.05s linear, background-color 0.05s linear;
+}
+
+.slds-button_brand {
+  padding: 0 var(--slds-g-spacing-4);
+  background-color: var(--slds-g-color-accent-2);
+  border-color: var(--slds-g-color-accent-2);
+  color: var(--slds-g-color-on-surface-inverse-1);
+  border-radius: var(--token-radius-btn);
+}
+
+.slds-button_brand:hover {
+  background-color: var(--slds-g-color-accent-3);
+  border-color: var(--slds-g-color-accent-3);
+}
+
+.slds-button_issue-quote {
+  padding: 0 var(--slds-g-spacing-4);
+  background-color: var(--token-color-issue-quote);
+  border-color: var(--token-color-issue-quote);
+  color: white;
+  border-radius: var(--token-radius-btn);
+}
+
+.slds-button_issue-quote:hover {
+  background-color: var(--token-color-issue-quote-hover);
+  border-color: var(--token-color-issue-quote-hover);
+}
+
+.slds-button_neutral {
+  padding: 0 var(--slds-g-spacing-4);
+  background-color: var(--slds-g-color-surface-container-1);
+  border: 1px solid var(--slds-g-color-border-1);
+  color: var(--slds-g-color-on-surface-1);
+  border-radius: var(--token-radius-btn);
+}
+
+.slds-button_neutral:hover {
+  background-color: var(--slds-g-color-surface-container-2);
+}
+
+.slds-button_destructive {
+  padding: 0 1rem;
+  background-color: var(--token-danger, #c23934);
+  border-color: var(--token-danger, #c23934);
+  color: var(--token-text-inverse, white);
+  border-radius: var(--token-radius-btn)
+}
+
+.slds-button_destructive:hover {
+  background-color: var(--token-danger-hover, #a61a14);
+  border-color: var(--token-danger-hover, #a61a14);
+}
+
+.slds-button_outline-brand {
+  padding: 0 var(--slds-g-spacing-4);
+  background-color: transparent;
+  border: 1px solid var(--slds-g-color-accent-2);
+  color: var(--slds-g-color-accent-2);
+}
+
+.slds-button_outline-brand:hover {
+  background-color: var(--slds-g-color-accent-2);
+  border-color: var(--slds-g-color-accent-2);
+  color: var(--slds-g-color-on-surface-inverse-1);
+}
+
+/* Success Button - for positive actions like "New Quote" */
+.slds-button_success {
+  padding: 0 1rem;
+  background-color: var(--token-success-action, #00a89d);
+  border-color: var(--token-success-action, #00a89d);
+  color: var(--token-text-inverse, white);
+  font-weight: var(--token-font-weight-semibold, 600);
+  box-shadow: var(--token-shadow-soft);
+  border-radius: var(--token-radius-btn)
+}
+
+.slds-button_success:hover {
+  background-color: var(--token-success-action-hover, #008c82);
+  border-color: var(--token-success-action-hover, #008c82);
+  transform: translateY(-1px);
+}
+
+.slds-button_success:active {
+  transform: translateY(0);
+}
+
+/* Disabled state for all button variants */
+.slds-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.slds-button:disabled:hover {
+  transform: none;
+}
+
+/* ============================================
+   BUTTON GROUPS - Toggle & Segmented Controls
+   ============================================ */
+
+/* Button Group - standard flex layout with gap support */
+.slds-button-group {
+  display: flex;
+  align-items: center;
+}
+
+.slds-button-group > * + * {
+  margin-left: 0;
+}
+
+/* Toggle Button Group - for binary choices (Direct Client/Broker) */
+.slds-button-group_toggle {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--slds-g-color-border-1);
+  border-radius: var(--token-radius-btn);
+  min-height: var(--slds-g-sizing-10) ;
+}
+
+.slds-button-group_toggle .slds-button {
+  flex: 1;
+  border: none;
+  border-right: 1px solid var(--slds-g-color-border-1);
+  background: var(--slds-g-color-surface-container-1);
+  color: var(--slds-g-color-on-surface-2);
+  font-weight: 500;
+  transition: all 0.15s ease;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Left button - rounded on left side */
+.slds-button-group_toggle > .slds-button:first-child {
+  border-radius: var(--token-radius-btn-left, 88px 0 0 88px) !important;
+}
+
+/* Right button - rounded on right side */
+.slds-button-group_toggle > .slds-button:last-child {
+  border-right: none;
+  border-radius: var(--token-radius-btn-right, 0 88px 88px 0) !important;
+}
+
+/* Middle buttons (if any) - no radius */
+.slds-button-group_toggle > .slds-button:not(:first-child):not(:last-child) {
+  border-radius: 0 !important;
+}
+
+.slds-button-group_toggle .slds-button:hover:not(.slds-is-selected) {
+  background: var(--slds-g-color-surface-container-3);
+}
+
+.slds-button-group_toggle .slds-button.slds-is-selected {
+  background: var(--slds-g-color-accent-2);
+  color: var(--slds-g-color-on-surface-inverse-1);
+  font-weight: 600;
+}
+
+/* Segmented Button Group - for range selection (Specialist/Core range) */
+.slds-button-group_segmented {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--slds-g-color-border-1);
+  border-radius: var(--token-radius-btn);
+  background: var(--slds-g-color-surface-container-1);
+}
+
+.slds-button-group_segmented .slds-button {
+  flex: 1;
+  border: none;
+  border-right: 1px solid var(--slds-g-color-border-1);
+  background: var(--slds-g-color-surface-container-1);
+  color: var(--slds-g-color-on-surface-2);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  padding: var(--slds-g-spacing-3) var(--slds-g-spacing-6);
+  transition: all 0.15s ease;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Left button - rounded on left side */
+.slds-button-group_segmented > .slds-button:first-child {
+  border-radius: var(--token-radius-btn-left, 88px 0 0 88px) !important;
+}
+
+/* Right button - rounded on right side */
+.slds-button-group_segmented > .slds-button:last-child {
+  border-right: none;
+  border-radius: var(--token-radius-btn-right, 0 88px 88px 0) !important;
+}
+
+/* Middle buttons (if any) - no radius */
+.slds-button-group_segmented > .slds-button:not(:first-child):not(:last-child) {
+  border-radius: 0 !important;
+}
+
+.slds-button-group_segmented .slds-button:hover:not(.slds-is-selected) {
+  background: var(--token-layer-hover, #f3f3f3);
+}
+
+.slds-button-group_segmented .slds-button.slds-is-selected {
+  background: var(--token-interactive, #0176d3);
+  color: var(--token-text-inverse, white);
+  font-weight: 600;
+}
+
+/* Form Elements */
+.slds-form-element {
+  position: relative;
+  min-width: 0;
+  margin-bottom: 0.5rem;
+  /* Prevent form elements from shrinking and overlapping when wrapped */
+  flex: 0 0 auto;
+}
+
+/* Ensure filter controls inside wrapped SLDS grids behave predictably */
+.slds-grid.slds-wrap > .slds-form-element {
+  /* default control width; components can override inline if needed */
+  flex: 0 0 200px;
+  min-width: 160px;
+}
+
+/* Make sure inputs/selects inside filter controls take full width and don't overflow */
+.slds-grid.slds-wrap .slds-form-element__control .slds-input,
+.slds-grid.slds-wrap .slds-form-element__control .slds-select,
+.slds-grid.slds-wrap .slds-form-element__control .slds-textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Responsive: on very narrow screens let controls be full width stacked */
+@media (max-width: 680px) {
+  .slds-grid.slds-wrap > .slds-form-element {
+    flex: 0 0 100%;
+    min-width: 0;
+  }
+}
+
+.slds-form-element__label {
+  display: inline-block;
+  color: var(--slds-color-text-weak);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  margin-right: 0.5rem;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.slds-form-element__control {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.slds-form-element__help {
+  font-size: 0.75rem;
+  color: var(--slds-g-color-on-surface-3);
+  margin-top: 0.25rem;
+  line-height: 1.5;
+}
+
+.slds-required {
+  color: var(--token-danger, #c23934);
+  margin-right: 0.125rem;
+}
+
+.slds-input {
+  width: 100%;
+  padding: 0 var(--slds-g-spacing-3);
+  line-height: 1.875rem;
+  min-height: var(--slds-g-sizing-9);
+  border: 1px solid var(--slds-g-color-border-1);
+  border-radius: var(--slds-g-radius-border-2);
+  background-color: var(--slds-g-color-surface-container-1);
+  color: var(--slds-g-color-on-surface-2);
+  transition: border 0.1s linear, background-color 0.1s linear;
+  box-sizing: border-box;
+  font-family: var(--slds-font-family);
+}
+
+.slds-input:focus {
+  outline: 0;
+  border-color: var(--slds-g-color-accent-2);
+  box-shadow: 0 0 0 2px rgba(2, 80, 217, 0.2);
+}
+
+.slds-input[aria-invalid="true"],
+.slds-input.error-border {
+  border-color: var(--token-danger, #c23934);
+  border-width: 2px;
+}
+
+.slds-select {
+  width: 100%;
+  padding: 0 var(--slds-g-spacing-4) 0 var(--slds-g-spacing-3);
+  line-height: 1.875rem;
+  min-height: var(--slds-g-sizing-9);
+  border: 1px solid var(--slds-g-color-border-1);
+  border-radius: var(--slds-g-radius-border-2);
+  background-color: var(--slds-g-color-surface-container-1);
+  color: var(--slds-g-color-on-surface-2);
+  transition: border 0.1s linear, background-color 0.1s linear;
+  font-family: var(--slds-font-family);
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.slds-select:focus {
+  outline: 0;
+  border-color: var(--slds-g-color-accent-2);
+  box-shadow: 0 0 0 2px rgba(2, 80, 217, 0.2);
+}
+
+.slds-select[aria-invalid="true"],
+.slds-select.error-border {
+  border-color: var(--token-danger, #c23934);
+  border-width: 2px;
+}
+
+.slds-textarea {
+  width: 100%;
+  padding: var(--slds-g-spacing-2) var(--slds-g-spacing-3);
+  line-height: 1.5;
+  min-height: 6rem;
+  border: 1px solid var(--slds-g-color-border-1);
+  border-radius: var(--slds-g-radius-border-2);
+  background-color: var(--slds-g-color-surface-container-1);
+  color: var(--slds-g-color-on-surface-2);
+  transition: border 0.1s linear, background-color 0.1s linear;
+  box-sizing: border-box;
+  font-family: var(--slds-font-family);
+  resize: vertical;
+}
+
+.slds-textarea:focus {
+  outline: 0;
+  border-color: var(--slds-g-color-accent-2);
+  box-shadow: 0 0 0 2px rgba(2, 80, 217, 0.2);
+}
+
+.slds-select:focus {
+  outline: 0;
+  border-color: var(--slds-g-color-accent-2);
+  box-shadow: 0 0 0 2px rgba(2, 80, 217, 0.2);
+}
+
+.slds-textarea {
+  width: 100%;
+  padding: var(--slds-g-spacing-2) var(--slds-g-spacing-3);
+  border: 1px solid var(--slds-g-color-border-1);
+  border-radius: var(--slds-g-radius-border-2);
+  background-color: var(--slds-g-color-surface-container-1);
+  color: var(--slds-g-color-on-surface-2);
+  transition: border 0.1s linear, background-color 0.1s linear;
+  font-family: var(--slds-font-family);
+  resize: vertical;
+}
+
+.slds-textarea:focus {
+  outline: 0;
+  border-color: var(--slds-g-color-accent-2);
+  box-shadow: 0 0 0 2px rgba(2, 80, 217, 0.2);
+}
+
+.slds-form_stacked .slds-form-element {
+  margin-bottom: 1rem;
+}
+
+/* Modal/Dialog */
+.slds-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9001;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slds-modal__container {
+  position: relative;
+  background: var(--slds-g-color-surface-container-1);
+  border-radius: var(--slds-g-radius-border-2);
+  box-shadow: var(--token-shadow-modal, 0 4px 8px rgba(0, 0, 0, 0.12));
+  width: 90%;
+  max-width: 40rem;
+  min-width: 20rem;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.slds-modal__header {
+  position: relative;
+  border-top-right-radius: var(--slds-g-radius-border-2);
+  border-top-left-radius: var(--slds-g-radius-border-2);
+  border-bottom: 1px solid var(--slds-g-color-border-1);
+  padding: var(--slds-g-spacing-4);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.slds-modal__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.slds-modal__content {
+  padding: var(--slds-g-spacing-4);
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 70vh;
+  flex: 1 1 auto;
+}
+
+.slds-modal__footer {
+  border-top: 1px solid var(--slds-g-color-border-1);
+  padding: var(--slds-g-spacing-3) var(--slds-g-spacing-4);
+  background-color: var(--slds-g-color-surface-container-2);
+  border-bottom-right-radius: var(--slds-g-radius-border-2);
+  border-bottom-left-radius: var(--slds-g-radius-border-2);
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.slds-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: var(--token-layer-overlay, rgba(43, 40, 38, 0.6));
+  z-index: 9000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slds-backdrop_open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Navigation */
+.slds-nav-vertical {
+  width: 100%;
+  background: var(--token-layer-surface, white);
+  border: 1px solid var(--slds-color-gray-3);
+  border-radius: var(--slds-border-radius);
+}
+
+.slds-nav-vertical__item {
+  position: relative;
+  display: flex;
+}
+
+.slds-nav-vertical__action {
+  padding: 0.5rem 1rem 0.5rem 2rem;
+  color: var(--slds-color-text-weak);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex: 1;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.slds-nav-vertical__action:hover {
+  background-color: var(--slds-color-gray-1);
+  color: var(--slds-color-text-default);
+}
+
+.slds-nav-vertical__action.active {
+  background-color: var(--slds-color-gray-1);
+  color: var(--slds-color-text-default);
+  font-weight: bold;
+}
+
+/* Utility Classes */
+.slds-grid {
+  display: flex;
+}
+
+.slds-wrap {
+  flex-wrap: wrap;
+}
+
+.slds-col {
+  flex: 1;
+}
+
+.slds-col_bump-left {
+  margin-left: auto;
+}
+
+.slds-grid_vertical-align-center {
+  align-items: center;
+  gap: 1rem;
+}
+
+.slds-grid_align-center {
+  justify-content: center;
+}
+
+.slds-has-dividers_bottom > .slds-item {
+  border-bottom: 1px solid var(--slds-color-gray-3);
+}
+
+/* ============================================
+   SLDS SPACING UTILITIES
+   Use these spacing classes for SLDS components and consistent spacing.
+   
+   Naming Convention:
+   .slds-m-{side}_{size}  - Margin
+   .slds-p-{side}_{size}  - Padding
+   
+   Sizes: small (0.75rem), medium (1rem), large (1.5rem)
+   Sides: top, bottom, left, right, horizontal, vertical, around
+   
+   Note: For custom layouts and precise spacing control,
+   use the custom utilities in utilities.css (.margin-*, .padding-*)
+   ============================================ */
+
+.slds-p-around_none {
+  padding: 0;
+  border-radius: var(--token-radius-md);
+}
+
+.slds-p-around_medium {
+  padding: 1rem;
+}
+
+.slds-m-bottom_small {
+  margin-bottom: 0.75rem;
+}
+
+.slds-m-bottom_medium {
+  margin-bottom: 1rem;
+}
+
+.slds-m-top_small {
+  margin-top: 0.75rem;
+}
+
+.slds-m-top_medium {
+  margin-top: 1rem;
+}
+
+.slds-m-right_small {
+  margin-right: 0.75rem;
+}
+
+.slds-m-horizontal_small {
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
+}
+
+.slds-m-around_medium {
+  margin: 1rem;
+}
+
+/* ============================================
+   SLDS PAGINATION CONTROLS
+   Standardized pagination component for admin tables.
+   
+   Structure:
+   .slds-pagination              - Container
+   .slds-pagination__info        - Page info display ("Showing X-Y of Z")
+   .slds-pagination__controls    - Button group wrapper
+   .slds-pagination__button      - Individual nav buttons (Prev/Next)
+   .slds-pagination__rows        - Rows per page selector wrapper
+   
+   Use these classes for all pagination UI across the application.
+   ============================================ */
+
+.slds-pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--token-spacing-md);
+  flex-wrap: wrap;
+}
+
+.slds-pagination__info {
+  font-weight: var(--token-font-weight-medium);
+  color: var(--token-text-primary);
+  white-space: nowrap;
+  font-size: var(--token-font-size-sm);
+  line-height: 1.5;
+}
+
+.slds-pagination__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--token-spacing-sm);
+}
+
+.slds-pagination__button {
+  /* Extends .slds-button */
+  padding: var(--slds-g-spacing-2) var(--slds-g-spacing-4);
+  border: 1px solid var(--slds-g-color-border-1);
+  border-radius: var(--slds-g-radius-border-2);
+  background: var(--slds-g-color-surface-container-1);
+  color: var(--slds-g-color-on-surface-2);
+  font-size: var(--token-font-size-sm);
+  font-weight: var(--token-font-weight-medium);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: var(--slds-font-family);
+  line-height: 1.875rem;
+  min-height: var(--slds-g-sizing-9);
+}
+
+.slds-pagination__button:hover:not(:disabled) {
+  background: var(--slds-g-color-surface-container-3);
+  border-color: var(--token-interactive);
+}
+
+.slds-pagination__button:disabled {
+  background: var(--token-layer-background, #f5f5f5);
+  color: var(--token-text-disabled, #c9c9c9);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.slds-pagination__rows {
+  display: flex;
+  align-items: center;
+  gap: var(--token-spacing-sm);
+}
+
+.slds-pagination__rows label {
+  font-weight: var(--token-font-weight-medium);
+  color: var(--token-text-secondary);
+  font-size: var(--token-font-size-xs);
+  white-space: nowrap;
+}
+
+.slds-pagination__rows select {
+  /* Extends .slds-select */
+  padding: var(--slds-g-spacing-2) var(--slds-g-spacing-3);
+  border: 1px solid var(--slds-g-color-border-1);
+  border-radius: var(--slds-g-radius-border-2);
+  font-size: var(--token-font-size-sm);
+  line-height: 1.875rem;
+  min-height: var(--slds-g-sizing-9);
+  background: var(--slds-g-color-surface-container-1);
+  color: var(--slds-g-color-on-surface-2);
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.15s ease;
+  box-sizing: border-box;
+  font-family: var(--slds-font-family);
+}
+
+.slds-pagination__rows select:hover {
+  border-color: var(--token-interactive);
+}
+
+.slds-pagination__rows select:focus {
+  outline: 0;
+  border-color: var(--slds-g-color-accent-2);
+  box-shadow: 0 0 0 2px rgba(2, 80, 217, 0.2);
+}
+
+/* Helper / weak text: smaller and slightly grey to match design guidance */
+.slds-text-color_weak {
+  color: var(--token-text-secondary, #6b6b6b); /* muted grey */
+  font-size: 0.8125rem; /* slightly smaller than normal label text */
+}
+
+/* Calculator grid: ensure controls match sizing with criteria controls */
+.calculator-grid .slds-form-element {
+  margin-bottom: 0.5rem;
+}
+.calculator-grid .slds-form-element__control .slds-input,
+.calculator-grid .slds-form-element__control .slds-select,
+.calculator-grid .slds-form-element__control .slds-textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+/* end calculator-grid */
+/* Table enhancements */
+.slds-table_bordered {
+  border: 0.5px solid var(--slds-color-gray-3);
+}
+
+.slds-table_cell-buffer th,
+.slds-table_cell-buffer td {
+  padding: 0.5rem 0.75rem;
+}
+
+.slds-table_cell-buffer th:first-child,
+.slds-table_cell-buffer td:first-child {
+  padding-left: 1rem;
+}
+
+.slds-table_cell-buffer th:last-child,
+.slds-table_cell-buffer td:last-child {
+  padding-right: 1rem;
+}
+
+/* Checkbox styling */
+.slds-checkbox {
+  display: inline-flex;
+  align-items: center;
+}
+
+.slds-checkbox [type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* Compact card header: reduce vertical padding and heading size to make Product Setup card less tall */
+.slds-card__header {
+  padding: 0.5rem 0.75rem; /* reduced from larger defaults */
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.slds-card__header .slds-text-heading_small,
+.slds-card__header h2 {
+  margin: 0;
+  font-size: 1rem; /* slightly smaller */
+  line-height: 1.25rem;
+}
+
+.slds-card__body {
+  padding: 0.75rem; /* slightly reduced body padding for a compact card */
+}
+
+/* Variant: split header with left content and right-aligned meta (e.g. Tier) */
+.slds-card__header--split {
+  flex-direction: row !important;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slds-card__header--split .slds-card__meta {
+  text-align: right;
+  font-size: 0.95rem;
+  color: var(--token-text-primary, #333);
+}
+
+/* required star for required fields */
+.slds-required {
+  color: var(--token-danger, #c23934); /* Salesforce destructive/red */
+  margin-right: 0.35rem;
+  font-weight: 600;
+}
+
+/* helper small text under section headers */
+.slds-section-help {
+  color: var(--token-text-secondary, #6b6b6b);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* Toggle switch (compact) */
+.slds-toggle {
+  display: inline-block;
+  width: 48px;
+  height: 28px;
+  position: relative;
+}
+.slds-toggle input[type="checkbox"] {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+.slds-toggle__track {
+  width: 100%;
+  height: 100%;
+  background: var(--token-layer-surface, #e6e9ef);
+  border-radius: 999px;
+  transition: background 0.15s ease-in-out;
+  box-shadow: var(--token-shadow-soft, inset 0 1px 2px rgba(0,0,0,0.05));
+}
+.slds-toggle__handle {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 20px;
+  height: 20px;
+  background: var(--token-layer-background, white);
+  border-radius: 50%;
+  transition: transform 0.15s ease-in-out;
+  box-shadow: var(--token-shadow-soft, 0 1px 2px rgba(0,0,0,0.12));
+}
+.slds-toggle input[type="checkbox"]:checked + .slds-toggle__track {
+  background: var(--token-interactive-brand, #1072d8) !important; /* SLDS brand blue */
+  box-shadow: var(--token-shadow-soft, inset 0 1px 2px rgba(0,0,0,0.06));
+}
+.slds-toggle input[type="checkbox"]:checked + .slds-toggle__track .slds-toggle__handle {
+  transform: translateX(20px);
+  background: var(--token-layer-background, #ffffff) !important;
+}
+
+/* focus state to improve accessibility and visual feedback */
+.slds-toggle input[type="checkbox"]:focus + .slds-toggle__track {
+  box-shadow: 0 0 0 4px var(--token-focus-ring, rgba(16,114,216,0.12));
+}
+
+/* Larger, styled range input for LTV */
+.calculator-grid input[type="range"] {
+  width: 100%;
+  height: 8px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: linear-gradient(90deg, var(--token-interactive-brand, #1072d8) 0%, var(--token-interactive-brand, #1072d8) 50%, var(--token-layer-surface, #e6e9ef) 50%);
+  border-radius: 999px;
+  outline: none;
+}
+.calculator-grid input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--token-interactive-brand, #1072d8);
+  box-shadow: var(--token-shadow-soft, 0 2px 4px rgba(0,0,0,0.2));
+  margin-top: -5px;
+}
+.calculator-grid input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--token-interactive-brand, #1072d8);
+  box-shadow: var(--token-shadow-soft, 0 2px 4px rgba(0,0,0,0.2));
+}
+
+/* Compact fee inputs styling to match screenshot */
+.fee-compact .slds-form-element__label {
+  font-size: 0.85rem;
+}
+.fee-compact .slds-select {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  line-height: 2rem;
+  font-size: 1rem;
+}
+.fee-compact .slds-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  line-height: 2rem;
+  font-size: 1rem;
+}
+
+/* Make sure labels align and spacing matches other controls */
+.fee-compact .slds-form-element__label {
+  margin-bottom: 0.35rem;
+}
+.fee-compact .disabled-note {
+  color: var(--token-text-secondary, #6b6b6b);
+  font-size: 0.9rem;
+  padding-left: 8px;
+}
+.fee-compact .slds-select:disabled,
+.fee-compact .slds-input:disabled {
+  background-color: var(--token-layer-surface, #f5f6f8);
+  border-color: var(--token-border-subtle, #e6e9ef);
+  opacity: 1;
+}
+
+
+/* Visual style for constants inputs when disabled (editable per-field) */
+.constants-disabled {
+  background-color: var(--token-layer-surface, #f5f6f8);
+  border-color: var(--token-border-subtle, #e6e9ef);
+  color: var(--token-text-secondary, #6b6b6b);
+  cursor: not-allowed;
+  opacity: 1;
+}
+/* Compact fee inputs + alignment */
+.calculator-grid.compact .slds-form-element__label {
+  font-size: 0.875rem;
+}
+.calculator-grid.compact .slds-input,
+.calculator-grid.compact .slds-select {
+  padding: 0 0.75rem;
+  line-height: 1.75rem;
+}
+
+/* Restore input/select border to canonical token color */
+.slds-input, .slds-select {
+  border: 1px solid var(--slds-g-color-border-1);
+  border-color: var(--slds-g-color-border-1);
+}
+.slds-input:focus, .slds-select:focus {
+  border-color: var(--slds-g-color-accent-2);
+  box-shadow: 0 0 0 3px var(--token-focus-ring, rgba(16,114,216,0.08));
+}
+
+/* Salesforce Icon Styles */
+.slds-button__icon {
+  fill: currentColor;
+  pointer-events: none;
+}
+
+.slds-button_icon .slds-button__icon,
+.slds-button_icon-border .slds-button__icon,
+.slds-button_icon-border-filled .slds-button__icon {
+  fill: #050505;
+}
+
+.slds-button_icon:hover .slds-button__icon,
+.slds-button_icon-border:hover .slds-button__icon,
+.slds-button_icon-border-filled:hover .slds-button__icon {
+  fill: var(--token-interactive, #0176d3);
+}
+
+.slds-button__icon_inverse,
+.slds-button_icon-inverse .slds-button__icon {
+  fill: white;
+}
+
+/* Icon sizing */
+.slds-icon {
+  fill: currentColor;
+}
+
+.slds-icon_xx-small {
+  width: 1rem;
+  height: 1rem;
+}
+
+.slds-icon_x-small {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.slds-icon_small {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.slds-icon_medium {
+  width: 2rem;
+  height: 2rem;
+}
+
+.slds-icon_large {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* ============================================
+   SLDS TABS - Horizontal tabs with underline
+   ============================================ */
+
+/* Tab container */
+.slds-tabs_default {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tab list - horizontal row of tabs */
+.slds-tabs_default__nav {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--slds-color-gray-3, #e5e5e5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  
+}
+
+/* Individual tab item */
+.slds-tabs_default__item {
+  display: flex;
+  margin-bottom: -1px; /* overlap the border */
+}
+
+/* Tab link/button - Default size */
+.slds-tabs_default__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  height: 2.5rem;
+  color: var(--slds-color-text-weak, #3e3e3c);
+  font-size: 0.875rem;
+  font-weight: 400;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  transition: color 0.1s ease, border-color 0.1s ease;
+}
+
+.slds-tabs_default__link:hover {
+  color: var(--token-interactive, #0176d3);
+  text-decoration: none;
+}
+
+.slds-tabs_default__link:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Active tab state */
+.slds-tabs_default__item.slds-is-active .slds-tabs_default__link,
+.slds-tabs_default__link.slds-is-active {
+  color: var(--token-interactive, #0176d3);
+  font-weight: 700;
+  border-bottom-color: var(--token-interactive, #0176d3);
+}
+
+/* Tab content panel */
+.slds-tabs_default__content {
+  padding: 1rem 0;
+}
+
+.slds-tabs_default__content.slds-hide {
+  display: none;
+}
+
+.slds-tabs_default__content.slds-show {
+  display: block;
+}
+
+/* ============================================
+   SLDS TABS - Medium size variant
+   ============================================ */
+.slds-tabs_default_medium .slds-tabs_default__link {
+  padding: 0 1rem;
+  height: 3rem;
+  font-size: 1rem;
+}
+
+/* ============================================
+   SLDS TABS - Large size variant
+   ============================================ */
+.slds-tabs_default_large .slds-tabs_default__link {
+  padding: 0 1.25rem;
+  height: 3.5rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.slds-tabs_default_large .slds-tabs_default__item.slds-is-active .slds-tabs_default__link,
+.slds-tabs_default_large .slds-tabs_default__link.slds-is-active {
+  font-weight: 700;
+}
+
+/* ============================================
+   SLDS TABS - Scoped variant (bordered tabs)
+   ============================================ */
+.slds-tabs_scoped {
+  display: flex;
+  flex-direction: column;
+}
+
+.slds-tabs_scoped__nav {
+  display: flex;
+  align-items: stretch;
+  background-color: var(--slds-color-gray-1, #f3f3f3);
+  border: 1px solid var(--slds-color-gray-3, #e5e5e5);
+  border-radius: var(--slds-border-radius, 0.25rem) var(--slds-border-radius, 0.25rem) 0 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.slds-tabs_scoped__item {
+  display: flex;
+  margin-bottom: -1px;
+}
+
+.slds-tabs_scoped__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  height: 2.5rem;
+  color: var(--slds-color-text-weak, #3e3e3c);
+  font-size: 0.875rem;
+  font-weight: 400;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.1s ease, background-color 0.1s ease;
+}
+
+.slds-tabs_scoped__link:hover {
+  background-color: var(--slds-color-gray-2, #fafafa);
+}
+
+.slds-tabs_scoped__item.slds-is-active .slds-tabs_scoped__link {
+  background-color: white;
+  color: var(--slds-color-text-default, #080707);
+  font-weight: 700;
+  border-bottom-color: white;
+}
+
+.slds-tabs_scoped__content {
+  background-color: white;
+  border: 1px solid var(--slds-color-gray-3, #e5e5e5);
+  border-top: none;
+  border-radius: 0 0 var(--slds-border-radius, 0.25rem) var(--slds-border-radius, 0.25rem);
+  padding: 1rem;
+}
+
+.slds-tabs_scoped__content.slds-hide {
+  display: none;
+}
+
+.slds-tabs_scoped__content.slds-show {
+  display: block;
+}
+
+/* ============================================
+   SLDS TABS - Card variant (tabs + content as one unit)
+   ============================================ */
+.slds-tabs_card {
+  background: var(--token-layer-surface, white);
+  border: 1px solid var(--slds-color-gray-3, #e5e5e5);
+  border-radius: var(--token-radius-card, 12px);
+  overflow: hidden;
+  box-shadow: var(--token-shadow-soft, 0 1px 3px rgba(0, 0, 0, 0.1));
+}
+
+/* Tabs nav inside card - no outer border, flush with card edges */
+.slds-tabs_card .slds-tabs_default__nav {
+  background: var(--token-color-transparent);
+  border-bottom: 1px solid var(--slds-color-gray-3, #e5e5e5);
+  padding: 0 1rem;
+}
+
+/* Tab items inside card */
+.slds-tabs_card .slds-tabs_default__item {
+  margin-bottom: 0;
+}
+
+/* Tab links inside card */
+.slds-tabs_card .slds-tabs_default__link {
+  border-bottom-width: 3px;
+  margin-bottom: -1px;
+}
+
+/* Active tab in card - white background to connect with content */
+.slds-tabs_card .slds-tabs_default__item.slds-is-active .slds-tabs_default__link {
+  background: var(--token-layer-surface, white);
+  border-bottom-color: var(--token-layer-surface, white);
+  color: var(--token-interactive, #0176d3);
+}
+
+/* Variant: show visible interactive underline for specific card tabs (opt-in)
+   Use modifier class `slds-tabs_card--underline` on the card container */
+.slds-tabs_card.slds-tabs_card--underline .slds-tabs_default__item.slds-is-active .slds-tabs_default__link,
+.slds-tabs_card.slds-tabs_card--underline .slds-tabs_default__link.slds-is-active {
+  border-bottom-color: var(--token-interactive, #0176d3);
+  color: var(--token-interactive, #0176d3);
+}
+
+/* Card content area - minimal padding for tight layout */
+.slds-tabs_card__content {
+  padding: var(--token-spacing-0) ;
+  background: var(--token-layer-surface, white);
+}
+
+/* Remove extra margin/padding from nested results-section */
+.slds-tabs_card__content .results-section {
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+/* ============================================
+   ACTION BUTTON GROUPS - Consistent layout
+   ============================================ */
+
+/* 
+ * Standard action button container - right-aligned
+ * Use for: Save, Cancel, Submit, Delete actions
+ * Order: Cancel (left) → Save/Submit (right)
+ */
+.slds-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--token-spacing-sm, 0.5rem);
+  padding: var(--token-spacing-md, 1rem) 0;
+}
+
+/* Full-width variant with top border (for page footers) */
+.slds-actions_bordered {
+  border-top: 1px solid var(--slds-color-gray-3, #e5e5e5);
+  margin-top: var(--token-spacing-lg, 1.5rem);
+  padding-top: var(--token-spacing-md, 1rem);
+}
+
+/* 
+ * Navigation buttons container - below actions, right-aligned
+ * Use for: Back, Previous, Next navigation
+ * Order: Back/Previous (left) → Next (right)
+ */
+.slds-actions__nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--token-spacing-sm, 0.5rem);
+  margin-top: var(--token-spacing-sm, 0.5rem);
+}
+
+/* 
+ * Combined actions + navigation wrapper
+ * Stacks action buttons on top, navigation below
+ */
+.slds-actions-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--token-spacing-xs, 0.25rem);
+}
+
+/* Modal footer - right-aligned actions */
+.slds-modal__footer {
+  border-top: 1px solid var(--slds-color-gray-3, #e5e5e5);
+  padding: var(--token-spacing-md, 0.75rem) var(--token-spacing-lg, 1rem);
+  background-color: var(--slds-color-gray-1, #f3f3f3);
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--token-spacing-sm, 0.5rem);
+}
+
+/* Page-level actions bar */
+.slds-page-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--token-spacing-sm, 0.5rem);
+  padding: var(--token-spacing-md, 1rem) 0;
+  border-top: 1px solid var(--slds-color-gray-3, #e5e5e5);
+  margin-top: var(--token-spacing-lg, 1.5rem);
+}

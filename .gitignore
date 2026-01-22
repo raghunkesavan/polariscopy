@@ -1,0 +1,16 @@
+node_modules/
+dist/
+/.vite/
+.DS_Store
+# Environment files (keep secrets out of repo)
+.env
+.env.*
+frontend/.env
+backend/.env
+
+# Logs
+logs/
+*.log
+backend/logs/
+frontend/logs/
+frontend/integration/samples/~$BTL Loan Hub 29.10.2025 Retention - issued v2.xlsx

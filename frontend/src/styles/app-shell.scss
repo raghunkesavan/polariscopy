@@ -1,0 +1,49 @@
+/* AppShell styles - main layout wrapper with Salesforce-style navigation */
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--cds-background, #fff);
+}
+
+/* Main content area - adjusted for horizontal nav */
+.app-content {
+  flex: 1;
+  padding: var(--token-spacing-lg);
+  max-width: 100%;
+
+  /* Remove padding for public pages (login, forgot password, etc.) */
+  &:has(.login-page-container),
+  &:has(.forgot-password-container),
+  &:has(.reset-password-container) {
+    padding: 0;
+  }
+}
+
+/* Standalone mode - full navigation visible */
+.app-shell--standalone {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Embedded mode - no navigation, optimized for iframe */
+.app-shell--embedded {
+  .app-content {
+    max-width: 100%;
+    padding: var(--token-spacing-lg);
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .app-content {
+    padding: var(--token-spacing-sm);
+  }
+  
+  .app-shell--embedded {
+    .app-content {
+      padding: var(--token-spacing-sm);
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "extends": ["./.eslintrc.cjs"],
+  "plugins": ["no-inline-styles"],
+  "rules": {
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/^(0\\.(25|5|75)|1|1\\.5|2)rem$/]",
+        "message": "Use design tokens (var(--token-spacing-*)) instead of hardcoded rem values"
+      },
+      {
+        "selector": "Literal[value=/^\\d+px$/]",
+        "message": "Use design tokens instead of px values"
+      },
+      {
+        "selector": "Literal[value=/^#[0-9a-fA-F]{3,6}$/]",
+        "message": "Use design tokens (var(--token-*)) instead of hex colors"
+      }
+    ],
+    "no-warning-comments": [
+      "warn",
+      {
+        "terms": ["hardcoded", "todo: token"],
+        "location": "anywhere"
+      }
+    ]
+  }
+}

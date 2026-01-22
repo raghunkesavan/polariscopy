@@ -1,0 +1,40 @@
+{
+  "// colors": "Map core surfaces, borders, and text",
+  "--token-layer-surface": "/surface-container[-_/]1$/i",
+  "--token-layer-background": "/surface-container[-_/]2$/i",
+  "--token-layer-hover": "/surface-container[-_/]3$/i",
+  "--token-border-subtle": "/border[-_/]1$/i",
+  "--token-border-strong": "/border[-_/]2$/i",
+  "--token-text-primary": "/on-surface[-_/]2$/i",
+  "--token-text-secondary": "/on-surface[-_/]1$/i",
+  "--token-text-helper": "/on-surface[-_/]1$/i",
+  "--token-text-error": "/on-error[-_/]1$/i",
+  "--token-critical": "/on-error[-_/]1$/i",
+
+  "// interactive": "Brand/interactive accents",
+  "--token-interactive": "/accent[-_/]2$/i",
+  "--token-interactive-hover": "/accent[-_/]3$/i",
+  "--token-focus": "/accent[-_/]2$/i",
+  "--token-success": "/success$/i",
+
+  "// radii": "Border radius sizes",
+  "--token-radius-sm": "/radius[-_/]border[-_/]2$/i",
+  "--token-radius-md": "/radius[-_/]border[-_/]3$/i",
+
+  "// spacing": "Spacing scale",
+  "--token-space-4": "/spacing[-_/]1$/i",
+  "--token-space-8": "/spacing[-_/]2$/i",
+  "--token-space-12": "/spacing[-_/]3$/i",
+  "--token-space-16": "/spacing[-_/]4$/i",
+  "--token-space-24": "/spacing[-_/]6$/i",
+  "--token-space-48": "/spacing[-_/]10$/i",
+
+  "// typography": "Font sizes and line heights",
+  "--token-font-size-xs": "/font[-_/]scale[-_/]neg-1$/i",
+  "--token-font-size-sm": "/font[-_/]scale[-_/]1$/i",
+  "--token-font-size-md": "/font[-_/]scale[-_/]base$/i",
+  "--token-font-size-lg": "/font[-_/]scale[-_/]2$/i",
+  "--token-line-height-tight": "/(lineheight|font).*17\\)?$/i",
+  "--token-line-height-base": "/(lineheight|font).*18\\)?$/i"
+}
+

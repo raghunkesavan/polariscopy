@@ -1,0 +1,851 @@
+/* Utility classes for replacing inline styles */
+
+/* ============================================
+   TOKEN-BASED UTILITIES (PREFERRED)
+   These utilities use design tokens and should be used
+   for new code and refactoring existing code.
+   ============================================ */
+
+/* Flexbox Utilities (Token-based) */
+.flex { display: flex; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-align-center { display: flex; align-items: center; }
+.flex-justify-center { display: flex; justify-content: center; }
+.flex-justify-between { display: flex; justify-content: space-between; }
+.flex-justify-end { display: flex; justify-content: flex-end; }
+.flex-column { display: flex; flex-direction: column; }
+.flex-wrap { display: flex; flex-wrap: wrap; }
+
+/* Gap Utilities (Token-based) */
+.gap-xs { gap: var(--token-spacing-xs); }
+.gap-sm { gap: var(--token-spacing-sm); }
+.gap-md { gap: var(--token-spacing-md); }
+.gap-lg { gap: var(--token-spacing-lg); }
+.gap-xl { gap: var(--token-spacing-xl); }
+
+/* Text Color Utilities (Token-based) */
+.text-primary { color: var(--token-text-primary); }
+.text-secondary { color: var(--token-text-secondary); }
+.text-muted { color: var(--token-text-muted); }
+.text-inverse { color: var(--token-text-inverse); }
+.text-error { color: var(--token-critical); }
+.text-success { color: var(--token-success); }
+.text-warning { color: var(--token-warning); }
+
+/* Font Size Utilities (Token-based) */
+.text-xs { font-size: var(--token-font-size-xs); }
+.text-sm { font-size: var(--token-font-size-sm); }
+.text-md { font-size: var(--token-font-size-md); }
+.text-lg { font-size: var(--token-font-size-lg); }
+.text-xl { font-size: var(--token-font-size-xl); }
+
+/* Background Color Utilities (Token-based) */
+.bg-surface { background-color: var(--token-layer-surface); }
+.bg-background { background-color: var(--token-layer-background); }
+.bg-neutral { background-color: var(--token-ui-background-neutral); }
+.bg-overlay { background-color: var(--token-layer-overlay); }
+
+/* Border Utilities (Token-based) */
+.border-subtle { border: var(--token-border-width-thin) solid var(--token-ui-border-subtle); }
+.border-strong { border: var(--token-border-width-medium) solid var(--token-ui-border-strong); }
+.border-danger { border: var(--token-border-width-thin) solid var(--token-critical); }
+.border-success { border: var(--token-border-width-thin) solid var(--token-success); }
+
+/* Border Radius Utilities (Token-based) */
+.radius-sm { border-radius: var(--token-radius-sm); }
+.radius-md { border-radius: var(--token-radius-md); }
+
+/* Shadow Utilities (Token-based) */
+.shadow-soft { box-shadow: var(--token-shadow-soft); }
+.shadow-strong { box-shadow: var(--token-shadow-strong); }
+.shadow-modal { box-shadow: var(--token-shadow-modal); }
+
+/* Spacing Utilities (Token-based) */
+.m-0 { margin: 0; }
+.mt-xs { margin-top: var(--token-spacing-xs); }
+.mt-sm { margin-top: var(--token-spacing-sm); }
+.mt-md { margin-top: var(--token-spacing-md); }
+.mt-lg { margin-top: var(--token-spacing-lg); }
+.mt-xl { margin-top: var(--token-spacing-xl); }
+.mr-xs { margin-right: var(--token-spacing-xs); }
+.mr-sm { margin-right: var(--token-spacing-sm); }
+.mr-md { margin-right: var(--token-spacing-md); }
+.mb-xs { margin-bottom: var(--token-spacing-xs); }
+.mb-sm { margin-bottom: var(--token-spacing-sm); }
+.mb-md { margin-bottom: var(--token-spacing-md); }
+.mb-lg { margin-bottom: var(--token-spacing-lg); }
+.mb-xl { margin-bottom: var(--token-spacing-xl); }
+.ml-xs { margin-left: var(--token-spacing-xs); }
+.ml-sm { margin-left: var(--token-spacing-sm); }
+.ml-md { margin-left: var(--token-spacing-md); }
+
+.p-0 { padding: 0; }
+.pt-xs { padding-top: var(--token-spacing-xs); }
+.pt-sm { padding-top: var(--token-spacing-sm); }
+.pt-md { padding-top: var(--token-spacing-md); }
+.pt-lg { padding-top: var(--token-spacing-lg); }
+.pr-xs { padding-right: var(--token-spacing-xs); }
+.pr-sm { padding-right: var(--token-spacing-sm); }
+.pr-md { padding-right: var(--token-spacing-md); }
+.pb-xs { padding-bottom: var(--token-spacing-xs); }
+.pb-sm { padding-bottom: var(--token-spacing-sm); }
+.pb-md { padding-bottom: var(--token-spacing-md); }
+.pb-lg { padding-bottom: var(--token-spacing-lg); }
+.pl-xs { padding-left: var(--token-spacing-xs); }
+.pl-sm { padding-left: var(--token-spacing-sm); }
+.pl-md { padding-left: var(--token-spacing-md); }
+
+/* Z-index Utilities (Token-based) */
+.z-base { z-index: var(--token-z-base); }
+.z-dropdown { z-index: var(--token-z-dropdown); }
+.z-sticky { z-index: var(--token-z-sticky); }
+.z-modal { z-index: var(--token-z-modal); }
+.z-toast { z-index: var(--token-z-toast); }
+
+/* Interactive State Utilities (Token-based) */
+.hover-bg:hover { background-color: var(--token-ui-hover); }
+.hover-interactive:hover { color: var(--token-interactive-hover); }
+
+/* Common Component Patterns (Token-based) */
+.card {
+  background: var(--token-layer-surface);
+  border-radius: var(--token-radius-md);
+  box-shadow: var(--token-shadow-soft);
+  border: var(--token-border-width-thin) solid var(--token-ui-border-subtle);
+  padding: var(--token-spacing-lg);
+}
+
+.clickable {
+  cursor: pointer;
+  transition: background-color var(--token-duration-fast, 0.2s) ease;
+}
+
+.disabled {
+  opacity: var(--token-opacity-disabled, 0.5);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.dropdown-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--token-layer-overlay);
+  z-index: var(--token-z-dropdown);
+}
+
+.modal-header-branded {
+  background: var(--token-color-brand-navy);
+  color: var(--token-text-inverse);
+  padding: var(--token-spacing-md) var(--token-spacing-lg);
+  border-radius: var(--token-radius-md) var(--token-radius-md) 0 0;
+}
+
+/* ============================================
+   LEGACY UTILITIES (DEPRECATED - Keep for compatibility)
+   These utilities use hardcoded values and should be
+   migrated to token-based utilities above.
+   ============================================ */
+
+/* Font Weight */
+.font-weight-300 { font-weight: 300; }
+.font-weight-400 { font-weight: 400; }
+.font-weight-500 { font-weight: 500; }
+.font-weight-600 { font-weight: 600; }
+.font-weight-700 { font-weight: 700; }
+.font-weight-bold { font-weight: bold; }
+
+/* Text Alignment */
+.text-align-center { text-align: center; }
+.text-align-right { text-align: right; }
+.text-align-left { text-align: left; }
+.vertical-align-top { vertical-align: top; }
+
+/* Force center alignment for table headers with this class (higher specificity) */
+.slds-table th.text-align-center {
+  text-align: center !important;
+}
+
+/* Display */
+.display-flex { display: flex; }
+.display-inline-flex { display: inline-flex; }
+.display-block { display: block; }
+.display-inline-block { display: inline-block; }
+.cursor-pointer { cursor: pointer; }
+.position-relative { position: relative; }
+.position-sticky { position: sticky; }
+.position-absolute { position: absolute; }
+
+/* Color Classes */
+.text-color-primary { color: var(--token-interactive, #0176d3); }
+.text-color-dark { color: var(--token-text-primary, #333); }
+.text-color-heading { color: var(--token-text-primary, #181818); }
+.text-color-body { color: var(--token-text-primary, #3e3e3c); }
+.text-color-warning { color: var(--token-warning, #826f00); }
+.text-color-error { color: var(--token-danger, red); }
+.text-color-muted { color: var(--token-text-secondary, #666); }
+.text-color-gray { color: var(--token-text-secondary, #706e6b); }
+.text-color-link { color: var(--token-interactive, #0176d3); }
+.text-color-white { color: var(--token-text-inverse, white); }
+.text-color-white-semi { color: var(--token-text-inverse-subtle, rgba(255, 255, 255, 0.9)); }
+.text-italic { font-style: italic; }
+.background-gray-light { background-color: var(--token-layer-surface, #f3f2f2); }
+.background-gray-medium { background-color: var(--token-layer-surface, #f3f3f3); }
+.background-white { background-color: var(--token-layer-background, white); }
+.background-warning-light { background-color: var(--token-warning-bg, #fdf6e3); }
+.z-index-1 { z-index: 1; }
+
+/* Font Sizes */
+.font-size-075rem { font-size: var(--token-font-size-xs); }
+.font-size-0875rem { font-size: var(--token-font-size-sm); }
+.font-size-09rem { font-size: var(--token-font-size-sm-plus); }
+.font-size-1rem { font-size: var(--token-font-size-md); }
+.font-size-12 { font-size: var(--token-font-size-xs); }
+.font-size-14 { font-size: var(--token-font-size-sm); }
+.font-size-15rem { font-size: var(--token-font-size-2xl); }
+.font-size-175rem { font-size: var(--token-font-size-xl-plus); }
+.font-size-48 { font-size: var(--token-font-size-5xl); }
+.font-size-2rem { font-size: var(--token-font-size-3xl); }
+.font-size-large { font-size: var(--token-font-size-md-plus); }
+
+/* Flexbox */
+.flex-direction-column { flex-direction: column; }
+.align-items-center { align-items: center; }
+.align-items-flex-end { align-items: flex-end; }
+.align-items-stretch { align-items: stretch; }
+.justify-content-flex-start { justify-content: flex-start; }
+.justify-content-flex-end { justify-content: flex-end; }
+.justify-content-center { justify-content: center; }
+.justify-content-space-between { justify-content: space-between; }
+.flex-gap-2px { gap: var(--token-spacing-2); }
+.flex-gap-05 { gap: var(--token-spacing-8); }
+.flex-gap-075 { gap: var(--token-spacing-12); }
+.flex-gap-025 { gap: var(--token-spacing-4); }
+.flex-gap-1 { gap: var(--token-spacing-16); }
+.flex-gap-8 { gap: var(--token-spacing-8); }
+.flex-gap-5 { gap: var(--token-spacing-8); }
+.flex-1 { flex: 1; }
+
+/* ============================================
+   CUSTOM SPACING UTILITIES
+   Use these spacing classes for custom layouts and precise spacing control.
+   
+   Naming Convention:
+   .margin-{side}-{value}  - Margin (in rem, except auto)
+   .padding-{side}-{value} - Padding (in rem)
+   
+   When to use:
+   ✅ Custom layouts outside of SLDS components
+   ✅ Precise spacing values (0.25rem, 0.5rem, 1.5rem, etc.)
+   ✅ Calculator grids, custom forms, page layouts
+   
+   When NOT to use:
+   ❌ Inside SLDS modal/form components (use .slds-m-*, .slds-p-* instead)
+   ❌ For standard SLDS spacing patterns (use SLDS utilities)
+   
+   Note: Both systems coexist intentionally:
+   - SLDS utilities (.slds-m-*, .slds-p-*) for SLDS components
+   - Custom utilities (.margin-*, .padding-*) for everything else
+   ============================================ */
+
+/* Margins */
+.margin-0 { margin: 0; }
+.margin-0-auto { margin: 0 auto; }
+.margin-left-auto { margin-left: auto; }
+.margin-left-8 { margin-left: var(--token-spacing-8); }
+.margin-bottom-05 { margin-bottom: var(--token-spacing-8); }
+.margin-bottom-075 { margin-bottom: var(--token-spacing-12); }
+.margin-bottom-1 { margin-bottom: var(--token-spacing-16); }
+.margin-bottom-15 { margin-bottom: var(--token-spacing-24); }
+.margin-bottom-2 { margin-bottom: var(--token-spacing-32); }
+.margin-top-025 { margin-top: var(--token-spacing-4); }
+.margin-top-05 { margin-top: var(--token-spacing-8); }
+.margin-top-1 { margin-top: var(--token-spacing-16); }
+.margin-top-2 { margin-top: var(--token-spacing-32); }
+.margin-right-05 { margin-right: var(--token-spacing-8); }
+.margin-right-1 { margin-right: var(--token-spacing-16); }
+
+/* Padding */
+.padding-0 { padding: 0; }
+.padding-05 { padding: var(--token-spacing-8); }
+.padding-075 { padding: var(--token-spacing-12); }
+.padding-0375 { padding: var(--token-spacing-6); }
+.padding-1 { padding: var(--token-spacing-16); }
+.padding-125 { padding: var(--token-spacing-20); }
+.padding-2 { padding: var(--token-spacing-32); }
+.padding-3 { padding: var(--token-spacing-48); }
+.padding-x-05 { padding-left: var(--token-spacing-8); padding-right: var(--token-spacing-8); }
+.padding-y-05 { padding-top: var(--token-spacing-8); padding-bottom: var(--token-spacing-8); }
+.padding-top-025 { padding-top: var(--token-spacing-4); }
+.padding-top-05 { padding-top: var(--token-spacing-8); }
+.padding-top-1 { padding-top: var(--token-spacing-16); }
+.align-self-center { align-self: center; }
+
+/* Overflow */
+.overflow-auto { overflow-x: auto; }
+.overflow-x-auto { overflow-x: auto; }
+
+/* Max Width */
+.max-width-400 { max-width: 400px; }
+.max-width-500 { max-width: 500px; }
+.max-width-900 { max-width: 900px; }
+.max-width-1200 { max-width: 1200px; }
+
+/* Grid Utilities */
+.grid-column-span-2 { grid-column: span 2; }
+.grid-column-1-end { grid-column: 1 / -1; }
+
+/* Auto Margin Centering */
+.margin-auto { margin: 0 auto; }
+.margin-2-auto { margin: var(--token-spacing-32) auto; }
+
+/* Width Classes */
+.width-9 { width: 9%; }
+.width-10 { width: 10%; }
+.width-12 { width: 12%; }
+.width-13 { width: 13%; }
+.width-15 { width: 15%; }
+.width-20 { width: 20%; }
+.width-24 { width: 24%; }
+.width-25 { width: 25%; }
+.width-26 { width: 26%; }
+.width-45 { width: 45%; }
+.width-55 { width: 55%; }
+.width-100 { width: 100%; }
+.min-width-80 { min-width: 80px; }
+.min-width-150 { min-width: 150px; }
+.min-width-200 { min-width: 200px; }
+.min-width-260 { min-width: 260px; }
+.min-width-560 { min-width: 560px; }
+.max-width-450 { max-width: 450px; }
+.max-width-600 { max-width: 600px; }
+
+/* Tables should be allowed to fill their container even when a max-width
+   utility is present on the element. Some table markup uses the
+   max-width-* utilities for layout which can undesirably constrain
+   wide tables; apply a targeted override so SLDS tables remain fluid. */
+table.slds-table.max-width-900,
+table.slds-table.max-width-1200 {
+  max-width: none;
+  width: 100%;
+}
+
+/* Grid Column Span */
+.grid-column-span-2 { grid-column: span 2; }
+
+/* Letter Spacing */
+.letter-spacing-05 { letter-spacing: 0.5px; }
+
+/* Font Family */
+.font-monospace { font-family: monospace; }
+
+/* Line Height */
+.line-height-15 { line-height: 1.5; }
+
+/* Border Radius */
+.border-radius-4 { border-radius: var(--token-spacing-4); }
+.border-radius-025 { border-radius: var(--token-spacing-4); }
+
+/* Border */
+.border-top-gray { border-top: 1px solid var(--token-border-subtle, #dddbda); }
+.border-warning { border: 1px solid var(--token-warning-border, #f4d875); }
+
+/* Word Break */
+.word-break-all { word-break: break-all; }
+
+/* Height */
+.height-100 { height: 100%; }
+
+/* Position + Height combo */
+.position-fixed-full-height {
+  position: fixed;
+  height: 100%;
+}
+
+/* Text Decoration */
+.text-decoration-none { text-decoration: none; }
+.text-decoration-underline { text-decoration: underline; }
+
+/* Special Component Styles */
+.auth-container {
+  padding: var(--token-spacing-32);
+  max-width: 400px;
+  margin: var(--token-spacing-32) auto;
+}
+
+.auth-container-wide {
+  max-width: 500px;
+  margin: 0 auto;
+  margin-top: var(--token-spacing-32);
+}
+
+.auth-demo-box {
+  background-color: var(--token-layer-surface, #f3f3f3);
+  border-radius: var(--token-spacing-4);
+}
+
+.reset-password-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--token-layer-surface, #f3f3f3);
+  padding: var(--token-spacing-16);
+}
+
+.reset-password-card {
+  width: 100%;
+  max-width: 450px;
+  background-color: var(--token-layer-background, white);
+  border-radius: var(--token-spacing-4);
+  box-shadow: var(--token-shadow-soft, 0 2px 8px rgba(0,0,0,0.1));
+  padding: var(--token-spacing-32);
+}
+
+.dev-mode-box {
+  padding: var(--token-spacing-16);
+  background-color: var(--token-warning-bg, #fef8e7);
+  border: 1px solid var(--token-warning-border, #f4d875);
+  border-radius: var(--token-spacing-4);
+  margin-bottom: var(--token-spacing-24);
+}
+
+.quote-reference-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--token-spacing-sm);
+  background: var(--token-interactive-brand, #0176d3);
+  padding: var(--token-spacing-sm) var(--token-spacing-md);
+  border-radius: var(--token-radius-sm);
+  border: 1px solid var(--token-interactive-brand-hover, #014486);
+  font-size: var(--token-font-size-sm);
+  box-shadow: var(--token-shadow-soft, 0 2px 4px rgba(1, 118, 211, 0.2));
+}
+
+/* ⚠️ DEPRECATED: Use .slds-button .slds-button_success instead!
+   New Quote button - extends slds-button_success
+   Migration: className="btn-new-quote" → className="slds-button slds-button_success" */
+.btn-new-quote {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--token-success-action, #00a89d);
+  color: var(--token-text-inverse, white);
+  font-weight: var(--token-font-weight-semibold, 600);
+  border: 1px solid var(--token-success-action, #00a89d);
+  padding: 0 var(--slds-g-spacing-4);
+  border-radius: var(--token-radius-btn);
+  box-shadow: var(--token-shadow-soft);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  font-size: var(--token-font-size-xs-plus);
+  line-height: 1.875rem;
+}
+
+.btn-new-quote:hover {
+  background-color: var(--token-success-action-hover, #008c82);
+  border-color: var(--token-success-action-hover, #008c82);
+  transform: translateY(-1px);
+}
+
+.btn-new-quote:active {
+  transform: translateY(0);
+}
+
+/* Quote reference copy button - special overlay button */
+.quote-reference-copy-btn {
+  background: var(--token-layer-overlay-subtle, rgba(255, 255, 255, 0.2));
+  border: 1px solid var(--token-layer-overlay, rgba(255, 255, 255, 0.3));
+  border-radius: var(--token-radius-sm);
+  cursor: pointer;
+  padding: var(--token-spacing-xs);
+  display: flex;
+  align-items: center;
+  color: var(--token-text-inverse, white);
+  transition: background var(--token-duration-fast, 0.2s);
+}
+
+.quote-reference-copy-btn:hover {
+  background: var(--token-layer-overlay, rgba(255, 255, 255, 0.3));
+}
+
+/* ⚠️ DEPRECATED: Use .slds-button .slds-button_destructive instead!
+   Property remove button - extends slds-button_destructive
+   Migration: className="property-remove-btn" → className="slds-button slds-button_destructive" with custom positioning */
+.property-remove-btn {
+  position: absolute;
+  top: var(--token-spacing-8);
+  right: var(--token-spacing-8);
+  background: var(--token-danger, #c23934);
+  color: var(--token-text-inverse, white);
+  border: 1px solid var(--token-danger, #c23934);
+  border-radius: var(--token-radius-btn);
+  padding: 0 var(--slds-g-spacing-3);
+  cursor: pointer;
+  font-size: var(--token-font-size-xs);
+  line-height: var(--token-spacing-24);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.property-remove-btn:hover {
+  background: var(--token-danger-hover, #a61a14);
+  border-color: var(--token-danger-hover, #a61a14);
+}
+
+/* ⚠️ DEPRECATED: Use .slds-button .slds-button_brand instead!
+   Postcode find button - extends slds-button_brand
+   Migration: className="postcode-find-btn" → className="slds-button slds-button_brand" */
+.postcode-find-btn {
+  white-space: nowrap;
+  background-color: var(--slds-g-color-accent-2);
+  color: var(--slds-g-color-on-surface-inverse-1);
+  border: 1px solid var(--slds-g-color-accent-2);
+  border-radius: var(--token-radius-btn);
+  font-weight: 500;
+  padding: 0 var(--slds-g-spacing-4);
+  font-size: var(--token-font-size-xs-plus);
+  line-height: 1.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.postcode-find-btn:hover {
+  background-color: var(--slds-g-color-accent-3);
+  border-color: var(--slds-g-color-accent-3);
+}
+
+.sticky-table-header {
+  position: sticky;
+  right: 0;
+  background: var(--token-layer-background, white);
+  z-index: 1;
+}
+
+.sticky-table-cell {
+  position: sticky;
+  right: 0;
+  background: var(--token-layer-background, white);
+  z-index: 1;
+}
+
+.quotes-filter-section {
+  background: var(--token-layer-surface, #f3f3f3);
+  padding: var(--token-spacing-16);
+  margin-bottom: var(--token-spacing-16);
+  border-radius: var(--token-spacing-4);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--token-form-field-gap, 2rem);
+}
+
+.property-card {
+  border: 1px solid var(--token-border-subtle, #d8dde6);
+  padding: var(--token-spacing-16);
+  margin-bottom: var(--token-spacing-8);
+  border-radius: var(--token-spacing-4);
+  position: relative;
+}
+
+.button-group-end {
+  border-top: 1px solid var(--token-border-subtle);
+  padding-top: var(--token-spacing-16);
+  margin-top: var(--token-spacing-16);
+}
+
+.section-header {
+  font-size: var(--token-font-size-md);
+  font-weight: 600;
+  margin: 0;
+}
+
+.subsection-header {
+  font-size: var(--token-font-size-sm);
+  font-weight: bold;
+  margin-bottom: var(--token-spacing-8);
+}
+
+/* Grid Layouts */
+.grid-auto-fit {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--token-spacing-16);
+}
+
+.grid-auto-fill-150 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--token-spacing-8);
+}
+
+.grid-2-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--token-spacing-16);
+}
+
+.grid-2-col-gap-margin {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--token-spacing-16);
+  margin-bottom: var(--token-spacing-16);
+}
+
+@media (max-width: 768px) {
+  .grid-2-col-gap-margin {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid-3-col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--token-spacing-16);
+  align-items: start;
+}
+
+.form-control-inline {
+  display: flex;
+  gap: var(--token-spacing-8);
+  align-items: center;
+}
+
+.grid-align-center-gap {
+  align-items: center;
+  gap: var(--token-spacing-8);
+}
+
+.min-width-260 {
+  min-width: 260px;
+}
+
+.percent-unit {
+  padding: 0 0.5rem;
+  align-self: center;
+}
+
+/* Buttons & Actions */
+.button-group-end {
+  margin-top: var(--token-spacing-12);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--token-spacing-8);
+}
+
+/* Specific combo classes for common patterns */
+.settings-container {
+  padding: var(--token-spacing-32);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.modal-footer-actions {
+  padding: var(--token-spacing-12) 1.25rem;
+  border-top: 1px solid var(--token-border);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--token-spacing-8);
+  background: var(--token-layer-background);
+}
+
+.results-table-wrapper {
+  margin-top: var(--token-spacing-16);
+  overflow-x: auto;
+}
+
+/* ensure brand table headers look consistent when some components don't wrap table in results-section */
+.results-table-wrapper__table thead th {
+  position: sticky;
+  top: 0;
+  z-index: var(--token-z-sticky, 1020);
+  text-align: center;
+  font-weight: 600;
+  color: var(--token-text-inverse);
+  padding: var(--token-spacing-md) var(--token-spacing-lg);
+}
+.results-table-wrapper__table thead th.th-label {
+  background: var(--token-color-transparent);
+  color: var(--token-color-transparent);
+  text-align: left;
+  font-size: 0;
+  line-height: 0;
+  visibility: hidden;
+}
+.results-table-wrapper__table thead th.th-fusion { background: var(--mfs-brand-navy); }
+.results-table-wrapper__table thead th.th-variable { background: var(--mfs-brand-navy-500); }
+.results-table-wrapper__table thead th.th-fixed { background: var(--mfs-brand-orange); }
+
+.results-table-wrapper__table tbody th[scope='row'] {
+  position: sticky;
+  left: 0;
+  z-index: var(--token-z-sticky, 1020);
+  background: var(--token-ui-background-neutral);
+}
+
+/* Hide the Multi Property Details section without removing its code.
+   This keeps the component in place but prevents it from rendering
+   visually in the UI. Remove or toggle this class to show it again. */
+.multi-property-details-hidden {
+  display: none !important;
+}
+
+.helper-icon {
+  margin-right: var(--token-spacing-8);
+  font-size: var(--token-font-size-md);
+}
+
+/* ============================================
+   LOADING, ERROR & EMPTY STATE UTILITIES
+   Shared utility classes for loading spinners, error messages,
+   and empty states across the application.
+   
+   Use these classes for consistent UI feedback states.
+   ============================================ */
+
+/* Loading States */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--token-spacing-2xl, 2rem);
+  text-align: center;
+  background: var(--token-layer-background);
+  color: var(--token-text-secondary, #666);
+}
+
+.loading-spinner {
+  width: var(--token-spacing-48);
+  height: var(--token-spacing-48);
+  border: var(--token-spacing-4) solid var(--token-border-subtle, #e0e0e0);
+  border-top: var(--token-spacing-4) solid var(--token-interactive, #0176d3);
+  border-radius: 50%;
+  animation: spinner-spin 1s linear infinite;
+  margin-bottom: var(--token-spacing-lg, 1rem);
+}
+
+@keyframes spinner-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  color: var(--token-text-secondary);
+  font-size: var(--token-font-size-md);
+  font-weight: var(--token-font-weight-medium);
+}
+
+/* Error States */
+.error-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--token-spacing-2xl, 2rem);
+  background: var(--token-layer-background);
+  text-align: center;
+}
+
+.error-message {
+  background-color: color-mix(in srgb, var(--token-critical, #dc3545) 10%, white);
+  border: var(--token-spacing-2) solid var(--token-critical, #dc3545);
+  border-radius: var(--token-radius-md, 8px);
+  padding: var(--token-spacing-xl, 1.5rem);
+  max-width: 500px;
+  text-align: center;
+  box-shadow: var(--token-shadow-soft);
+}
+
+.error-message__title {
+  color: var(--token-critical, #dc3545);
+  font-size: var(--token-font-size-lg);
+  font-weight: var(--token-font-weight-semibold);
+  margin: 0 0 var(--token-spacing-md, 0.75rem) 0;
+}
+
+.error-message__text {
+  color: var(--token-text-secondary, #666);
+  font-size: var(--token-font-size-sm);
+  margin: 0 0 var(--token-spacing-lg, 1rem) 0;
+  line-height: 1.5;
+}
+
+.error-message__button {
+  background-color: var(--token-critical, #dc3545);
+  color: var(--token-text-inverse, white);
+  border: none;
+  padding: var(--slds-g-spacing-2) var(--slds-g-spacing-4);
+  border-radius: var(--token-radius-btn, 4px);
+  cursor: pointer;
+  font-size: var(--token-font-size-sm);
+  font-weight: var(--token-font-weight-medium);
+  transition: background-color 0.2s ease;
+}
+
+.error-message__button:hover {
+  background-color: color-mix(in srgb, var(--token-critical, #dc3545) 85%, black);
+}
+
+/* Empty States */
+.empty-state {
+  padding: var(--token-spacing-2xl, 2rem);
+  text-align: center;
+  color: var(--token-text-muted, #6b6b6b);
+  font-style: italic;
+}
+
+.empty-state__title {
+  font-size: var(--token-font-size-md-plus);
+  font-weight: 500;
+  margin-bottom: var(--token-spacing-sm, 0.5rem);
+  font-style: normal;
+  color: var(--token-text-primary, #181818);
+}
+
+.empty-state__subtitle {
+  font-size: var(--token-font-size-sm-plus);
+  color: var(--token-text-secondary, #6b6b6b);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.empty-state__cell {
+  padding: var(--token-spacing-2xl, 2rem) !important;
+  text-align: center !important;
+  color: var(--token-text-muted, #6b6b6b);
+  font-style: italic;
+}
+
+/* Field Validation Error Styles */
+.error-border {
+  border: var(--token-spacing-2) solid var(--token-danger, #d32f2f) !important;
+  background-color: var(--token-error-bg, #fff5f5) !important;
+}
+
+.field-error-message {
+  color: var(--token-danger, #d32f2f);
+  font-size: var(--token-font-size-xs);
+  margin-top: var(--token-spacing-4);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: var(--token-spacing-4);
+}
+
+.helper-text {
+  color: var(--token-text-secondary, #666);
+  font-size: var(--token-font-size-xs);
+  line-height: 1.5;
+}
+
+/* Animation Utilities */
+.transition-all { transition: all 0.2s ease-in-out; }
+.hover-shadow:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+  border-color: var(--slds-g-color-brand-base-50);
+}
+

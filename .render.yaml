@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: polaristest-backend
+    env: node
+    plan: free
+    repo: https://github.com/MKamranYaqub/polaristest
+    branch: main
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+
+static_sites:
+  - name: polaristest-frontend
+    repo: https://github.com/MKamranYaqub/polaristest
+    branch: main
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    publishPath: dist
+    envVars:
+      - key: VITE_SUPABASE_URL
+        sync: false
+      - key: VITE_SUPABASE_ANON_KEY
+        sync: false

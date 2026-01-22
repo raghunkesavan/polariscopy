@@ -1,0 +1,75 @@
+/* Salesforce Lightning Design System Breadcrumbs */
+
+.slds-breadcrumb {
+  margin-bottom: var(--token-spacing-16);
+}
+
+.slds-breadcrumb__list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--token-spacing-8);
+}
+
+.slds-breadcrumb__item {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--token-font-size-sm);
+  line-height: var(--token-spacing-20);
+}
+
+.slds-breadcrumb__item:not(:last-child)::after {
+  content: '›';
+  margin-left: var(--token-spacing-8);
+  color: var(--slds-color-text-weak, #706e6b);
+  font-size: var(--token-font-size-md);
+}
+
+.slds-breadcrumb__link {
+  color: var(--slds-color-text-link, #0176d3);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.slds-breadcrumb__link:hover {
+  color: var(--slds-color-text-link-hover, #014486);
+  text-decoration: underline;
+}
+
+.slds-breadcrumb__link:focus {
+  outline: var(--token-spacing-2) solid var(--slds-color-border-focus, #0176d3);
+  outline-offset: var(--token-spacing-2);
+  border-radius: var(--token-spacing-2);
+}
+
+.slds-breadcrumb__current {
+  color: var(--slds-color-text-default, #181818);
+  font-weight: 400;
+}
+
+/* Dark mode overrides */
+[data-carbon-theme='g100'] .slds-breadcrumb__item:not(:last-child)::after {
+  color: var(--cds-text-secondary, #c6c6c6);
+}
+
+[data-carbon-theme='g100'] .slds-breadcrumb__link {
+  color: var(--cds-link-primary, #78a9ff);
+}
+
+[data-carbon-theme='g100'] .slds-breadcrumb__link:hover {
+  color: var(--cds-link-primary-hover, #a6c8ff);
+}
+
+[data-carbon-theme='g100'] .slds-breadcrumb__current {
+  color: var(--cds-text-primary, #f4f4f4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .slds-breadcrumb__list {
+    font-size: var(--token-font-size-xs-plus);
+  }
+}

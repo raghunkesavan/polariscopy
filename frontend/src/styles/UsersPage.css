@@ -1,0 +1,30 @@
+/* Users Page Styling */
+
+.users-page-header h1 {
+  margin-bottom: var(--token-spacing-8);
+  font-size: var(--token-font-size-xl-plus);
+  font-weight: bold;
+}
+
+.users-page-header p {
+  margin: 0;
+  color: var(--token-text-muted);
+}
+
+.success-message-box {
+  background: var(--token-status-success-bg);
+  border: var(--token-spacing-2) solid var(--token-success);
+  border-radius: var(--token-spacing-8);
+  padding: var(--token-spacing-16);
+  margin-bottom: var(--token-spacing-24);
+  text-align: center;
+}
+
+.success-message-box h3 {
+  color: var(--token-success);
+  margin: 0 0 0.5rem 0;
+}
+
+.success-message-box p {
+  margin: 0 0 1rem 0;
+}

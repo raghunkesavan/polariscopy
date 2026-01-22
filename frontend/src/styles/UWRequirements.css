@@ -1,0 +1,201 @@
+/**
+ * UW Requirements Admin Styles
+ * Uses SLDS design tokens
+ */
+
+.uw-requirements-admin {
+  padding: var(--slds-g-spacing-medium, 1rem);
+}
+
+.uw-requirements-admin__header {
+  margin-bottom: var(--slds-g-spacing-medium, 1rem);
+}
+
+.uw-requirements-admin__header h2 {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--slds-g-spacing-x-small, 0.5rem);
+}
+
+.uw-requirements-admin__actions {
+  background-color: var(--slds-g-color-neutral-base-95, #f3f3f3);
+  padding: var(--slds-g-spacing-small, 0.75rem);
+  border-radius: var(--slds-g-radius-border-2, 0.25rem);
+}
+
+.uw-requirements-admin__category-header {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease;
+}
+
+.uw-requirements-admin__category-header:hover {
+  background-color: var(--slds-g-color-neutral-base-95, #f3f3f3);
+}
+
+.uw-requirements-admin__category-header:focus {
+  outline: var(--token-spacing-2) solid var(--slds-g-color-brand-base-50, #0176d3);
+  outline-offset: -2px;
+}
+
+.uw-requirements-admin__row--disabled {
+  opacity: 0.6;
+  background-color: var(--slds-g-color-neutral-base-95, #f3f3f3);
+}
+
+.uw-requirements-admin__list .slds-card {
+  margin-bottom: var(--slds-g-spacing-small, 0.75rem);
+}
+
+.uw-requirements-admin__list .slds-card__body {
+  padding: 0;
+}
+
+.uw-requirements-admin__list .slds-table {
+  margin-bottom: 0;
+}
+
+.uw-requirements-admin__list .slds-table th,
+.uw-requirements-admin__list .slds-table td {
+  vertical-align: middle;
+}
+
+/* Table column widths */
+.uw-requirements-admin__col--checkbox {
+  width: var(--token-spacing-40);
+}
+
+.uw-requirements-admin__col--stage {
+  width: 100px;
+}
+
+.uw-requirements-admin__col--required {
+  width: 80px;
+}
+
+.uw-requirements-admin__col--conditions {
+  width: 150px;
+  min-width: 150px;
+}
+
+.uw-requirements-admin__col--actions {
+  width: 140px;
+}
+
+/* Stage badges */
+.slds-badge_warning {
+  background-color: var(--slds-g-color-warning-base-50, #fe9339);
+  color: var(--slds-g-color-neutral-base-100, #fff);
+}
+
+.slds-badge_success {
+  background-color: var(--slds-g-color-success-base-50, #2e844a);
+  color: var(--slds-g-color-neutral-base-100, #fff);
+}
+
+.slds-badge_inverse {
+  background-color: var(--slds-g-color-neutral-base-30, #706e6b);
+  color: var(--slds-g-color-neutral-base-100, #fff);
+}
+
+.slds-badge_lightest {
+  background-color: var(--slds-g-color-neutral-base-90, #e5e5e5);
+  color: var(--slds-g-color-neutral-base-10, #181818);
+}
+
+/* Button group spacing */
+.uw-requirements-admin__list .slds-button-group {
+  display: flex;
+  gap: var(--slds-g-spacing-xx-small, 0.25rem);
+}
+
+/* Error button variant */
+.slds-button_icon-error:hover {
+  background-color: var(--slds-g-color-error-base-40, #c23934);
+  border-color: var(--slds-g-color-error-base-40, #c23934);
+}
+
+.slds-button_icon-error:hover .slds-icon {
+  fill: var(--slds-g-color-neutral-base-100, #fff);
+}
+
+/* Modal improvements */
+.uw-requirements-admin .slds-modal__container {
+  max-width: 600px;
+}
+
+/* Checkbox alignment */
+.uw-requirements-admin .slds-checkbox {
+  margin: 0;
+}
+
+/* Textarea in edit mode */
+.uw-requirements-admin .slds-textarea {
+  min-height: 60px;
+}
+
+/* Search icon positioning */
+.uw-requirements-admin .slds-input-has-icon .slds-input__icon {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Align bottom helper */
+.slds-align-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+/* Add to category button */
+.uw-requirements-admin .slds-button_stretch {
+  width: 100%;
+}
+
+/* Condition selector in edit mode */
+.uw-requirements-admin__col--conditions select {
+  min-width: 120px;
+}
+
+/* Fix table overflow - prevent screen dimension change */
+.uw-requirements-admin__list {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.uw-requirements-admin__list .slds-card__body {
+  overflow-x: auto;
+}
+
+.uw-requirements-admin__list .slds-table {
+  table-layout: fixed;
+  width: 100%;
+  min-width: 800px;
+}
+
+/* Description column should take remaining space */
+.uw-requirements-admin__list .slds-table th:nth-child(2),
+.uw-requirements-admin__list .slds-table td:nth-child(2) {
+  width: auto;
+  min-width: 250px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .uw-requirements-admin__actions .slds-grid {
+    flex-direction: column;
+  }
+  
+  .uw-requirements-admin__actions .slds-col {
+    width: 100%;
+    margin-bottom: var(--slds-g-spacing-small, 0.75rem);
+  }
+  
+  .uw-requirements-admin__actions .slds-text-align_right {
+    text-align: left;
+  }
+  
+  .uw-requirements-admin__list .slds-table {
+    font-size: var(--slds-g-font-size-2, 0.8125rem);
+  }
+}

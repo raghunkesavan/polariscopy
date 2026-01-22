@@ -1,0 +1,438 @@
+// Import SLDS design tokens (Figma POC foundation)
+@use './slds-tokens.css' as *;
+
+// Root token definitions
+:root {
+
+  /* Typography */
+  --token-font-family-base: 'Inter', 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --token-font-weight-regular: 400;
+  --token-font-weight-medium: 500;
+  --token-font-weight-semibold: 600;
+  --token-font-weight-bold: 700;
+  
+  /* Font sizes - comprehensive scale */
+  --token-font-size-4xs: 0.5625rem;    /* 9px */
+  --token-font-size-3xs: 0.6rem;       /* 9.6px */
+  --token-font-size-2xs: 0.625rem;     /* 10px */
+  --token-font-size-2xs-plus: 0.65rem; /* 10.4px */
+  --token-font-size-xs-minus: 0.6875rem; /* 11px */
+  --token-font-size-xs: 0.75rem;       /* 12px */
+  --token-font-size-xs-plus: 0.8125rem; /* 13px */
+  --token-font-size-sm-minus: 0.8rem;  /* 12.8px */
+  --token-font-size-sm: 0.875rem;      /* 14px */
+  --token-font-size-sm-plus: 0.9rem;   /* 14.4px */
+  --token-font-size-base-minus: 0.9375rem; /* 15px */
+  --token-font-size-base: 0.95rem;     /* 15.2px */
+  --token-font-size-md: 1rem;          /* 16px */
+  --token-font-size-md-plus: 1.1rem;   /* 17.6px */
+  --token-font-size-lg-minus: 1.125rem; /* 18px */
+  --token-font-size-lg: 1.25rem;       /* 20px */
+  --token-font-size-xl-minus: 1.2rem;  /* 19.2px */
+  --token-font-size-xl-small: 1.3rem;  /* 20.8px */
+  --token-font-size-xl: 1.35rem;       /* 21.6px */
+  --token-font-size-xl-plus: 1.75rem;  /* 28px */
+  --token-font-size-2xl: 1.5rem;       /* 24px */
+  --token-font-size-2xl-plus: 2.5rem;  /* 40px */
+  --token-font-size-3xl: 2rem;         /* 32px */
+  --token-font-size-4xl: 2.25rem;      /* 36px */
+  --token-font-size-5xl: 3rem;         /* 48px */
+  --token-font-size-6xl: 4rem;         /* 64px */
+  
+  --token-line-height-tight: 1.3;
+  --token-line-height-base: 1.5;
+  --token-line-height-loose: 1.6;
+
+  /* Spacing - comprehensive scale with px and rem values */
+  --token-spacing-0: 0;                        /* 0 */
+  --token-spacing-1: 0.0625rem;                /* 1px */
+  --token-spacing-2: 0.125rem;                 /* 2px */
+  --token-spacing-3: 0.1875rem;                /* 3px */
+  --token-spacing-4: 0.25rem;                  /* 4px */
+  --token-spacing-5: 0.3125rem;                /* 5px */
+  --token-spacing-6: 0.375rem;                 /* 6px */
+  --token-spacing-8: 0.5rem;                   /* 8px */
+  --token-spacing-10: 0.625rem;                /* 10px */
+  --token-spacing-12: 0.75rem;                 /* 12px */
+  --token-spacing-14: 0.875rem;                /* 14px */
+  --token-spacing-15: 0.9375rem;               /* 15px */
+  --token-spacing-16: 1rem;                    /* 16px */
+  --token-spacing-18: 1.125rem;                /* 18px */
+  --token-spacing-20: 1.25rem;                 /* 20px */
+  --token-spacing-24: 1.5rem;                  /* 24px */
+  --token-spacing-28: 1.75rem;                 /* 28px */
+  --token-spacing-32: 2rem;                    /* 32px */
+  --token-spacing-36: 2.25rem;                 /* 36px */
+  --token-spacing-40: 2.5rem;                  /* 40px */
+  --token-spacing-44: 2.75rem;                 /* 44px */
+  --token-spacing-48: 3rem;                    /* 48px */
+  --token-spacing-56: 3.5rem;                  /* 56px */
+  --token-spacing-64: 4rem;                    /* 64px */
+  
+  /* Semantic spacing aliases (backward compatibility) */
+  --token-space-2: var(--token-spacing-2);
+  --token-space-4: var(--token-spacing-4);
+  --token-space-6: var(--token-spacing-6);
+  --token-space-8: var(--token-spacing-8);
+  --token-space-12: var(--token-spacing-12);
+  --token-space-16: var(--token-spacing-16);
+  --token-space-24: var(--token-spacing-24);
+  --token-space-32: var(--token-spacing-32);
+  --token-space-48: var(--token-spacing-48);
+  
+  /* Common use case aliases */
+  --token-spacing-xs: var(--token-spacing-4);   /* 4px / 0.25rem */
+  --token-spacing-sm: var(--token-spacing-8);   /* 8px / 0.5rem */
+  --token-spacing-md: var(--token-spacing-12);  /* 12px / 0.75rem */
+  --token-spacing-lg: var(--token-spacing-16);  /* 16px / 1rem */
+  --token-spacing-xl: var(--token-spacing-24);  /* 24px / 1.5rem */
+  --token-spacing-2xl: var(--token-spacing-32); /* 32px / 2rem */
+  --token-spacing-3xl: var(--token-spacing-48); /* 48px / 3rem */
+
+  /* Form field spacing */
+  --token-form-field-gap: 2rem; /* 32px gap between form fields */
+
+  /* Icon sizes */
+  --token-icon-sm: 14px;
+  --token-icon-md: 16px;
+  --token-icon-lg: 24px;
+  --token-icon-xl: 40px;
+  --token-icon-2xl: 56px;
+  --token-icon-3xl: 64px;
+
+  /* Size scale for components */
+  --token-size-icon-sm: 14px;
+  --token-size-icon-md: 18px;
+  --token-size-icon-lg: 24px;
+  --token-size-icon-xl: 40px;
+  --token-size-icon-2xl: 56px;
+  --token-size-icon-3xl: 64px;
+
+  /* Border widths */
+  --token-border-width-thin: 1px;
+  --token-border-width-medium: 2px;
+
+  /* Radii - aliased to SLDS for Figma consistency */
+  --token-radius-sm: var(--slds-g-spacing-1);     /* 0.25rem */
+  --token-radius-md: var(--slds-g-radius-border-2); /* 0.5rem / 8px */
+  --token-radius-btn: 88px;
+  --token-radius-btn-left: 88px 0 0 88px;
+  --token-radius-btn-right: 0 88px 88px 0;
+  
+  /* Transparent color */
+  --token-color-transparent: transparent;
+  
+  /* Base colors */
+  --token-color-white: #ffffff;
+  --token-color-black: #000000;
+  
+  /* Elevation */
+  --token-shadow-soft: 0 2px 6px rgba(11, 20, 26, 0.08);
+  --token-shadow-strong: 0 6px 18px rgba(11, 20, 26, 0.14);
+  --token-shadow-modal: 0 2px 12px 0 rgba(11, 20, 26, 0.2);
+  --token-shadow-card: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  /* Color hooks - now aliased to SLDS tokens for Figma consistency */
+  --token-layer-background: var(--slds-g-color-neutral-base-95);    /* #f3f3f3 */
+  --token-layer-surface: var(--slds-g-color-surface-container-1);   /* #ffffff */
+  --token-layer-hover: var(--slds-g-color-neutral-base-90);         /* #e5e5e5 */
+  --token-layer-elevated: #4c4c4c; /* For dark elevated surfaces */
+  --token-border-subtle: var(--slds-g-color-border-1);              /* #c9c9c9 */
+  --token-border-strong: var(--slds-g-color-border-2);              /* #5c5c5c */
+  --token-border-danger: #a2191f; /* For error/critical borders */
+  --token-text-primary: var(--slds-g-color-on-surface-2);           /* #2e2e2e */
+  --token-text-secondary: var(--slds-g-color-on-surface-1);         /* #5c5c5c */
+  --token-text-helper: var(--slds-g-color-on-surface-1);            /* #5c5c5c */
+  --token-text-error: var(--slds-g-color-on-error-1);               /* #b60554 */
+  --token-text-inverse: var(--slds-g-color-on-surface-inverse-1);   /* #ffffff */
+  --token-text-muted: #706e6b; /* Muted/disabled text */
+  --token-interactive: var(--slds-g-color-accent-2);                /* #0250d9 */
+  --token-interactive-hover: var(--slds-g-color-accent-3);          /* #022ac0 */
+  --token-interactive-disabled: #a6c8ff; /* Disabled interactive elements */
+  --token-focus: var(--slds-g-color-accent-2);                      /* #0250d9 */
+  --token-critical: #c23934;
+  --token-critical-hover: #a61a14;
+  --token-success: #04844B;
+  --token-success-bg: #E8F5E9;
+  --token-success-action: #00a89d; /* Teal for positive action buttons */
+  --token-success-action-hover: #008c82;
+  --token-error: #e3066a;
+  --token-error-bg: #FFEBEE;
+  --token-warning: #ff5d2d;
+  --token-warning-bg: #FFF3CD;
+  --token-warning-text: #856404;
+  --token-info: #4992fe;
+  --token-info-bg: #E3F3FF;
+  --token-color-accent: #fe9339;
+  --token-focus-ring: rgba(2, 80, 217, 0.3);
+  
+  /* UI element colors */
+  --token-ui-background-subtle: #fafafa;
+  --token-ui-background-light: #fafaf9;
+  --token-ui-background-disabled: #f3f2f2;
+  --token-ui-border-light: #c9c7c5;
+  --token-ui-border-medium: #dddbda;
+  --token-ui-border-subtle: #e0e6ed;
+  --token-ui-text-dark: #181818;
+
+  /* Chart colors */
+  --token-chart-blue: #5b8def;
+  --token-chart-blue-light: #6CB4EE;
+  --token-chart-purple: #c47bde;
+  --token-chart-pink: #e91e63;
+  --token-chart-yellow: #ffc107;
+  --token-chart-orange: #ff9800;
+
+  /* Results column colors (used in calculators and PDFs) */
+  --token-column-navy: #002855;
+  --token-column-navy-500: #1B3B6F;
+  --token-column-orange: #E84E0F;
+  --token-column-orange-dark: #dd7a01;
+  --token-column-navy-dark: #032d60;
+
+  /* Common colors for borders and backgrounds */
+  --token-color-gray-light: #f4f4f4;
+  --token-color-gray-border: #ddd;
+  --token-ui-text-medium: #666;
+  --token-ui-text-disabled: #999;
+  --token-brand-primary: #0176d3;
+  --token-brand-header: #2e5aac;
+  --token-ui-background-neutral: #f4f6f9;
+
+  /* MFS brand colors */
+  --mfs-brand-orange: #ED8B00; /* MFS primary orange */
+  --mfs-brand-orange-500: #F39C12; /* hover/alt */
+  --mfs-brand-orange-100: #FFF3DF; /* subtle bg */
+  --mfs-brand-navy: #002855; /* MFS deep navy */
+  --mfs-brand-navy-500: #1B3B6F; /* hover/alt */
+  --mfs-brand-navy-100: #E6ECF6; /* subtle bg */
+
+  /* Brand color aliases for easier usage */
+  --token-color-brand-navy: #00205B;
+  --token-color-brand-navy-dark: #00163e;
+  --token-color-brand-orange: #E84E0F;
+  --token-color-brand-blue: #0176d3;
+  --token-color-brand-blue-dark: #014486;
+  --token-color-issue-quote: #ff5d2d;
+  --token-color-issue-quote-hover: #e54a1a;
+
+  /* Additional UI colors */
+  --token-color-text-tertiary: #54698d;
+  --token-color-bg-tertiary: #f3f2f2;
+  --token-color-bg-subtle: #eef4ff;
+  
+  /* Status/Rating colors for products table */
+  --token-status-strong-bg: #90ee90; /* Light green for "Strong" rating */
+  --token-status-good-bg: #d4edda; /* Pale green for "Good" rating */
+  --token-status-limited-bg: #fff3cd; /* Pale yellow for "Limited" rating (same as warning-bg) */
+  --token-status-excluded-bg: #d6e9f5; /* Pale blue for "Excluded" */
+  
+  /* Additional border colors */
+  --token-border-medium: #dddbda; /* Medium gray borders */
+  
+  /* Results table header colors (tokenized for easy theming) */
+  /* Default colors (backward compatibility) - columns 1-10 */
+  --results-header-label-bg: var(--token-ui-background-neutral);
+  --results-header-label-text: var(--token-ui-text-dark);
+  --results-header-col1-bg: var(--mfs-brand-navy);
+  --results-header-col1-text: var(--token-color-white);
+  --results-header-col2-bg: var(--mfs-brand-navy-500);
+  --results-header-col2-text: var(--token-color-white);
+  --results-header-col3-bg: var(--mfs-brand-orange);
+  --results-header-col3-text: var(--token-color-white);
+  --results-header-col4-bg: var(--mfs-brand-navy);
+  --results-header-col4-text: var(--token-color-white);
+  --results-header-col5-bg: var(--mfs-brand-navy-500);
+  --results-header-col5-text: var(--token-color-white);
+  --results-header-col6-bg: var(--mfs-brand-orange);
+  --results-header-col6-text: var(--token-color-white);
+  --results-header-col7-bg: var(--mfs-brand-navy);
+  --results-header-col7-text: var(--token-color-white);
+  --results-header-col8-bg: var(--mfs-brand-navy-500);
+  --results-header-col8-text: var(--token-color-white);
+  --results-header-col9-bg: var(--mfs-brand-orange);
+  --results-header-col9-text: var(--token-color-white);
+  --results-header-col10-bg: var(--mfs-brand-navy);
+  --results-header-col10-text: var(--token-color-white);
+  
+  /* BTL Calculator header colors (columns 1-10) */
+  --results-header-btl-label-bg: var(--token-ui-background-neutral);
+  --results-header-btl-label-text: var(--token-ui-text-dark);
+  --results-header-btl-col1-bg: var(--mfs-brand-navy);
+  --results-header-btl-col1-text: var(--token-color-white);
+  --results-header-btl-col2-bg: var(--mfs-brand-navy-500);
+  --results-header-btl-col2-text: var(--token-color-white);
+  --results-header-btl-col3-bg: var(--mfs-brand-orange);
+  --results-header-btl-col3-text: var(--token-color-white);
+  --results-header-btl-col4-bg: var(--mfs-brand-navy);
+  --results-header-btl-col4-text: var(--token-color-white);
+  --results-header-btl-col5-bg: var(--mfs-brand-navy-500);
+  --results-header-btl-col5-text: var(--token-color-white);
+  --results-header-btl-col6-bg: var(--mfs-brand-orange);
+  --results-header-btl-col6-text: var(--token-color-white);
+  --results-header-btl-col7-bg: var(--mfs-brand-navy);
+  --results-header-btl-col7-text: var(--token-color-white);
+  --results-header-btl-col8-bg: var(--mfs-brand-navy-500);
+  --results-header-btl-col8-text: var(--token-color-white);
+  --results-header-btl-col9-bg: var(--mfs-brand-orange);
+  --results-header-btl-col9-text: var(--token-color-white);
+  --results-header-btl-col10-bg: var(--mfs-brand-navy);
+  --results-header-btl-col10-text: var(--token-color-white);
+  
+  /* Bridge Calculator header colors (columns 1-10) */
+  --results-header-bridge-label-bg: var(--token-ui-background-neutral);
+  --results-header-bridge-label-text: var(--token-ui-text-dark);
+  --results-header-bridge-col1-bg: var(--mfs-brand-navy);
+  --results-header-bridge-col1-text: var(--token-color-white);
+  --results-header-bridge-col2-bg: var(--mfs-brand-navy-500);
+  --results-header-bridge-col2-text: var(--token-color-white);
+  --results-header-bridge-col3-bg: var(--mfs-brand-orange);
+  --results-header-bridge-col3-text: var(--token-color-white);
+  --results-header-bridge-col4-bg: var(--mfs-brand-navy);
+  --results-header-bridge-col4-text: var(--token-color-white);
+  --results-header-bridge-col5-bg: var(--mfs-brand-navy-500);
+  --results-header-bridge-col5-text: var(--token-color-white);
+  --results-header-bridge-col6-bg: var(--mfs-brand-orange);
+  --results-header-bridge-col6-text: var(--token-color-white);
+  --results-header-bridge-col7-bg: var(--mfs-brand-navy);
+  --results-header-bridge-col7-text: var(--token-color-white);
+  --results-header-bridge-col8-bg: var(--mfs-brand-navy-500);
+  --results-header-bridge-col8-text: var(--token-color-white);
+  --results-header-bridge-col9-bg: var(--mfs-brand-orange);
+  --results-header-bridge-col9-text: var(--token-color-white);
+  --results-header-bridge-col10-bg: var(--mfs-brand-navy);
+  --results-header-bridge-col10-text: var(--token-color-white);
+  
+  /* Core Calculator header colors (columns 1-10) */
+  --results-header-core-label-bg: var(--token-ui-background-neutral);
+  --results-header-core-label-text: var(--token-ui-text-dark);
+  --results-header-core-col1-bg: var(--mfs-brand-navy);
+  --results-header-core-col1-text: var(--token-color-white);
+  --results-header-core-col2-bg: var(--mfs-brand-navy-500);
+  --results-header-core-col2-text: var(--token-color-white);
+  --results-header-core-col3-bg: var(--mfs-brand-orange);
+  --results-header-core-col3-text: var(--token-color-white);
+  --results-header-core-col4-bg: var(--mfs-brand-navy);
+  --results-header-core-col4-text: var(--token-color-white);
+  --results-header-core-col5-bg: var(--mfs-brand-navy-500);
+  --results-header-core-col5-text: var(--token-color-white);
+  --results-header-core-col6-bg: var(--mfs-brand-orange);
+  --results-header-core-col6-text: var(--token-color-white);
+  --results-header-core-col7-bg: var(--mfs-brand-navy);
+  --results-header-core-col7-text: var(--token-color-white);
+  --results-header-core-col8-bg: var(--mfs-brand-navy-500);
+  --results-header-core-col8-text: var(--token-color-white);
+  --results-header-core-col9-bg: var(--mfs-brand-orange);
+  --results-header-core-col9-text: var(--token-color-white);
+  --results-header-core-col10-bg: var(--mfs-brand-navy);
+  --results-header-core-col10-text: var(--token-color-white);
+  
+  /* ========================================
+     PRODUCTS PAGE RATE TABLE TOKENS
+     Design tokens for Products page tier tables and category tabs
+     ======================================== */
+  
+  /* Category Tab Navigation (Top-level tabs: Specialist/Core/Commercial/Semi-Commercial) */
+  --token-products-tab-bg: var(--token-layer-surface);
+  --token-products-tab-bg-active: #0176d3; /* Blue for active tab */
+  --token-products-tab-bg-hover: var(--token-layer-hover);
+  --token-products-tab-text: var(--token-text-secondary);
+  --token-products-tab-text-active: var(--token-color-white);
+  --token-products-tab-text-hover: var(--token-text-primary);
+  --token-products-tab-border: var(--token-border-subtle);
+  --token-products-tab-border-bottom-active: 3px solid #0176d3;
+  --token-products-tab-padding-x: var(--token-spacing-xl);
+  --token-products-tab-padding-y: var(--token-spacing-md);
+  --token-products-tab-font-size: var(--token-font-size-sm);
+  --token-products-tab-font-weight: var(--token-font-weight-medium);
+  --token-products-tab-font-weight-active: var(--token-font-weight-semibold);
+  
+  /* Tier Header Colors - Exact colors from Screenshots */
+  --token-tier1-bg: #89CFF0; /* Light blue */
+  --token-tier1-text: var(--token-color-white);
+  --token-tier2-bg: #FF9339; /* Orange */
+  --token-tier2-text: var(--token-color-white);
+  --token-tier3-bg: #E91E8C; /* Pink/Magenta */
+  --token-tier3-text: var(--token-color-white);
+  
+  /* Product Column Headers (3yr Fixed, 2yr Fixed, 2yr Tracker) */
+  --token-product-3yr-fixed-bg: #6CB4EE; /* Light blue */
+  --token-product-3yr-fixed-text: var(--token-color-white);
+  --token-product-2yr-fixed-bg: #003D7A; /* Dark blue */
+  --token-product-2yr-fixed-text: var(--token-color-white);
+  --token-product-2yr-tracker-bg: #6C6C6C; /* Gray */
+  --token-product-2yr-tracker-text: var(--token-color-white);
+  
+  /* Row Type Backgrounds */
+  --token-row-fee-bg: #F3F3F3; /* Light gray for fee range rows */
+  --token-row-rate-bg: #FFFFFF; /* White for rate rows */
+  --token-row-revert-bg: #F9F9F9; /* Very light gray for revert rows */
+  --token-row-info-bg: #FAFAFA; /* Slightly lighter for info rows (defer/roll) */
+  
+  /* Table Cell Spacing */
+  --token-table-cell-padding-x: var(--token-spacing-md);
+  --token-table-cell-padding-y: var(--token-spacing-sm);
+  --token-table-header-padding: var(--token-spacing-lg);
+  
+  /* Table Borders */
+  --token-table-border: 1px solid var(--token-border-subtle);
+  --token-table-border-thick: 2px solid var(--token-border-subtle);
+  --token-table-radius: var(--slds-g-radius-border-3);
+  
+  /* Z-index scale */
+  --token-z-base: 1;
+  --token-z-dropdown: 1000;
+  --token-z-sticky: 1020;
+  --token-z-modal: 1050;
+  --token-z-popover: 1060;
+  --token-z-tooltip: 1070;
+  --token-z-toast: 9999;
+}
+
+[data-carbon-theme='g90'] { 
+  /* Override colors for dark theme */
+  --token-layer-background: #262626;
+  --token-layer-surface: #393939;
+  --token-layer-hover: #474747;
+  --token-layer-elevated: #525252;
+  --token-border-subtle: #525252;
+  --token-border-strong: #8d8d8d;
+  --token-text-primary: #f4f4f4;
+  --token-text-secondary: #c6c6c6;
+  --token-text-helper: #a8a8a8;
+  --token-text-inverse: #161616;
+  --token-text-muted: #8d8d8d;
+  --token-interactive: #78a9ff;
+  --token-interactive-hover: #a6c8ff;
+  --token-info-bg: #001d6c;
+  --token-success-bg: #044317;
+  --token-error-bg: #4c0a0f;
+  --token-warning-bg: #5c4200;
+  --token-ui-background-neutral: #393939;
+  --token-ui-text-dark: #f4f4f4;
+  --token-shadow-card: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+[data-carbon-theme='g100'] { 
+  /* Override colors for dark theme */
+  --token-layer-background: #161616;
+  --token-layer-surface: #262626;
+  --token-layer-hover: #353535;
+  --token-layer-elevated: #393939;
+  --token-border-subtle: #393939;
+  --token-border-strong: #6f6f6f;
+  --token-text-primary: #f4f4f4;
+  --token-text-secondary: #c6c6c6;
+  --token-text-helper: #a8a8a8;
+  --token-text-inverse: #161616;
+  --token-text-muted: #6f6f6f;
+  --token-interactive: #78a9ff;
+  --token-interactive-hover: #a6c8ff;
+  --token-info-bg: #001141;
+  --token-success-bg: #022d0d;
+  --token-error-bg: #2d0709;
+  --token-warning-bg: #3d2800;
+  --token-ui-background-neutral: #262626;
+  --token-ui-text-dark: #f4f4f4;
+  --token-shadow-card: 0 2px 4px rgba(0, 0, 0, 0.5);
+}

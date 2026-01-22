@@ -1,0 +1,511 @@
+<h1>BTL Calculator - System Architecture</h1>
+<h2>High-Level System Architecture</h2>
+<pre><code class="language-mermaid">graph TB
+    subgraph &quot;Client Layer&quot;
+        Browser[Web Browser]
+    end
+    
+    subgraph &quot;Frontend - React + Vite&quot;
+        UI[React Components]
+        Router[React Router]
+        Context[Context Providers]
+        CalcEngine[Calculation Engines]
+        
+        UI --&gt; Router
+        UI --&gt; Context
+        UI --&gt; CalcEngine
+    end
+    
+    subgraph &quot;Backend - Express API&quot;
+        API[Express Server]
+        Auth[Auth Middleware]
+        RateLimit[Rate Limiter]
+        Routes[API Routes]
+        
+        API --&gt; Auth
+        API --&gt; RateLimit
+        API --&gt; Routes
+    end
+    
+    subgraph &quot;Database&quot;
+        Supabase[(Supabase PostgreSQL)]
+        Tables[Tables: rates, quotes, users, app_constants]
+        RLS[Row Level Security]
+        
+        Supabase --&gt; Tables
+        Supabase --&gt; RLS
+    end
+    
+    subgraph &quot;External Services&quot;
+        PostcodeAPI[Postcode Lookup API]
+        PDFGen[PDF Generation]
+    end
+    
+    Browser --&gt;|HTTPS| UI
+    UI --&gt;|API Calls| API
+    Routes --&gt;|Queries| Supabase
+    Auth --&gt;|Validate| Supabase
+    Routes --&gt;|Lookup| PostcodeAPI
+    Routes --&gt;|Generate| PDFGen
+    
+    style Browser fill:#e1f5ff
+    style UI fill:#fff4e1
+    style API fill:#e8f5e9
+    style Supabase fill:#f3e5f5
+</code></pre>
+<h2>Frontend Architecture</h2>
+<pre><code class="language-mermaid">graph LR
+    subgraph &quot;Entry Point&quot;
+        Index[index.jsx]
+        App[App.jsx]
+    end
+    
+    subgraph &quot;Routing &amp; Layout&quot;
+        Router[React Router]
+        Layout[Layout Components]
+        Nav[Navigation]
+    end
+    
+    subgraph &quot;Pages&quot;
+        Calculator[Calculator Page]
+        Admin[Admin Pages]
+        Settings[Settings Page]
+        Quotes[Quotes Page]
+    end
+    
+    subgraph &quot;Components&quot;
+        BTLCalc[BTL Calculator]
+        BridgeCalc[Bridge Calculator]
+        Results[Results Display]
+        Forms[Form Inputs]
+    end
+    
+    subgraph &quot;State Management&quot;
+        SupabaseCtx[Supabase Context]
+        AuthCtx[Auth Context]
+        ThemeCtx[Theme Context]
+    end
+    
+    subgraph &quot;Business Logic&quot;
+        BTLEngine[BTL Calculation Engine]
+        BridgeEngine[Bridge Calculation Engine]
+        Utils[Utility Functions]
+    end
+    
+    Index --&gt; App
+    App --&gt; Router
+    Router --&gt; Layout
+    Layout --&gt; Pages
+    Pages --&gt; Components
+    Components --&gt; SupabaseCtx
+    Components --&gt; AuthCtx
+    Components --&gt; BTLEngine
+    Components --&gt; BridgeEngine
+    
+    style Index fill:#ffebee
+    style BTLEngine fill:#e8f5e9
+    style SupabaseCtx fill:#fff3e0
+</code></pre>
+<h2>Backend API Architecture</h2>
+<pre><code class="language-mermaid">graph TB
+    subgraph &quot;Server Entry&quot;
+        Server[server.js]
+        Config[Configuration]
+        Middleware[Middleware Stack]
+    end
+    
+    subgraph &quot;Middleware Layer&quot;
+        CORS[CORS Handler]
+        Logger[HTTP Logger]
+        RateLimit[Rate Limiter]
+        ErrorH[Error Handler]
+    end
+    
+    subgraph &quot;API Routes&quot;
+        RatesRoute[API Rates]
+        QuotesRoute[API Quotes]
+        AuthRoute[API Auth]
+        PostcodeRoute[API Postcode]
+        DIPRoute[API DIP PDF]
+        QuotePDFRoute[API Quote PDF]
+        ExportRoute[API Export]
+    end
+    
+    subgraph &quot;Database Layer&quot;
+        SupabaseClient[Supabase Client]
+        RatesTable[(rates table)]
+        QuotesTable[(quotes table)]
+        UsersTable[(users table)]
+        ConstantsTable[(app_constants table)]
+    end
+    
+    Server --&gt; Config
+    Server --&gt; Middleware
+    Middleware --&gt; CORS
+    Middleware --&gt; Logger
+    Middleware --&gt; RateLimit
+    Middleware --&gt; ErrorH
+    
+    Server --&gt; RatesRoute
+    Server --&gt; QuotesRoute
+    Server --&gt; AuthRoute
+    Server --&gt; PostcodeRoute
+    Server --&gt; DIPRoute
+    Server --&gt; QuotePDFRoute
+    Server --&gt; ExportRoute
+    
+    RatesRoute --&gt; SupabaseClient
+    QuotesRoute --&gt; SupabaseClient
+    AuthRoute --&gt; SupabaseClient
+    
+    SupabaseClient --&gt; RatesTable
+    SupabaseClient --&gt; QuotesTable
+    SupabaseClient --&gt; UsersTable
+    SupabaseClient --&gt; ConstantsTable
+    
+    style Server fill:#e3f2fd
+    style Middleware Layer fill:#fff3e0
+    style API Routes fill:#e8f5e9
+    style Database Layer fill:#f3e5f5
+</code></pre>
+<h2>Calculation Engine Architecture</h2>
+<pre><code class="language-mermaid">graph TB
+    subgraph &quot;User Input&quot;
+        FormData[Form Data]
+        PropertyValue[Property Value]
+        Rent[Monthly Rent]
+        ProductType[Product Type]
+    end
+    
+    subgraph &quot;Core Engine Selection&quot;
+        Router{Product Type?}
+    end
+    
+    subgraph &quot;BTL Calculation Engine&quot;
+        BTLInit[Initialize BTL Engine]
+        BTLCompute[Compute Loan]
+        BTLEval[Evaluate Scenarios]
+        BTLResult[Best Loan Result]
+        
+        BTLInit --&gt; BTLCompute
+        BTLCompute --&gt; BTLEval
+        BTLEval --&gt; BTLResult
+    end
+    
+    subgraph &quot;Bridge/Fusion Engine&quot;
+        BridgeInit[Initialize Bridge Engine]
+        BridgeCompute[Compute Loan]
+        BridgeEval[Evaluate Properties]
+        BridgeResult[Best Loan Result]
+        
+        BridgeInit --&gt; BridgeCompute
+        BridgeCompute --&gt; BridgeEval
+        BridgeEval --&gt; BridgeResult
+    end
+    
+    subgraph &quot;Rate Logic&quot;
+        CoreRates[Core Rates]
+        SpecialistRates[Specialist Rates]
+        FloorRate[Floor Rate - Core Only]
+        StressBBR[Stress BBR - Both]
+        
+        CoreRates --&gt; FloorRate
+        CoreRates --&gt; StressBBR
+        SpecialistRates --&gt; StressBBR
+    end
+    
+    subgraph &quot;Calculations&quot;
+        GrossLoan[Gross Loan - Uses Floor + Stress]
+        PayRate[Pay Rate - Uses Actual Rate]
+        ICR[ICR Display - Uses Actual Rate]
+        DirectDebit[Direct Debit - Uses Actual Rate]
+    end
+    
+    subgraph &quot;Output&quot;
+        DisplayResults[Display Results]
+        PayRateDisplay[Pay Rate: Actual - Deferred]
+        RateDisplay[Rate: Actual + BBR for Tracker]
+    end
+    
+    FormData --&gt; Router
+    PropertyValue --&gt; Router
+    Rent --&gt; Router
+    ProductType --&gt; Router
+    
+    Router --&gt;|BTL| BTLInit
+    Router --&gt;|Bridge/Fusion| BridgeInit
+    
+    BTLResult --&gt; CoreRates
+    BTLResult --&gt; SpecialistRates
+    BridgeResult --&gt; CoreRates
+    BridgeResult --&gt; SpecialistRates
+    
+    FloorRate --&gt; Calculations
+    StressBBR --&gt; Calculations
+    
+    GrossLoan --&gt; DisplayResults
+    PayRate --&gt; PayRateDisplay
+    ICR --&gt; DisplayResults
+    DirectDebit --&gt; DisplayResults
+    
+    PayRateDisplay --&gt; DisplayResults
+    RateDisplay --&gt; DisplayResults
+    
+    style Router fill:#fff3e0
+    style Rate Logic fill:#e8f5e9
+    style Calculations fill:#e1f5ff
+    style Output fill:#f3e5f5
+</code></pre>
+<h2>Data Flow Diagram</h2>
+<pre><code class="language-mermaid">sequenceDiagram
+    participant User
+    participant Frontend
+    participant CalcEngine
+    participant Backend
+    participant Supabase
+    
+    User-&gt;&gt;Frontend: Enter loan details
+    Frontend-&gt;&gt;Backend: GET /api/rates
+    Backend-&gt;&gt;Supabase: Query rates table
+    Supabase--&gt;&gt;Backend: Return rates data
+    Backend--&gt;&gt;Frontend: Rates JSON
+    
+    Frontend-&gt;&gt;CalcEngine: Calculate with inputs
+    CalcEngine-&gt;&gt;CalcEngine: Evaluate scenarios
+    CalcEngine-&gt;&gt;CalcEngine: Apply floor rate (Core only)
+    CalcEngine-&gt;&gt;CalcEngine: Apply stress BBR
+    CalcEngine-&gt;&gt;CalcEngine: Compute gross loan
+    CalcEngine-&gt;&gt;CalcEngine: Compute payments (actual rate)
+    CalcEngine--&gt;&gt;Frontend: Best loan result
+    
+    Frontend-&gt;&gt;User: Display results
+    
+    User-&gt;&gt;Frontend: Save quote
+    Frontend-&gt;&gt;Backend: POST /api/quotes
+    Backend-&gt;&gt;Supabase: Insert quote
+    Supabase--&gt;&gt;Backend: Success
+    Backend--&gt;&gt;Frontend: Quote saved
+    Frontend-&gt;&gt;User: Confirmation
+</code></pre>
+<h2>Database Schema</h2>
+<pre><code class="language-mermaid">erDiagram
+    rates {
+        text key PK
+        jsonb data
+        timestamp created_at
+    }
+    
+    quotes {
+        uuid id PK
+        uuid user_id FK
+        text reference_number
+        text loan_type
+        jsonb btl_quote_data
+        jsonb bridging_quote_data
+        jsonb client_details
+        timestamp created_at
+    }
+    
+    users {
+        uuid id PK
+        text email
+        text password_hash
+        text company_name
+        timestamp created_at
+    }
+    
+    app_constants {
+        uuid id PK
+        text key
+        jsonb value
+        jsonb product_lists
+        jsonb fee_columns
+        jsonb market_rates
+        timestamp updated_at
+    }
+    
+    users ||--o{ quotes : creates
+</code></pre>
+<h2>Component Hierarchy</h2>
+<pre><code class="language-mermaid">graph TB
+    App[App.jsx]
+    
+    subgraph &quot;Layout&quot;
+        Header[Header]
+        Sidebar[Sidebar]
+        Footer[Footer]
+    end
+    
+    subgraph &quot;Calculator Pages&quot;
+        BTLPage[BTL Calculator Page]
+        BridgePage[Bridge Calculator Page]
+    end
+    
+    subgraph &quot;BTL Components&quot;
+        BTLForm[BTL Form]
+        BTLResults[BTL Results]
+        BTLBreakdown[BTL Breakdown]
+    end
+    
+    subgraph &quot;Bridge Components&quot;
+        BridgeForm[Bridge Form]
+        BridgeResults[Bridge Results]
+        BridgeBreakdown[Bridge Breakdown]
+    end
+    
+    subgraph &quot;Admin Components&quot;
+        Constants[Constants Manager]
+        RatesAdmin[Rates Admin]
+        UsersAdmin[Users Admin]
+    end
+    
+    subgraph &quot;Shared Components&quot;
+        Modal[Modal]
+        Button[Button]
+        Input[Input Fields]
+        Card[Card]
+    end
+    
+    App --&gt; Header
+    App --&gt; Sidebar
+    App --&gt; Footer
+    App --&gt; BTLPage
+    App --&gt; BridgePage
+    
+    BTLPage --&gt; BTLForm
+    BTLPage --&gt; BTLResults
+    BTLPage --&gt; BTLBreakdown
+    
+    BridgePage --&gt; BridgeForm
+    BridgePage --&gt; BridgeResults
+    BridgePage --&gt; BridgeBreakdown
+    
+    App --&gt; Constants
+    App --&gt; RatesAdmin
+    
+    BTLForm --&gt; Modal
+    BTLForm --&gt; Button
+    BridgeForm --&gt; Modal
+    Constants --&gt; Modal
+    
+    style App fill:#ffebee
+    style Header fill:#e3f2fd
+    style BTLPage fill:#e8f5e9
+    style Modal fill:#fff3e0
+</code></pre>
+<h2>Security Architecture</h2>
+<pre><code class="language-mermaid">graph TB
+    subgraph &quot;Frontend Security&quot;
+        AuthCheck[Auth Check]
+        TokenStore[Token Storage]
+        RouteGuard[Route Guards]
+    end
+    
+    subgraph &quot;Backend Security&quot;
+        RateLimit[Rate Limiting]
+        CORS[CORS Policy]
+        AuthMiddleware[Auth Middleware]
+        Validation[Input Validation]
+    end
+    
+    subgraph &quot;Database Security&quot;
+        RLS[Row Level Security]
+        EncryptedFields[Encrypted Fields]
+        Policies[Access Policies]
+    end
+    
+    subgraph &quot;API Security&quot;
+        HTTPS[HTTPS Only]
+        APIKeys[API Keys]
+        ServiceRole[Service Role Key]
+    end
+    
+    AuthCheck --&gt; TokenStore
+    TokenStore --&gt; RouteGuard
+    
+    RateLimit --&gt; CORS
+    CORS --&gt; AuthMiddleware
+    AuthMiddleware --&gt; Validation
+    
+    Validation --&gt; RLS
+    RLS --&gt; EncryptedFields
+    EncryptedFields --&gt; Policies
+    
+    HTTPS --&gt; APIKeys
+    APIKeys --&gt; ServiceRole
+    
+    style Frontend Security fill:#e8f5e9
+    style Backend Security fill:#fff3e0
+    style Database Security fill:#f3e5f5
+    style API Security fill:#e1f5ff
+</code></pre>
+<h2>Deployment Architecture</h2>
+<pre><code class="language-mermaid">graph TB
+    subgraph &quot;Development&quot;
+        DevFE[Local Frontend&lt;br/&gt;Vite Dev Server&lt;br/&gt;Port 3000]
+        DevBE[Local Backend&lt;br/&gt;Express Server&lt;br/&gt;Port 3001]
+    end
+    
+    subgraph &quot;Production&quot;
+        ProdFE[Vercel&lt;br/&gt;Frontend Deployment&lt;br/&gt;CDN + Edge Functions]
+        ProdBE[Vercel/Render&lt;br/&gt;Backend API&lt;br/&gt;Serverless/Container]
+    end
+    
+    subgraph &quot;Database&quot;
+        SupabaseDB[Supabase&lt;br/&gt;PostgreSQL&lt;br/&gt;Managed Cloud]
+    end
+    
+    subgraph &quot;Version Control&quot;
+        GitHub[GitHub Repository&lt;br/&gt;main branch]
+    end
+    
+    GitHub --&gt;|Deploy| ProdFE
+    GitHub --&gt;|Deploy| ProdBE
+    
+    DevFE -.-&gt;|API Calls| DevBE
+    DevBE -.-&gt;|Queries| SupabaseDB
+    
+    ProdFE --&gt;|API Calls| ProdBE
+    ProdBE --&gt;|Queries| SupabaseDB
+    
+    style Development fill:#e8f5e9
+    style Production fill:#e3f2fd
+    style Database fill:#f3e5f5
+    style Version Control fill:#fff3e0
+</code></pre>
+<hr>
+<h2>Key Architecture Principles</h2>
+<h3>1. <strong>Separation of Concerns</strong></h3>
+<ul>
+<li>Frontend handles UI and user interaction</li>
+<li>Backend handles API, authentication, and data access</li>
+<li>Calculation engines are pure business logic (no UI)</li>
+</ul>
+<h3>2. <strong>Rate Calculation Rules</strong></h3>
+<ul>
+<li><strong>Floor Rate</strong>: Applied ONLY to core products for gross loan calculation</li>
+<li><strong>Stress BBR</strong>: Applied to BOTH core and specialist products for gross loan calculation</li>
+<li><strong>Actual Rate</strong>: Used for all payment calculations and display</li>
+<li><strong>Pay Rate Display</strong>: Always shows <code>actual rate - deferred rate</code> (no floor)</li>
+</ul>
+<h3>3. <strong>Security Layers</strong></h3>
+<ul>
+<li>Frontend: Route guards, auth context</li>
+<li>Backend: Rate limiting, CORS, auth middleware</li>
+<li>Database: Row Level Security (RLS), encrypted fields</li>
+<li>Communication: HTTPS only, token-based auth</li>
+</ul>
+<h3>4. <strong>Scalability</strong></h3>
+<ul>
+<li>Stateless API design</li>
+<li>Client-side calculation engines (reduces server load)</li>
+<li>Database connection pooling</li>
+<li>Rate limiting prevents abuse</li>
+</ul>
+<h3>5. <strong>Maintainability</strong></h3>
+<ul>
+<li>Modular component structure</li>
+<li>Separate calculation engines per product type</li>
+<li>Centralized configuration (app_constants)</li>
+<li>Environment-based configuration</li>
+</ul>

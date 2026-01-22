@@ -1,0 +1,16 @@
+/* Theme Toggle Button Styles */
+.theme-toggle-btn {
+  background: transparent;
+  border: none;
+  padding: var(--token-spacing-sm);
+  cursor: pointer;
+  color: var(--cds-icon-primary);
+  transition: all 0.2s ease;
+  width: var(--token-spacing-40);
+  height: var(--token-spacing-40);
+  margin-left: var(--token-spacing-8);
+}
+
+.theme-toggle-btn:hover {
+  background: var(--cds-layer-hover);
+}

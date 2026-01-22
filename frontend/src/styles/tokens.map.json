@@ -1,0 +1,17 @@
+{
+  "--token-layer-background": "#f3f3f3",
+  "--token-layer-surface": "#ffffff",
+  "--token-layer-hover": "#e5e5e5",
+  "--token-border-subtle": "#c9c9c9",
+  "--token-border-strong": "#5c5c5c",
+  "--token-text-primary": "#2e2e2e",
+  "--token-text-secondary": "#5c5c5c",
+  "--token-text-helper": "#5c5c5c",
+  "--token-text-error": "#b60554",
+  "--token-interactive": "#0250d9",
+  "--token-interactive-hover": "#022ac0",
+  "--token-focus": "#0250d9",
+  "--token-critical": "#b60554",
+  "--token-success": "#28a745"
+}
+

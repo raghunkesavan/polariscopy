@@ -1,0 +1,292 @@
+set_key	rate_type	is_retention	property	tier	product	product_fee	initial_term	full_term	rate	max_ltv	revert_index	revert_margin	min_loan	max_loan	max_rolled_months	max_defer_int	min_icr	is_tracker	max_top_slicing	admin_fee	erc_1	erc_2	erc_3	erc_4	erc_5	status	floor_rate	proc_fee
+RATES_CORE	Core	No	Residential	1	2yr Fix	3%	24	120	6.79%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	1%
+RATES_CORE	Core	No	Residential	1	2yr Fix	2%	24	120	7.29%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	1%
+RATES_CORE	Core	No	Residential	1	2yr Tracker	6%	24	120	1.49%	75%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	1%
+RATES_CORE	Core	No	Residential	1	3yr Fix	3%	36	120	6.86%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	1%
+RATES_CORE	Core	No	Residential	1	3yr Fix	2%	36	120	7.19%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	1%
+RATES_CORE	Core	No	Residential	2	2yr Fix	3%	24	120	7.39%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	1%
+RATES_CORE	Core	No	Residential	2	2yr Fix	2%	24	120	7.89%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	1%
+RATES_CORE	Core	No	Residential	1	3yr Fix	4%	36	120	6.49%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	1%
+RATES_CORE	Core	No	Residential	1	2yr Fix	6%	24	120	5.29%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	1%
+RATES_CORE	Core	No	Residential	2	2yr Tracker	6%	24	120	1.69%	75%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	1%
+RATES_CORE	Core	No	Residential	2	2yr Tracker	4%	24	120	2.69%	75%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	1%
+RATES_CORE	Core	No	Residential	2	3yr Fix	6%	36	120	6.39%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	1%
+RATES_CORE	Core	No	Residential	2	3yr Fix	4%	36	120	7.09%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	1%
+RATES_CORE	Core	No	Residential	2	3yr Fix	3%	36	120	7.46%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	1%
+RATES_CORE	Core	No	Residential	2	2yr Fix	6%	24	120	5.89%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	1%
+RATES_CORE	Core	No	Residential	1	2yr Tracker	2%	24	120	3.54%	75%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	1%
+RATES_CORE	Core	No	Residential	1	2yr Tracker	3%	24	120	3.04%	75%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	1%
+RATES_CORE	Core	No	Residential	1	2yr Tracker	4%	24	120	2.49%	75%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	1%
+RATES_CORE	Core	No	Residential	2	2yr Tracker	3%	24	120	3.24%	75%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	1%
+RATES_CORE	Core	No	Residential	2	2yr Tracker	2%	24	120	3.74%	75%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	1%
+RATES_CORE	Core	No	Residential	1	2yr Fix	4%	24	120	6.19%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	1%
+RATES_CORE	Core	No	Residential	2	3yr Fix	2%	36	120	7.79%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	1%
+RATES_CORE	Core	No	Residential	1	3yr Fix	6%	36	120	5.79%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	1%
+RATES_CORE	Core	No	Residential	2	2yr Fix	4%	24	120	6.79%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	1%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	2	2yr Fix	1.50%	24	120	7.89%	65%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	1	2yr Tracker	3.50%	24	120	2.49%	65%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	1	2yr Tracker	5.50%	24	120	1.49%	65%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	1	2yr Fix	1.50%	24	120	7.29%	65%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	1	2yr Fix	2.50%	24	120	6.79%	65%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	1	2yr Fix	3.50%	24	120	6.19%	65%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	1	2yr Fix	5.50%	24	120	5.29%	65%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	2	2yr Tracker	1.50%	24	120	3.74%	65%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	2	2yr Tracker	2.50%	24	120	3.24%	65%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	2	2yr Tracker	3.50%	24	120	2.69%	65%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	2	2yr Tracker	5.50%	24	120	1.69%	65%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	1	2yr Tracker	2.50%	24	120	3.04%	65%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	2	2yr Fix	2.50%	24	120	7.39%	65%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	1	3yr Fix	5.50%	36	120	5.79%	65%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	2	3yr Fix	5.50%	36	120	6.39%	65%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	2	3yr Fix	3.50%	36	120	7.09%	65%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	2	3yr Fix	2.50%	36	120	7.46%	65%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	2	3yr Fix	1.50%	36	120	7.79%	65%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	1	3yr Fix	3.50%	36	120	6.49%	65%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	1	3yr Fix	2.50%	36	120	6.86%	65%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	1	3yr Fix	1.50%	36	120	7.19%	65%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	2	2yr Fix	3.50%	24	120	6.79%	65%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	2	2yr Fix	5.50%	24	120	5.89%	65%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	0.50%
+RATES_CORE_RETENTION_65	Core	Yes	Residential	1	2yr Tracker	1.50%	24	120	3.54%	65%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	2	3yr Fix	2.50%	36	120	7.46%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	2	3yr Fix	1.50%	36	120	7.79%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	1	3yr Fix	5.50%	36	120	5.79%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	1	2yr Tracker	1.50%	24	120	3.54%	75%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	1	3yr Fix	3.50%	36	120	6.49%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	1	3yr Fix	2.50%	36	120	6.86%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	2	2yr Fix	5.50%	24	120	5.89%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	1	3yr Fix	1.50%	36	120	7.19%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	1	2yr Tracker	2.50%	24	120	3.04%	75%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	1	2yr Tracker	3.50%	24	120	2.49%	75%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	1	2yr Tracker	5.50%	24	120	1.49%	75%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	1	2yr Fix	3.50%	24	120	6.19%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	1	2yr Fix	2.50%	24	120	6.79%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	1	2yr Fix	1.50%	24	120	7.29%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	2	2yr Fix	3.50%	24	120	6.79%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	2	2yr Fix	2.50%	24	120	7.39%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	2	2yr Fix	1.50%	24	120	7.89%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	2	2yr Tracker	5.50%	24	120	1.69%	75%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	2	2yr Tracker	3.50%	24	120	2.69%	75%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	2	2yr Tracker	2.50%	24	120	3.24%	75%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	2	2yr Tracker	1.50%	24	120	3.74%	75%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	1	2yr Fix	5.50%	24	120	5.29%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	2	3yr Fix	5.50%	36	120	6.39%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	0.50%
+RATES_CORE_RETENTION_75	Core	Yes	Residential	2	3yr Fix	3.50%	36	120	7.09%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active	5.5	0.50%
+RATES_SPEC	Specialist	No	Semi-Commercial	1	2yr Tracker	2%	24	120	4.99%	70%	MVR	0.3	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Semi-Commercial	2	2yr Tracker	2%	24	120	5.29%	70%	MVR	1.5	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Residential	1	3yr Fix	6%	36	120	6.39%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Commercial	2	2yr Fix	4%	24	120	7.69%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		1%
+RATES_SPEC	Specialist	No	Residential	1	5yr Fix	4%	36	120	3%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Residential	1	5yr Fix	3%	36	120	2%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Residential	1	5yr Fix	2%	36	120	1%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Commercial	1	2yr Fix	2%	24	120	8.29%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		1%
+RATES_SPEC	Specialist	No	Semi-Commercial	2	3yr Fix	2%	36	120	8.49%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Semi-Commercial	1	3yr Fix	2%	36	120	8.09%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Commercial	2	3yr Fix	2%	36	120	8.69%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Commercial	1	3yr Fix	2%	36	120	8.19%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Semi-Commercial	2	3yr Fix	4%	36	120	7.79%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Semi-Commercial	1	3yr Fix	4%	36	120	7.39%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Commercial	2	3yr Fix	4%	36	120	7.99%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Commercial	1	3yr Fix	4%	36	120	7.49%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Semi-Commercial	2	3yr Fix	6%	36	120	7.09%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Residential	1	3yr Fix	2%	36	120	7.79%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Residential	1	3yr Fix	3%	36	120	7.46%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Residential	1	3yr Fix	4%	36	120	7.09%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Semi-Commercial	1	3yr Fix	6%	36	120	6.69%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Residential	2	3yr Fix	6%	36	120	6.39%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Residential	2	3yr Fix	4%	36	120	7.59%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Residential	2	3yr Fix	3%	36	120	7.96%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Residential	2	3yr Fix	2%	36	120	8.29%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Residential	3	3yr Fix	6%	36	120	7.29%	75%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Residential	3	3yr Fix	4%	36	120	7.99%	75%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Residential	3	3yr Fix	3%	36	120	8.36%	75%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Residential	3	3yr Fix	2%	36	120	8.69%	75%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Commercial	2	3yr Fix	6%	36	120	7.29%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Commercial	1	3yr Fix	6%	36	120	6.79%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		1%
+RATES_SPEC	Specialist	No	Commercial	2	2yr Fix	6%	24	120	6.79%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		1%
+RATES_SPEC	Specialist	No	Commercial	1	2yr Fix	6%	24	120	6.29%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		1%
+RATES_SPEC	Specialist	No	Semi-Commercial	1	2yr Fix	6%	24	120	6.19%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		1%
+RATES_SPEC	Specialist	No	Semi-Commercial	2	2yr Fix	6%	24	120	6.59%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		1%
+RATES_SPEC	Specialist	No	Commercial	1	2yr Tracker	6%	24	120	3.04%	70%	MVR	0.3	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Commercial	2	2yr Tracker	6%	24	120	3.34%	70%	MVR	1.5	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Semi-Commercial	1	2yr Tracker	6%	24	120	3.04%	70%	MVR	0.3	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Semi-Commercial	2	2yr Tracker	6%	24	120	3.34%	70%	MVR	1.5	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Residential	3	2yr Tracker	2%	24	120	4.44%	75%	MVR	1	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Residential	3	2yr Fix	2%	24	120	8.79%	75%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		1%
+RATES_SPEC	Specialist	No	Residential	3	2yr Tracker	3%	24	120	3.94%	75%	MVR	1	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Residential	3	2yr Fix	3%	24	120	8.29%	75%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		1%
+RATES_SPEC	Specialist	No	Residential	3	2yr Tracker	4%	24	120	3.39%	75%	MVR	1	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Residential	3	2yr Fix	4%	24	120	7.69%	75%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		1%
+RATES_SPEC	Specialist	No	Residential	3	2yr Tracker	6%	24	120	2.39%	75%	MVR	1	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Residential	3	2yr Fix	6%	24	120	6.79%	75%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		1%
+RATES_SPEC	Specialist	No	Residential	2	2yr Tracker	2%	24	120	4.14%	75%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Residential	2	2yr Fix	2%	24	120	8.39%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		1%
+RATES_SPEC	Specialist	No	Residential	2	2yr Tracker	3%	24	120	3.64%	75%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Residential	2	2yr Fix	3%	24	120	7.89%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		1%
+RATES_SPEC	Specialist	No	Residential	2	2yr Tracker	4%	24	120	3.09%	75%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Residential	2	2yr Fix	4%	24	120	7.29%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		1%
+RATES_SPEC	Specialist	No	Residential	2	2yr Tracker	6%	24	120	2.09%	75%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Residential	2	2yr Fix	6%	24	120	6.89%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		1%
+RATES_SPEC	Specialist	No	Residential	1	2yr Tracker	6%	24	120	1.59%	75%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Residential	1	2yr Fix	4%	24	120	6.79%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		1%
+RATES_SPEC	Specialist	No	Residential	1	2yr Tracker	4%	24	120	2.59%	75%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Residential	1	2yr Fix	3%	24	120	7.39%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		1%
+RATES_SPEC	Specialist	No	Residential	1	2yr Tracker	3%	24	120	3.14%	75%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Residential	1	2yr Fix	2%	24	120	7.89%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		1%
+RATES_SPEC	Specialist	No	Residential	1	2yr Tracker	2%	24	120	3.64%	75%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Commercial	1	2yr Fix	4%	24	120	7.19%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		1%
+RATES_SPEC	Specialist	No	Semi-Commercial	1	2yr Fix	4%	24	120	7.09%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		1%
+RATES_SPEC	Specialist	No	Semi-Commercial	2	2yr Fix	4%	24	120	7.49%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		1%
+RATES_SPEC	Specialist	No	Commercial	2	2yr Tracker	4%	24	120	4.34%	70%	MVR	1.5	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Commercial	1	2yr Tracker	4%	24	120	4.04%	70%	MVR	0.3	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Semi-Commercial	1	2yr Tracker	4%	24	120	4.04%	70%	MVR	0.3	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Semi-Commercial	2	2yr Tracker	4%	24	120	4.34%	70%	MVR	1.5	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Residential	1	2yr Fix	6%	24	120	5.89%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		1%
+RATES_SPEC	Specialist	No	Commercial	2	2yr Fix	2%	24	120	8.79%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		1%
+RATES_SPEC	Specialist	No	Semi-Commercial	1	2yr Fix	2%	24	120	8.19%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		1%
+RATES_SPEC	Specialist	No	Semi-Commercial	2	2yr Fix	2%	24	120	8.59%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		1%
+RATES_SPEC	Specialist	No	Commercial	1	2yr Tracker	2%	24	120	4.99%	70%	MVR	0.3	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		1%
+RATES_SPEC	Specialist	No	Commercial	2	2yr Tracker	2%	24	120	5.29%	70%	MVR	1.5	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		1%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Commercial	2	2yr Fix	3.50%	24	120	7.69%	65%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	3	3yr Fix	5.50%	36	120	6.49%	65%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Semi-Commercial	2	2yr Fix	1.50%	24	120	8.59%	65%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	1	2yr Tracker	2.50%	24	120	1.79%	65%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Commercial	2	2yr Tracker	5.50%	24	120	3.34%	65%	MVR	1.5	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Commercial	2	2yr Tracker	3.50%	24	120	4.34%	65%	MVR	1.5	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Commercial	2	2yr Tracker	1.50%	24	120	5.29%	65%	MVR	1.5	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Semi-Commercial	1	2yr Fix	5.50%	24	120	6.19%	65%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Semi-Commercial	1	2yr Fix	3.50%	24	120	7.09%	65%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Semi-Commercial	1	2yr Fix	1.50%	24	120	8.19%	65%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Commercial	2	2yr Fix	5.50%	24	120	6.79%	65%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Commercial	1	2yr Tracker	1.50%	24	120	4.99%	65%	MVR	0.3	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Commercial	1	2yr Tracker	3.50%	24	120	4.04%	65%	MVR	0.3	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Commercial	1	2yr Tracker	5.50%	24	120	3.04%	65%	MVR	0.3	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Commercial	1	2yr Fix	1.50%	24	120	8.29%	65%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Commercial	1	2yr Fix	3.50%	24	120	7.19%	65%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Commercial	1	2yr Fix	5.50%	24	120	6.29%	65%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	3	2yr Tracker	1.50%	24	120	2.79%	65%	MVR	1	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	3	2yr Tracker	2.50%	24	120	2.49%	65%	MVR	1	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	3	2yr Tracker	3.50%	24	120	2.19%	65%	MVR	1	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	3	2yr Tracker	5.50%	24	120	1.89%	65%	MVR	1	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	3	2yr Fix	1.50%	24	120	6.99%	65%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	3	2yr Fix	2.50%	24	120	6.69%	65%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	3	2yr Fix	3.50%	24	120	6.39%	65%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	3	2yr Fix	5.50%	24	120	6.09%	65%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	2	2yr Tracker	1.50%	24	120	2.39%	65%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	2	2yr Tracker	2.50%	24	120	2.09%	65%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	2	2yr Tracker	3.50%	24	120	1.79%	65%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	2	2yr Tracker	5.50%	24	120	1.49%	65%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Semi-Commercial	1	2yr Tracker	5.50%	24	120	3.04%	65%	MVR	0.3	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Semi-Commercial	1	2yr Tracker	3.50%	24	120	4.04%	65%	MVR	0.3	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Semi-Commercial	1	2yr Tracker	1.50%	24	120	4.99%	65%	MVR	0.3	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Semi-Commercial	2	2yr Fix	5.50%	24	120	6.59%	65%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Semi-Commercial	2	2yr Fix	3.50%	24	120	7.49%	65%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Semi-Commercial	2	2yr Tracker	5.50%	24	120	3.34%	65%	MVR	1.5	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Semi-Commercial	2	2yr Tracker	3.50%	24	120	4.34%	65%	MVR	1.5	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Semi-Commercial	2	2yr Tracker	1.50%	24	120	5.29%	65%	MVR	1.5	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Commercial	2	2yr Fix	1.50%	24	120	8.79%	65%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	2	2yr Fix	1.50%	24	120	6.49%	65%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	2	2yr Fix	2.50%	24	120	6.19%	65%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	2	2yr Fix	3.50%	24	120	5.89%	65%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	2	2yr Fix	5.50%	24	120	5.59%	65%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	1	2yr Tracker	1.50%	24	120	2.09%	65%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	1	2yr Tracker	3.50%	24	120	1.49%	65%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	1	2yr Tracker	5.50%	24	120	1.19%	65%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	1	2yr Fix	1.50%	24	120	6.19%	65%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	1	2yr Fix	2.50%	24	120	5.89%	65%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	1	2yr Fix	3.50%	24	120	5.59%	65%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	1	2yr Fix	5.50%	24	120	5.49%	65%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Commercial	2	3yr Fix	5.50%	36	120	7.29%	65%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Commercial	2	3yr Fix	3.50%	36	120	7.99%	65%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Commercial	2	3yr Fix	1.50%	36	120	8.69%	65%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Semi-Commercial	1	3yr Fix	5.50%	36	120	6.69%	65%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Semi-Commercial	1	3yr Fix	3.50%	36	120	7.39%	65%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Commercial	1	3yr Fix	1.50%	36	120	8.19%	65%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Commercial	1	3yr Fix	3.50%	36	120	7.49%	65%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Commercial	1	3yr Fix	5.50%	36	120	6.79%	65%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	3	3yr Fix	1.50%	36	120	7.39%	65%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	3	3yr Fix	2.50%	36	120	7.09%	65%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	3	3yr Fix	3.50%	36	120	6.79%	65%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	2	3yr Fix	1.50%	36	120	6.89%	65%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	2	3yr Fix	2.50%	36	120	6.59%	65%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	2	3yr Fix	3.50%	36	120	6.29%	65%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	2	3yr Fix	5.50%	36	120	5.99%	65%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Semi-Commercial	1	3yr Fix	1.50%	36	120	8.09%	65%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Semi-Commercial	2	3yr Fix	5.50%	36	120	7.09%	65%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Semi-Commercial	2	3yr Fix	3.50%	36	120	7.79%	65%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Semi-Commercial	2	3yr Fix	1.50%	36	120	8.49%	65%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	1	3yr Fix	1.50%	36	120	6.59%	65%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	1	3yr Fix	2.50%	36	120	6.29%	65%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	1	3yr Fix	3.50%	36	120	5.99%	65%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_65	Specialist	Yes	Residential	1	3yr Fix	5.50%	36	120	5.69%	65%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	1	2yr Tracker	2.50%	24	120	1.89%	75%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Semi-Commercial	2	2yr Fix	5.50%	24	120	6.59%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Semi-Commercial	1	2yr Tracker	1.50%	24	120	4.99%	70%	MVR	0.3	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Semi-Commercial	1	2yr Tracker	3.50%	24	120	4.04%	70%	MVR	0.3	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Semi-Commercial	1	2yr Tracker	5.50%	24	120	3.04%	70%	MVR	0.3	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Semi-Commercial	1	2yr Fix	1.50%	24	120	8.19%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Semi-Commercial	1	2yr Fix	3.50%	24	120	7.09%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Semi-Commercial	1	2yr Fix	5.50%	24	120	6.19%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Commercial	2	2yr Tracker	1.50%	24	120	5.29%	70%	MVR	1.5	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Commercial	2	2yr Tracker	3.50%	24	120	4.34%	70%	MVR	1.5	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Commercial	2	2yr Tracker	5.50%	24	120	3.34%	70%	MVR	1.5	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	1	2yr Tracker	1.50%	24	120	2.19%	75%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	2	2yr Fix	5.50%	24	120	5.69%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	2	2yr Fix	3.50%	24	120	5.99%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	2	2yr Fix	2.50%	24	120	6.29%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	2	2yr Fix	1.50%	24	120	6.59%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Commercial	2	2yr Fix	1.50%	24	120	8.79%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Commercial	2	2yr Fix	3.50%	24	120	7.69%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	2	2yr Tracker	5.50%	24	120	1.59%	75%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	2	2yr Tracker	3.50%	24	120	1.89%	75%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Semi-Commercial	2	2yr Fix	3.50%	24	120	7.49%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	2	3yr Fix	2.50%	36	120	6.69%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	2	3yr Fix	3.50%	36	120	6.39%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	2	3yr Fix	5.50%	36	120	6.09%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	3	3yr Fix	5.50%	36	120	6.59%	75%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	3	3yr Fix	3.50%	36	120	6.89%	75%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	3	3yr Fix	2.50%	36	120	7.19%	75%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	3	3yr Fix	1.50%	36	120	7.49%	75%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Commercial	2	3yr Fix	5.50%	36	120	7.29%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Commercial	2	3yr Fix	3.50%	36	120	7.99%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Commercial	2	3yr Fix	1.50%	36	120	8.69%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Semi-Commercial	1	3yr Fix	5.50%	36	120	6.69%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Semi-Commercial	2	2yr Fix	1.50%	24	120	8.59%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Semi-Commercial	1	3yr Fix	3.50%	36	120	7.39%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Semi-Commercial	1	3yr Fix	1.50%	36	120	8.09%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	1	3yr Fix	1.50%	36	120	6.69%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	1	3yr Fix	2.50%	36	120	6.39%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	1	3yr Fix	3.50%	36	120	6.09%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	1	3yr Fix	5.50%	36	120	5.79%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Commercial	1	3yr Fix	5.50%	36	120	6.79%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Commercial	1	3yr Fix	3.50%	36	120	7.49%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Commercial	1	3yr Fix	1.50%	36	120	8.19%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Semi-Commercial	2	3yr Fix	1.50%	36	120	8.49%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Semi-Commercial	2	3yr Fix	3.50%	36	120	7.79%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Semi-Commercial	2	3yr Fix	5.50%	36	120	7.09%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	2	3yr Fix	1.50%	36	120	6.99%	75%	MVR	0.4	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3	2			Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Semi-Commercial	2	2yr Tracker	5.50%	24	120	3.34%	70%	MVR	1.5	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Semi-Commercial	2	2yr Tracker	3.50%	24	120	4.34%	70%	MVR	1.5	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Semi-Commercial	2	2yr Tracker	1.50%	24	120	5.29%	70%	MVR	1.5	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	1	2yr Fix	5.50%	24	120	5.39%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	1	2yr Fix	3.50%	24	120	5.69%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	1	2yr Fix	2.50%	24	120	5.99%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Commercial	2	2yr Fix	5.50%	24	120	6.79%	70%	MVR	1.5	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Commercial	1	2yr Tracker	1.50%	24	120	4.99%	70%	MVR	0.3	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Commercial	1	2yr Tracker	3.50%	24	120	4.04%	70%	MVR	0.3	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Commercial	1	2yr Tracker	5.50%	24	120	3.04%	70%	MVR	0.3	£150,000	£2,000,000	6	1.5	130%	Yes	20	250	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Commercial	1	2yr Fix	1.50%	24	120	8.29%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Commercial	1	2yr Fix	3.50%	24	120	7.19%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Commercial	1	2yr Fix	5.50%	24	120	6.29%	70%	MVR	0.3	£150,000	£2,000,000	6	1.25	125%	No	20	250	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	3	2yr Tracker	1.50%	24	120	2.89%	75%	MVR	1	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	3	2yr Tracker	2.50%	24	120	2.59%	75%	MVR	1	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	3	2yr Tracker	3.50%	24	120	2.29%	75%	MVR	1	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	3	2yr Tracker	5.50%	24	120	1.99%	75%	MVR	1	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	1	2yr Fix	1.50%	24	120	6.29%	75%	MVR		£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	1	2yr Tracker	5.50%	24	120	1.29%	75%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	1	2yr Tracker	3.50%	24	120	1.59%	75%	MVR		£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	3	2yr Fix	1.50%	24	120	7.09%	75%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	3	2yr Fix	2.50%	24	120	6.79%	75%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	3	2yr Fix	3.50%	24	120	6.49%	75%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	2	2yr Tracker	2.50%	24	120	2.19%	75%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	2	2yr Tracker	1.50%	24	120	2.49%	75%	MVR	0.4	£150,000	£3,000,000	9	2	130%	Yes	20	199	3	2.5				Active		0.50%
+RATES_SPEC_RETENTION_75	Specialist	Yes	Residential	3	2yr Fix	5.50%	24	120	6.19%	75%	MVR	1	£150,000	£3,000,000	9	1.25	125%	No	20	199	4	3				Active		0.50%

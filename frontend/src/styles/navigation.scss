@@ -1,0 +1,288 @@
+@use './variables';
+
+/* ===================================== */
+/* SLDS Vertical Navigation Tree         */
+/* Hierarchical tree with expand/collapse */
+/* ===================================== */
+
+.app-sidenav {
+  flex: 0 0 15rem;
+  width: 15rem;
+  min-width: 12rem;
+  height: 100%;
+  background: var(--token-layer-surface);
+  border-right: 1px solid var(--token-border-subtle);
+  overflow-y: auto;
+  position: relative;
+  padding: var(--token-spacing-md) 0;
+}
+
+/* Reset lists */
+.app-sidenav ul,
+.app-sidenav li { list-style: none; margin: 0; padding: 0; }
+
+/* Tree container */
+.slds-tree-container { padding: 0; }
+
+/* Tree root */
+.slds-tree { 
+  margin: 0; 
+  padding: 0 var(--token-spacing-sm);
+}
+
+/* Tree item */
+.slds-tree__item {
+  position: relative;
+  margin-bottom: var(--token-space-2);
+}
+
+/* Item content row (div or button) */
+.slds-tree__item-content {
+  display: flex;
+  align-items: center;
+  padding: var(--token-spacing-sm) var(--token-spacing-md);
+  cursor: pointer;
+  border-radius: var(--token-radius-sm);
+  transition: background-color var(--token-duration-fast, 0.1s) ease;
+  min-height: var(--token-spacing-32);
+  width: 100%;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  font-family: inherit;
+}
+.slds-tree__item-content:hover { 
+  background-color: var(--token-layer-hover); 
+}
+.slds-tree__item-content.slds-is-selected {
+  background-color: var(--token-interactive-subtle, rgba(1, 118, 211, 0.1));
+}
+
+/* Focus state for keyboard navigation */
+.slds-tree__item-content:focus {
+  outline: var(--token-spacing-2) solid var(--token-focus);
+  outline-offset: -2px;
+}
+
+/* Toggle button (chevron) */
+.slds-tree__item-toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--token-spacing-20);
+  height: var(--token-spacing-20);
+  margin-right: var(--token-spacing-6);
+  flex-shrink: 0;
+}
+
+/* Branch button (parent items - entire row clickable) */
+.slds-tree__item-branch-btn {
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+
+/* Leaf items at root level need padding to align with branch labels */
+.slds-tree > .slds-tree__item > .slds-tree__item-link .slds-tree__item-label {
+  padding-left: 1.625rem; /* Matches chevron width + margin */
+}
+
+/* Nested items (children) also need padding to align properly and be indented */
+.slds-tree__group .slds-tree__item-link .slds-tree__item-label {
+  padding-left: 1.625rem; /* Same alignment as root items */
+}
+
+/* Chevron icon */
+.slds-tree__toggle-icon {
+  width: var(--token-spacing-10);
+  height: var(--token-spacing-10);
+  fill: var(--token-text-secondary);
+  transition: transform var(--token-duration-moderate, 0.2s) ease;
+}
+/* Chevron points right when collapsed, down when expanded */
+.slds-tree__toggle-icon.slds-is-expanded {
+  transform: rotate(90deg);
+}
+
+/* Label base styles */
+.slds-tree__item-label {
+  /* Font family handled by typography system (inherits from body) */
+  font-size: var(--token-font-size-xs-plus);
+  line-height: 1.375rem;
+  color: var(--token-text-primary);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Branch labels (parent items with children) */
+.slds-tree__item-branch {
+  font-weight: 600;
+  color: var(--token-text-primary);
+}
+
+/* Link-style labels (clickable navigation items) */
+button.slds-tree__item-link {
+  color: var(--token-text-secondary);
+  font-weight: 400;
+  border: none;
+  outline: none;
+}
+button.slds-tree__item-link:hover { 
+  color: var(--token-text-primary); 
+}
+button.slds-tree__item-link.slds-is-selected {
+  color: var(--token-interactive);
+  font-weight: 500;
+  border: none;
+  outline: none;
+}
+button.slds-tree__item-link.slds-is-selected .slds-tree__item-label {
+  font-weight: 600;
+}
+
+/* Nested group */
+.slds-tree__group {
+  margin-left: 1.625rem;
+  padding-left: var(--token-spacing-md);
+  border-left: 1px solid var(--token-border-subtle);
+  overflow: visible;
+  position: relative;
+  z-index: 10;
+  background: var(--token-layer-surface);
+}
+.slds-tree__group.slds-is-collapsed { 
+  display: none; 
+}
+.slds-tree__group.slds-is-expanded { 
+  display: block; 
+}
+
+/* Nested items spacing */
+.slds-tree__group .slds-tree__item-content {
+  padding: var(--token-spacing-sm) var(--token-spacing-md);
+  padding-left: var(--token-spacing-sm);
+}
+
+/* Logout item styling */
+.slds-tree__item--logout {
+  margin-top: var(--token-spacing-lg);
+  padding-top: var(--token-spacing-md);
+  border-top: 1px solid var(--token-border-subtle);
+}
+.slds-tree__item--logout .slds-tree__item-content {
+  color: var(--token-text-secondary);
+}
+.slds-tree__item--logout .slds-tree__item-content:hover {
+  color: var(--token-critical);
+}
+.slds-tree__item--logout .slds-tree__item-content:hover .slds-tree__item-label {
+  color: inherit;
+}
+.slds-tree__item--logout .slds-tree__item-label {
+  padding-left: 1.625rem; /* Align with branch labels */
+}
+
+/* Layout gap reset */
+.app-layout { gap: 0; }
+
+.mobile-nav-toggle {
+  display: none;
+  position: fixed;
+  left: var(--token-spacing-lg);
+  /* Place inside header area on small screens */
+  top: var(--token-spacing-lg);
+  background: var(--token-interactive);
+  border: none;
+  width: 44px;
+  height: 44px;
+  padding: var(--token-spacing-sm);
+  cursor: pointer;
+  border-radius: var(--token-radius-sm);
+  z-index: 1100;
+  box-shadow: var(--token-shadow-soft);
+  transition: background var(--token-duration-moderate, 0.2s) ease;
+
+  &:hover {
+    background: var(--token-interactive-hover);
+  }
+}
+
+.mobile-nav-toggle .hamburger {
+  display: block;
+  width: 100%;
+  height: var(--token-spacing-2);
+  background: var(--token-text-inverse);
+  position: relative;
+}
+.mobile-nav-toggle .hamburger:before,
+.mobile-nav-toggle .hamburger:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: var(--token-spacing-2);
+  background: var(--token-text-inverse);
+}
+.mobile-nav-toggle .hamburger:before { top: -7px; }
+.mobile-nav-toggle .hamburger:after { bottom: -7px; }
+
+/* Backdrop overlay for mobile - SLDS pattern */
+.nav-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  cursor: pointer;
+  transition: opacity var(--token-duration-moderate, 0.2s) ease;
+}
+
+/* Mobile/Tablet behaviour: hide the inline sidenav and use a drawer */
+/* Uses standard breakpoint: tablet (768px) */
+@media (max-width: 768px) {
+  .mobile-nav-toggle { 
+    display: block; 
+  }
+
+  .app-sidenav {
+    position: fixed;
+    left: -100%;
+    top: 60px;
+    bottom: 0;
+    width: 280px;
+    max-width: 80vw;
+    z-index: 1050;
+    border-right: 1px solid var(--token-border-subtle);
+    box-shadow: var(--token-shadow-strong);
+    background: var(--token-layer-surface);
+    transition: left var(--token-duration-moderate, 0.2s) ease;
+  }
+
+  .app-sidenav.mobile-open {
+    left: 0;
+  }
+
+  /* Touch-friendly items */
+  .app-sidenav .slds-tree__item-content {
+    padding: var(--token-spacing-sm) var(--token-spacing-md);
+  }
+  .app-sidenav .slds-tree__item-label {
+    font-size: var(--token-font-size-md);
+  }
+}
+
+/* Tablet-specific adjustments */
+/* Uses standard breakpoints: between mobile (480px) and tablet (768px) */
+@media (max-width: 768px) and (min-width: 481px) {
+  .app-sidenav {
+    width: 320px;
+  }
+}
