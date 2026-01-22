@@ -29,11 +29,22 @@ export const SalesforceCanvasProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [client, setClient] = useState(null);
   const [debugLog, setDebugLog] = useState([]);
+  const [user, setUser] = useState(null);
+  const [organization, setOrganization] = useState(null);
 
   const addDebugLog = (message, data = null) => {
     const entry = { time: new Date().toISOString(), message, data };
     console.warn('[Canvas]', message, data);
     setDebugLog(prev => [...prev, entry]);
+  };
+
+  // Check for canvas data from index.html (extracted from SDK)
+  const getCanvasFromIndexHTML = () => {
+    if (window.canvasData && window.canvasData.isCanvasAvailable) {
+      addDebugLog('Canvas data found from index.html extraction');
+      return window.canvasData;
+    }
+    return null;
   };
 
   // Check for canvas context from URL parameters (set by backend redirect)
@@ -71,7 +82,19 @@ export const SalesforceCanvasProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // Method 0: Check URL parameters first (from backend redirect)
+    // Method 0: Check if canvas data was extracted in index.html
+    const htmlCanvasData = getCanvasFromIndexHTML();
+    if (htmlCanvasData) {
+      addDebugLog('Using canvas data extracted from index.html');
+      setIsCanvasApp(true);
+      setCanvasContext(htmlCanvasData.context);
+      setUser(htmlCanvasData.user);
+      setOrganization(htmlCanvasData.organization);
+      setLoading(false);
+      return;
+    }
+
+    // Method 1: Check URL parameters (from backend redirect)
     const urlContext = getCanvasFromURL();
     if (urlContext) {
       addDebugLog('Using canvas context from URL');
@@ -79,13 +102,10 @@ export const SalesforceCanvasProvider = ({ children }) => {
       setCanvasContext(urlContext);
       setClient(urlContext.client || null);
       setLoading(false);
-      
-      // Clean up URL parameters (optional - prevents confusion on refresh)
-      // window.history.replaceState({}, '', window.location.pathname);
       return;
     }
 
-    // Method 1: Check if Sfdc.canvas SDK is available (client-side fallback)
+    // Method 2: Check if Sfdc.canvas SDK is available (client-side fallback)
     if (typeof window.Sfdc === 'undefined' || !window.Sfdc.canvas) {
       addDebugLog('No URL context and Sfdc.canvas SDK not available');
       setLoading(false);
@@ -276,8 +296,10 @@ export const SalesforceCanvasProvider = ({ children }) => {
     signedRequest,
     client,
     debugLog,
-    // User info from Canvas context
-    user: canvasContext?.user,
+    // User info from Canvas context (prioritize extracted user from index.html)
+    user: user || canvasContext?.user,
+    // Organization info (prioritize extracted org from index.html)
+    organization: organization || canvasContext?.organization,
     organization: canvasContext?.organization,
     environment: canvasContext?.environment,
     // Canvas-specific parameters (can be nested in different places)

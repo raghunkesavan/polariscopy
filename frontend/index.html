@@ -7,68 +7,164 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <title>MFS Portal</title>
-    <!-- Inter font (added) -->
+    <!-- Inter font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <!-- svg4everybody polyfill for external SVG support in older browsers -->
+    <!-- svg4everybody polyfill -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/svg4everybody/2.1.9/svg4everybody.min.js"></script>
     <script>svg4everybody();</script>
     <!-- Salesforce Canvas SDK -->
-    <!-- <script src="/canvas-all.js"></script> -->
-     <!-- Salesforce Canvas SDK -->
-  <script src="https://mfsuk--dev.sandbox.lightning.force.com/canvas/sdk/js/canvas-all.js"></script>
+    <script src="https://mfsuk--dev.sandbox.lightning.force.com/canvas/sdk/js/canvas-all.js"></script>
+    
+    <!-- Canvas Parameter Extraction Script -->
+    <script>
+      /**
+       * Extract Canvas Parameters Before React Loads
+       * Store them in window object so React/Context can access them
+       */
+      window.canvasData = {
+        parameters: {},
+        context: null,
+        user: null,
+        organization: null,
+        isCanvasAvailable: false
+      };
+
+      // Check if Salesforce Canvas SDK is available
+      const checkCanvasSDK = () => {
+        return typeof window.Sfdc !== 'undefined' && 
+               window.Sfdc.canvas && 
+               window.Sfdc.canvas.client;
+      };
+
+      // Get Canvas Context
+      const initializeCanvasContext = () => {
+        if (!checkCanvasSDK()) {
+          console.warn('❌ Salesforce Canvas SDK not available');
+          return;
+        }
+
+        console.log('✅ Salesforce Canvas SDK detected');
+        window.canvasData.isCanvasAvailable = true;
+
+        try {
+          // Method 1: Try to get signed request directly
+          const signedRequest = window.Sfdc.canvas.client.signedrequest();
+          if (signedRequest) {
+            console.log('✅ Got signed request from Canvas SDK');
+            handleSignedRequest(signedRequest);
+            return;
+          }
+        } catch (e) {
+          console.log('⚠️ signedrequest() failed:', e.message);
+        }
+
+        try {
+          // Method 2: Try refreshSignedRequest (async)
+          window.Sfdc.canvas.client.refreshSignedRequest((response) => {
+            if (response && response.payload) {
+              console.log('✅ Got signed request from refreshSignedRequest');
+              handleSignedRequest(response.payload);
+            }
+          });
+        } catch (e) {
+          console.log('⚠️ refreshSignedRequest() failed:', e.message);
+        }
+
+        try {
+          // Method 3: Try ctx() method
+          window.Sfdc.canvas.client.ctx((response) => {
+            if (response && response.payload) {
+              console.log('✅ Got context from ctx()');
+              const context = response.payload.context || response.payload;
+              extractCanvasData(context);
+            }
+          });
+        } catch (e) {
+          console.log('⚠️ ctx() failed:', e.message);
+        }
+      };
+
+      // Handle Signed Request
+      const handleSignedRequest = (signedRequest) => {
+        try {
+          // Extract context from signed request
+          const context = signedRequest.context || signedRequest;
+          extractCanvasData(context);
+        } catch (e) {
+          console.error('❌ Error handling signed request:', e);
+        }
+      };
+
+      // Extract Data from Canvas Context
+      const extractCanvasData = (context) => {
+        try {
+          if (!context) {
+            console.warn('⚠️ No context provided');
+            return;
+          }
+
+          // Extract user info
+          if (context.user) {
+            window.canvasData.user = {
+              userName: context.user.userName,
+              userId: context.user.userId,
+              email: context.user.email,
+              fullName: context.user.fullName,
+              locale: context.user.locale
+            };
+            console.log('✅ User extracted:', window.canvasData.user.userName);
+          }
+
+          // Extract organization info
+          if (context.organization) {
+            window.canvasData.organization = {
+              name: context.organization.name,
+              organizationId: context.organization.organizationId,
+              organizationType: context.organization.organizationType,
+              organizationMultiCurrency: context.organization.organizationMultiCurrency
+            };
+            console.log('✅ Organization extracted:', window.canvasData.organization.name);
+          }
+
+          // Extract environment/parameters
+          if (context.environment) {
+            window.canvasData.context = context.environment;
+            window.canvasData.parameters = context.environment.parameters || {};
+            
+            console.log('✅ Parameters extracted:', window.canvasData.parameters);
+            console.log('✅ Instance URL:', context.environment.instanceUrl);
+            console.log('✅ Display URL:', context.environment.displayUrl);
+          }
+
+          // Log success
+          console.log('📊 Canvas Data Ready:', window.canvasData);
+          
+          // Dispatch custom event so React can listen to it
+          window.dispatchEvent(new CustomEvent('canvasDataReady', { 
+            detail: window.canvasData 
+          }));
+
+        } catch (e) {
+          console.error('❌ Error extracting canvas data:', e);
+        }
+      };
+
+      // Initialize immediately
+      initializeCanvasContext();
+
+      // Also try after a small delay in case SDK needs to load
+      setTimeout(() => {
+        if (!window.canvasData.parameters || Object.keys(window.canvasData.parameters).length === 0) {
+          console.log('🔄 Retrying Canvas initialization...');
+          initializeCanvasContext();
+        }
+      }, 1000);
+    </script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/index.jsx"></script>
- <script>
-    // Initialize from server-side envelope parameters
-    let params = {};
-    try {
-      //alert('new Raghu alert');
-      //params = JSON.parse('<%- params %>');
-      alert('raghu1' + Sfdc.canvas.data.payload);
-    } catch(e) {
-      console.warn('No params found in signed_request context');
-      params = {};
-    }
-
-    //console.log("Initial Canvas Parameters:", params);
-
- 
-    const isCanvasAvailable = !!(
-        typeof Sfdc !== 'undefined' &&
-        Sfdc.canvas &&
-        Sfdc.canvas.client
-      );
-    console.log("Is Salesforce Canvas SDK available?", isCanvasAvailable);
-    //alert('raghu-canvas' + isCanvasAvailable);
-    // Handle dynamic refresh (postMessage from VF Canvas parent)
-    if (typeof Sfdc !== 'undefined' && Sfdc.canvas && Sfdc.canvas.client) {
-      console.log('Canvas SDK available, subscribing to refresh event...');
-      alert('raghu' + data.payload);
-      Sfdc.canvas.client.subscribe(window.parent, [
-        {
-          name: 'refresh',
-          onData: function (data) {
-            console.log('Received refresh payload from VF:', data.payload);
-            params = data.payload || {};
-            // Update dropdowns to reflect new values
-            if (params.productType) document.getElementById('productType').value = params.productType;
-            if (params.propertyType) document.getElementById('propertyType').value = params.propertyType;
-
-            // Optionally auto-fetch products
-           // fetchProducts(params);
-
-          }
-        }
-      ]);
-    } else {
-      console.warn('Salesforce Canvas SDK not detected.');
-    }
-  </script>
-
-
   </body>
 </html>
