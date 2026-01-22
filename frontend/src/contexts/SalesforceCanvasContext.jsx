@@ -280,6 +280,11 @@ export const SalesforceCanvasProvider = ({ children }) => {
     user: canvasContext?.user,
     organization: canvasContext?.organization,
     environment: canvasContext?.environment,
+    // Canvas-specific parameters (can be nested in different places)
+    parameters: canvasContext?.environment?.parameters || canvasContext?.parameters || {},
+    // Direct URL/instance info
+    instanceUrl: canvasContext?.environment?.instanceUrl || canvasContext?.instanceUrl || '',
+    displayUrl: canvasContext?.environment?.displayUrl || canvasContext?.displayUrl || '',
     // Links and URLs
     links: canvasContext?.links,
     // Methods

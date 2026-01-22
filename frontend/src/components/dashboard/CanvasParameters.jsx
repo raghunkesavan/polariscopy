@@ -11,20 +11,19 @@ const CanvasParameters = () => {
   const {
     isCanvasApp,
     loading,
-    environment,
+    canvasContext,
+    parameters,
+    instanceUrl,
+    displayUrl,
     user,
     organization,
+    debugLog,
   } = useSalesforceCanvas();
 
   // Don't render if not a Canvas app
   if (!isCanvasApp || loading) {
     return null;
   }
-
-  // Extract environment parameters
-  const parameters = environment?.parameters || {};
-  const displayUrl = environment?.displayUrl || '';
-  const instanceUrl = environment?.instanceUrl || '';
 
   // Extract user and org info
   const userName = user?.fullName || 'N/A';
@@ -34,12 +33,17 @@ const CanvasParameters = () => {
     organization?.name || 'N/A';
   const orgId = organization?.organizationId || 'N/A';
 
-  // Extract any custom parameters passed in the Canvas URL
-  const recordId = parameters?.recordId || '';
-  const action = parameters?.action || '';
-  const customParams = Object.entries(parameters)
-    .filter(([key]) => !['recordId', 'action'].includes(key))
+  // Extract parameters from various possible locations
+  const recordId = parameters?.recordId || canvasContext?.recordId || '';
+  const action = parameters?.action || canvasContext?.action || '';
+  const customParams = Object.entries(parameters || {})
+    .filter(([key]) => !['recordId', 'action', 'recordIdString', 'namespacePrefix'].includes(key))
     .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
+
+  // Get all available context keys for debugging
+  const contextKeys = canvasContext ? Object.keys(canvasContext) : [];
+  const environmentKeys = canvasContext?.environment ? Object.keys(canvasContext.environment) : [];
+  const parametersKeys = parameters ? Object.keys(parameters) : [];
 
   return (
     <div className="canvas-parameters-section slds-box slds-m-bottom_medium">
@@ -66,21 +70,31 @@ const CanvasParameters = () => {
           </dl>
         </div>
 
-        {/* URL Parameters */}
+        {/* Canvas Parameters */}
         <div className="canvas-parameters-column">
           <h4 className="canvas-parameters-subtitle">Canvas Parameters</h4>
           <dl className="slds-dl_horizontal">
-            {recordId && (
+            {recordId ? (
               <>
                 <dt className="slds-dl_horizontal__label">Record ID:</dt>
                 <dd className="slds-dl_horizontal__detail canvas-parameters-value canvas-parameters-mono">{recordId}</dd>
               </>
+            ) : (
+              <>
+                <dt className="slds-dl_horizontal__label">Record ID:</dt>
+                <dd className="slds-dl_horizontal__detail canvas-parameters-value canvas-parameters-empty">Not provided</dd>
+              </>
             )}
 
-            {action && (
+            {action ? (
               <>
                 <dt className="slds-dl_horizontal__label">Action:</dt>
                 <dd className="slds-dl_horizontal__detail canvas-parameters-value">{action}</dd>
+              </>
+            ) : (
+              <>
+                <dt className="slds-dl_horizontal__label">Action:</dt>
+                <dd className="slds-dl_horizontal__detail canvas-parameters-value canvas-parameters-empty">Not provided</dd>
               </>
             )}
 
@@ -126,10 +140,59 @@ const CanvasParameters = () => {
         )}
       </div>
 
+      {/* Debug Info */}
+      <details className="canvas-parameters-debug">
+        <summary className="canvas-parameters-debug-summary">Debug Info (Click to expand)</summary>
+        <div className="canvas-parameters-debug-content">
+          <div className="canvas-parameters-debug-section">
+            <h5>Canvas Context Keys</h5>
+            <code className="canvas-parameters-debug-code">
+              {contextKeys.length > 0 ? contextKeys.join(', ') : 'No context keys'}
+            </code>
+          </div>
+
+          <div className="canvas-parameters-debug-section">
+            <h5>Environment Keys</h5>
+            <code className="canvas-parameters-debug-code">
+              {environmentKeys.length > 0 ? environmentKeys.join(', ') : 'No environment keys'}
+            </code>
+          </div>
+
+          <div className="canvas-parameters-debug-section">
+            <h5>Parameters Keys</h5>
+            <code className="canvas-parameters-debug-code">
+              {parametersKeys.length > 0 ? parametersKeys.join(', ') : 'No parameters'}
+            </code>
+          </div>
+
+          <div className="canvas-parameters-debug-section">
+            <h5>Full Canvas Context (JSON)</h5>
+            <pre className="canvas-parameters-debug-json">
+              {JSON.stringify(canvasContext, null, 2)}
+            </pre>
+          </div>
+
+          {debugLog.length > 0 && (
+            <div className="canvas-parameters-debug-section">
+              <h5>Debug Log</h5>
+              <div className="canvas-parameters-debug-log">
+                {debugLog.map((entry, idx) => (
+                  <div key={idx} className="canvas-parameters-debug-log-entry">
+                    <span className="canvas-parameters-debug-time">{entry.time}</span>
+                    <span className="canvas-parameters-debug-msg">{entry.message}</span>
+                    {entry.data && <span className="canvas-parameters-debug-data">{JSON.stringify(entry.data)}</span>}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </details>
+
       {/* Info Message */}
       <div className="canvas-parameters-info slds-m-top_small">
         <p className="slds-text-body_small slds-text-color_weak">
-          📌 Canvas app is active and embedded in Salesforce. These parameters are passed from the Canvas context.
+          📌 Canvas app is active and embedded in Salesforce. Check Debug Info for detailed context structure.
         </p>
       </div>
     </div>
