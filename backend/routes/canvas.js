@@ -155,4 +155,144 @@ router.get('/context', (req, res) => {
   }
 });
 
+/**
+ * POST /api/canvas/verify
+ * 
+ * Backend verification endpoint
+ * Frontend can POST the signed_request here for signature verification
+ * This adds security by verifying on the server-side
+ */
+router.post('/verify', express.urlencoded({ extended: false }), (req, res) => {
+  try {
+    const signedRequest = req.body.signed_request;
+    
+    if (!signedRequest) {
+      console.error('Canvas verify: No signed_request in body');
+      return res.status(400).json({ error: 'Missing signed_request' });
+    }
+
+    if (!CANVAS_CONSUMER_SECRET) {
+      console.error('Canvas verify: CANVAS_CONSUMER_SECRET not configured');
+      return res.status(500).json({ error: 'Server not configured' });
+    }
+
+    // Split the signed request: signature.payload
+    const [signature, encodedEnvelope] = signedRequest.split('.');
+    
+    if (!signature || !encodedEnvelope) {
+      console.error('Canvas verify: Invalid signed_request format');
+      return res.status(400).json({ error: 'Invalid signed_request format' });
+    }
+
+    // Verify the signature using HMAC-SHA256
+    const expectedSignature = crypto
+      .createHmac('sha256', CANVAS_CONSUMER_SECRET)
+      .update(encodedEnvelope)
+      .digest('base64');
+
+    if (expectedSignature !== signature) {
+      console.error('Canvas verify: Signature verification failed');
+      return res.status(401).json({ error: 'Invalid signature - data not from Salesforce' });
+    }
+
+    // Signature is valid, decode the envelope
+    const envelope = JSON.parse(
+      Buffer.from(encodedEnvelope, 'base64').toString('utf8')
+    );
+
+    console.log('✅ Canvas signature verified');
+    console.log('📋 User:', envelope.context?.user?.userName);
+    console.log('🏢 Org:', envelope.context?.organization?.name);
+    console.log('📊 Parameters:', envelope.context?.environment?.parameters);
+
+    // Extract and return the validated data
+    const validatedData = {
+      verified: true,
+      user: envelope.context?.user || null,
+      organization: envelope.context?.organization || null,
+      environment: envelope.context?.environment || null,
+      parameters: envelope.context?.environment?.parameters || {},
+      client: {
+        oauthToken: envelope.client?.oauthToken,
+        instanceUrl: envelope.client?.instanceUrl,
+        targetOrigin: envelope.client?.targetOrigin
+      }
+    };
+
+    // Optional: Store in database for audit trail
+    // await db.canvasSession.create({
+    //   userId: envelope.context?.user?.userId,
+    //   orgId: envelope.context?.organization?.organizationId,
+    //   parameters: validatedData.parameters,
+    //   timestamp: new Date(),
+    //   ipAddress: req.ip
+    // });
+
+    res.json(validatedData);
+
+  } catch (err) {
+    console.error('Canvas verify error:', err);
+    res.status(500).json({ error: 'Verification error', details: err.message });
+  }
+});
+
+/**
+ * POST /api/canvas/extract
+ * 
+ * Simpler endpoint: Extract and return parameters
+ * (assumes frontend already verified, or you just need the data)
+ */
+router.post('/extract', express.json(), (req, res) => {
+  try {
+    const { signedRequest } = req.body;
+    
+    if (!signedRequest) {
+      return res.status(400).json({ error: 'Missing signedRequest in body' });
+    }
+
+    if (!CANVAS_CONSUMER_SECRET) {
+      return res.status(500).json({ error: 'Server not configured' });
+    }
+
+    const [signature, encodedEnvelope] = signedRequest.split('.');
+    
+    // Verify signature
+    const expectedSignature = crypto
+      .createHmac('sha256', CANVAS_CONSUMER_SECRET)
+      .update(encodedEnvelope)
+      .digest('base64');
+
+    if (expectedSignature !== signature) {
+      return res.status(401).json({ error: 'Invalid signature' });
+    }
+
+    // Decode and extract
+    const envelope = JSON.parse(
+      Buffer.from(encodedEnvelope, 'base64').toString('utf8')
+    );
+
+    const extractedData = {
+      user: {
+        userName: envelope.context?.user?.userName,
+        userId: envelope.context?.user?.userId,
+        email: envelope.context?.user?.email,
+        fullName: envelope.context?.user?.fullName
+      },
+      organization: {
+        name: envelope.context?.organization?.name,
+        organizationId: envelope.context?.organization?.organizationId
+      },
+      parameters: envelope.context?.environment?.parameters || {},
+      instanceUrl: envelope.client?.instanceUrl,
+      oauthToken: envelope.client?.oauthToken
+    };
+
+    res.json(extractedData);
+
+  } catch (err) {
+    console.error('Canvas extract error:', err);
+    res.status(500).json({ error: 'Error extracting data', details: err.message });
+  }
+});
+
 export default router;
