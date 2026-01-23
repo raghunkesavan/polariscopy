@@ -279,9 +279,12 @@
             .then(res => res.json())
             .then(data => {
               if (!data.success) {
+                alert('failed');
                 document.body.innerHTML = "<h2>Invalid Canvas Request</h2>";
               } else {
                 const params = data.canvasContext.environment.parameters;
+                alert('post success');
+                alert('Canvas parameters by rag: ' + JSON.stringify(params));
                 document.getElementById("app").innerHTML = `
                   <h2>Canvas App new</h2>
                   <p><b>Record Id new:</b> ${params.recordId || "N/A"}</p>
