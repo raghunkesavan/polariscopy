@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { getMarketRates } from '../../config/constants';
-import { useSalesforceCanvas } from '../../contexts/SalesforceCanvasContext';
 import './ConstantsRow.css';
 
 const ConstantsRow = () => {
@@ -8,8 +7,8 @@ const ConstantsRow = () => {
   const [action, setAction] = useState(null);
   const [debugInfo, setDebugInfo] = useState({});
   
-  // Use the existing SalesforceCanvasContext
-  const { isCanvasApp, loading, environment, canvasContext, signedRequest, debugLog } = useSalesforceCanvas();
+  // Get Canvas parameters from window.canvasData
+  const canvasParams = window.canvasData?.parameters || {};
 
   // Convert decimal to percentage string
   const toPercent = (decimal) => `${(decimal * 100).toFixed(2)}%`;
@@ -17,64 +16,19 @@ const ConstantsRow = () => {
   const constants = getMarketRates();
 
   useEffect(() => {
-    // Method 1: Use SalesforceCanvasContext (preferred)
-    if (!loading && isCanvasApp && environment) {
-      const params = environment?.parameters || {};
-      console.warn('Canvas environment parameters:', params);
-      setRecordId(params.recordId || null);
-      setAction(params.action || null);
+    // Method 1: Use window.canvasData (from index.html extraction)
+    if (canvasParams.recordId || canvasParams.action) {
+      console.warn('Canvas parameters from window.canvasData:', canvasParams);
+      setRecordId(canvasParams.recordId || null);
+      setAction(canvasParams.action || null);
       setDebugInfo({
-        source: 'SalesforceCanvasContext',
-        params,
-        hasSignedRequest: !!signedRequest,
-        environment,
+        source: 'window.canvasData',
+        params: canvasParams,
       });
       return;
     }
 
-    // Method 1b: Canvas app detected but environment missing - check canvasContext directly
-    if (!loading && isCanvasApp && canvasContext) {
-      const params = canvasContext?.environment?.parameters || {};
-      console.warn('Canvas context parameters (direct):', params);
-      setRecordId(params.recordId || null);
-      setAction(params.action || null);
-      setDebugInfo({
-        source: 'SalesforceCanvasContext (canvasContext direct)',
-        params,
-        hasSignedRequest: !!signedRequest,
-        canvasContext,
-      });
-      return;
-    }
-
-    // Method 2: Fallback - Try to get signed request directly from SDK
-    if (!loading && window.Sfdc?.canvas?.client) {
-      try {
-        const sr = window.Sfdc.canvas.client.signedrequest();
-        if (sr) {
-          // Check different possible structures
-          const params = sr.context?.environment?.parameters 
-            || sr.payload?.context?.environment?.parameters
-            || sr.parameters
-            || {};
-          console.warn('Direct SDK signed request:', sr);
-          console.warn('Extracted parameters:', params);
-          setRecordId(params.recordId || null);
-          setAction(params.action || null);
-          setDebugInfo({
-            source: 'Direct SDK signedrequest()',
-            params,
-            signedRequestKeys: sr ? Object.keys(sr) : [],
-            signedRequestRaw: sr,
-          });
-          return;
-        }
-      } catch (err) {
-        console.warn('Could not get signed request directly:', err);
-      }
-    }
-
-    // Method 3: Check URL parameters (for testing or alternate integration)
+    // Method 2: Check URL parameters (for testing)
     const urlParams = new URLSearchParams(window.location.search);
     const urlRecordId = urlParams.get('recordId') || urlParams.get('id');
     const urlAction = urlParams.get('action');
@@ -90,22 +44,14 @@ const ConstantsRow = () => {
       return;
     }
 
-    // No context available - show detailed debug info
-    if (!loading) {
-      setDebugInfo({
-        source: 'None',
-        isCanvasApp,
-        hasSfdc: !!window.Sfdc,
-        hasSfdcCanvas: !!window.Sfdc?.canvas,
-        hasEnvironment: !!environment,
-        hasCanvasContext: !!canvasContext,
-        hasSignedRequest: !!signedRequest,
-        canvasContextKeys: canvasContext ? Object.keys(canvasContext) : [],
-        signedRequestKeys: signedRequest ? Object.keys(signedRequest) : [],
-        message: 'Canvas detected but no environment/parameters found',
-      });
-    }
-  }, [loading, isCanvasApp, environment, signedRequest, canvasContext]);
+    // No Canvas data found
+    setDebugInfo({
+      source: 'None',
+      hasCanvasData: !!window.canvasData,
+      parameters: canvasParams,
+      message: 'No Canvas parameters detected',
+    });
+  }, [canvasParams]);
 
   return (
     <div className="constants-section">
@@ -138,18 +84,10 @@ const ConstantsRow = () => {
         <h2>Canvas App (React)</h2>
         <p><b>Record Id:</b> {recordId || 'N/A'}</p>
         <p><b>Action:</b> {action || 'N/A'}</p>
-        <p><b>Is Canvas App:</b> {isCanvasApp ? 'Yes' : 'No'}</p>
-        <p><b>Loading:</b> {loading ? 'Yes' : 'No'}</p>
         <details>
           <summary>Debug Info</summary>
           <pre className="constants-debug-pre">
             {JSON.stringify(debugInfo, null, 2)}
-          </pre>
-        </details>
-        <details>
-          <summary>Canvas SDK Log</summary>
-          <pre className="constants-debug-pre">
-            {JSON.stringify(debugLog || [], null, 2)}
           </pre>
         </details>
       </div>
