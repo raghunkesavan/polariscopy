@@ -10,15 +10,15 @@ import '../styles/Dashboard.css';
 const HomePage = () => {
   const [timeRange, setTimeRange] = useState('week');
   const [volumeFilter, setVolumeFilter] = useState('all');
-  const [canvasParams, setCanvasParams] = useState(null);
+  const [canvasData, setCanvasData] = useState(null);
 
   const { loading, error, totals, btlData, bridgingData } = useDashboardData(timeRange, volumeFilter);
 
   // Listen for Canvas data
   useEffect(() => {
     const handleCanvasData = () => {
-      if (window.canvasData && window.canvasData.parameters) {
-        setCanvasParams(window.canvasData.parameters);
+      if (window.canvasData && window.canvasData.isAvailable) {
+        setCanvasData(window.canvasData);
       }
     };
 
@@ -57,24 +57,86 @@ const HomePage = () => {
         {/* Header with time range toggle */}
         <DashboardHeader timeRange={timeRange} onTimeRangeChange={setTimeRange} />
 
-        {/* Canvas Parameters Display */}
-        {canvasParams && (
-          <div className="canvas-parameters-section" style={{
+        {/* Canvas Parameters Display - Above Dashboard */}
+        {canvasData && canvasData.isAvailable && (
+          <div className="canvas-info-section" style={{
             padding: '16px',
-            marginBottom: '16px',
-            backgroundColor: 'var(--token-layer-surface)',
+            marginBottom: '20px',
+            backgroundColor: '#e8f4f8',
             borderRadius: '4px',
-            border: '1px solid var(--token-border-subtle)'
+            border: '2px solid #0066cc'
           }}>
-            <h3 style={{ marginTop: 0 }}>Canvas Parameters</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-              <div>
-                <strong>Record ID:</strong> {canvasParams.recordId || 'N/A'}
+            <h2 style={{ marginTop: 0, color: '#0066cc' }}>📱 Salesforce Canvas App Connected</h2>
+            
+            {/* Canvas Parameters */}
+            {canvasData.parameters && Object.keys(canvasData.parameters).length > 0 && (
+              <div style={{ marginBottom: '16px' }}>
+                <h3 style={{ marginBottom: '8px' }}>Canvas Parameters</h3>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  {Object.entries(canvasData.parameters).map(([key, value]) => (
+                    <div key={key} style={{ backgroundColor: 'white', padding: '8px', borderRadius: '4px' }}>
+                      <strong>{key}:</strong> {String(value) || 'N/A'}
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div>
-                <strong>Action:</strong> {canvasParams.action || 'N/A'}
+            )}
+
+            {/* User Info */}
+            {canvasData.user && (
+              <div style={{ marginBottom: '16px' }}>
+                <h3 style={{ marginBottom: '8px' }}>👤 User Information</h3>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  <div style={{ backgroundColor: 'white', padding: '8px', borderRadius: '4px' }}>
+                    <strong>Username:</strong> {canvasData.user.userName || 'N/A'}
+                  </div>
+                  <div style={{ backgroundColor: 'white', padding: '8px', borderRadius: '4px' }}>
+                    <strong>Full Name:</strong> {canvasData.user.fullName || 'N/A'}
+                  </div>
+                  <div style={{ backgroundColor: 'white', padding: '8px', borderRadius: '4px' }}>
+                    <strong>Email:</strong> {canvasData.user.email || 'N/A'}
+                  </div>
+                  <div style={{ backgroundColor: 'white', padding: '8px', borderRadius: '4px' }}>
+                    <strong>User ID:</strong> {canvasData.user.userId || 'N/A'}
+                  </div>
+                </div>
               </div>
-            </div>
+            )}
+
+            {/* Organization Info */}
+            {canvasData.organization && (
+              <div style={{ marginBottom: '16px' }}>
+                <h3 style={{ marginBottom: '8px' }}>🏢 Organization Information</h3>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  <div style={{ backgroundColor: 'white', padding: '8px', borderRadius: '4px' }}>
+                    <strong>Org Name:</strong> {canvasData.organization.name || 'N/A'}
+                  </div>
+                  <div style={{ backgroundColor: 'white', padding: '8px', borderRadius: '4px' }}>
+                    <strong>Org ID:</strong> {canvasData.organization.organizationId || 'N/A'}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Debug Logs */}
+            {canvasData.extractionLog && canvasData.extractionLog.length > 0 && (
+              <details style={{ marginTop: '16px' }}>
+                <summary style={{ cursor: 'pointer', fontWeight: 'bold' }}>📋 Canvas Extraction Logs</summary>
+                <pre style={{
+                  backgroundColor: '#f5f5f5',
+                  padding: '8px',
+                  borderRadius: '4px',
+                  fontSize: '12px',
+                  overflow: 'auto',
+                  maxHeight: '200px',
+                  marginTop: '8px'
+                }}>
+                  {canvasData.extractionLog.map((log, idx) => (
+                    <div key={idx}>[{log.time}] {log.message}</div>
+                  ))}
+                </pre>
+              </details>
+            )}
           </div>
         )}
 

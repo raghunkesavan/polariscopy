@@ -17,8 +17,103 @@
     <!-- Salesforce Canvas SDK -->
     <script src="https://mfsuk--dev.sandbox.lightning.force.com/canvas/sdk/js/canvas-all.js"></script>
     
-    <!-- Canvas Parameter Extraction Script -->
-    <!--script>
+    <!-- Canvas Parameter Extraction Script (CanvasDemo Pattern) -->
+    <script>
+      /**
+       * Canvas Parameter Extraction
+       * Based on CanvasDemo-master pattern
+       * 
+       * Extracts Canvas parameters and makes them available to React
+       */
+      window.canvasData = {
+        parameters: {},
+        user: null,
+        organization: null,
+        isAvailable: false,
+        extractionLog: []
+      };
+
+      const logCanvas = (message) => {
+        window.canvasData.extractionLog.push({
+          time: new Date().toISOString(),
+          message
+        });
+        console.log('[CANVAS]', message);
+      };
+
+      // Listen for Canvas SDK to be available
+      const initCanvasApp = () => {
+        logCanvas('🚀 Initializing Canvas App...');
+
+        // Check if Canvas SDK is available
+        if (typeof Sfdc === 'undefined' || !Sfdc.canvas || !Sfdc.canvas.client) {
+          logCanvas('⚠️  Salesforce Canvas SDK not available - not running in Canvas');
+          return;
+        }
+
+        logCanvas('✅ Canvas SDK detected');
+        window.canvasData.isAvailable = true;
+
+        // Get signed request from Canvas SDK
+        Sfdc.canvas.client.refreshSignedRequest(function (signedRequest) {
+          logCanvas('📨 Received signed request from Canvas SDK');
+          
+          if (!signedRequest) {
+            logCanvas('❌ Empty signed request received');
+            return;
+          }
+
+          logCanvas('📤 Sending signed request to backend /api/canvas...');
+
+          // Send to backend for verification and extraction
+          fetch(window.location.origin + '/api/canvas', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ signed_request: signedRequest })
+          })
+            .then(res => res.json())
+            .then(data => {
+              if (data.success === false) {
+                logCanvas('❌ Backend error: ' + (data.error || 'Unknown error'));
+                return;
+              }
+
+              logCanvas('✅ Backend verified Canvas data');
+
+              // Extract and store Canvas parameters
+              window.canvasData.isAvailable = true;
+              window.canvasData.parameters = data.canvasParameters || {};
+              window.canvasData.user = data.context?.user || null;
+              window.canvasData.organization = data.context?.organization || null;
+              window.canvasData.client = data.client || null;
+
+              logCanvas('📋 Canvas Parameters:', window.canvasData.parameters);
+              logCanvas('👤 User:', window.canvasData.user?.userName);
+              logCanvas('🏢 Org:', window.canvasData.organization?.organizationId);
+
+              // Dispatch event so React can listen
+              window.dispatchEvent(new CustomEvent('canvasDataReady', { 
+                detail: window.canvasData 
+              }));
+
+            })
+            .catch(err => {
+              logCanvas('❌ Error calling /api/canvas: ' + err.message);
+            });
+        });
+      };
+
+      // Initialize on page load
+      initCanvasApp();
+
+      // Fallback: Also try after a short delay
+      setTimeout(() => {
+        if (!window.canvasData.isAvailable && typeof Sfdc !== 'undefined' && Sfdc.canvas) {
+          logCanvas('🔄 Retrying Canvas initialization...');
+          initCanvasApp();
+        }
+      }, 2000);
+    </script>
       /**
        * Enhanced Canvas Parameter Extraction with Detailed Logging
        * Store them in window object so React/Context can access them
@@ -235,32 +330,16 @@
       };
 
       // Initialize immediately
-      addLog('🚀 Initializing Canvas on page load...');
-      initializeCanvasContext();
+      initCanvasApp();
 
       // Also try after a small delay
       setTimeout(() => {
-        if (!window.canvasData.user && !window.canvasData.parameters) {
-          addLog('🔄 No data yet, retrying initialization...');
-          initializeCanvasContext();
-        } else {
-          addLog('✅ Data already extracted, skipping retry');
+        if (!window.canvasData.isAvailable && typeof Sfdc !== 'undefined' && Sfdc.canvas) {
+          logCanvas('🔄 Retrying Canvas initialization...');
+          initCanvasApp();
         }
       }, 2000);
-
-      // Log everything to a div for easier debugging
-      setInterval(() => {
-        const logsDiv = document.getElementById('canvas-extraction-logs');
-        if (logsDiv && window.canvasData.extractionLogs.length > 0) {
-          logsDiv.innerHTML = window.canvasData.extractionLogs
-            .map(log => `<div style="font-family: monospace; font-size: 11px; padding: 2px 0; border-bottom: 1px solid #eee;">
-              <span style="color: #666;">${log.time}</span> ${log.message}
-            </div>`)
-            .join('');
-          logsDiv.scrollTop = logsDiv.scrollHeight;
-        }
-      }, 100);
-    </script-->
+    </script>
   </head>
   <body>
     <div id="root"></div>
