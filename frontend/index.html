@@ -18,7 +18,7 @@
     <script src="https://mfsuk--dev.sandbox.lightning.force.com/canvas/sdk/js/canvas-all.js"></script>
     
     <!-- Canvas Parameter Extraction Script -->
-    <script>
+    <!--script>
       /**
        * Enhanced Canvas Parameter Extraction with Detailed Logging
        * Store them in window object so React/Context can access them
@@ -260,43 +260,7 @@
           logsDiv.scrollTop = logsDiv.scrollHeight;
         }
       }, 100);
-    </script>
-
-    <!-- Canvas Quick Testing Script -->
-    <script>
-      alert('Canvas Quick Test Script Loaded');
-      if (!window.Sfdc?.canvas) {
-        alert('Canvas SDK not loaded');
-        document.body.innerHTML = "<h2>Canvas SDK not loaded</h2>";
-      } else {
-        alert('Canvas SDK loaded'); 
-        Sfdc.canvas.client.refreshSignedRequest(function (signedRequest) {
-          console.log("Signed Request:", signedRequest);
-
-          fetch("/api/canvas", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ signed_request: signedRequest })
-          })
-            .then(res => res.json())
-            .then(data => {
-              if (!data.success) {
-                alert('failed');
-                document.body.innerHTML = "<h2>Invalid Canvas Request</h2>";
-              } else {
-                const params = data.canvasContext.environment.parameters;
-                alert('post success');
-                alert('Canvas parameters by rag: ' + JSON.stringify(params));
-                document.getElementById("app").innerHTML = `
-                  <h2>Canvas App new</h2>
-                  <p><b>Record Id new:</b> ${params.recordId || "N/A"}</p>
-                  <p><b>Action new:</b> ${params.action || "N/A"}</p>
-                `;
-              }
-            });
-        });
-      }
-    </script>
+    </script-->
   </head>
   <body>
     <div id="root"></div>
