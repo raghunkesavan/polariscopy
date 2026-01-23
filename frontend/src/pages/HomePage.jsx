@@ -1,19 +1,34 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import DashboardHeader from '../components/dashboard/DashboardHeader';
 import TotalsCard from '../components/dashboard/TotalsCard';
 import VolumeChart from '../components/dashboard/VolumeChart';
 import VolumeFilter from '../components/dashboard/VolumeFilter';
 import ConstantsRow from '../components/dashboard/ConstantsRow';
-import CanvasParameters from '../components/dashboard/CanvasParameters';
-import CanvasDebug from '../components/debug/CanvasDebug';
 import useDashboardData from '../hooks/useDashboardData';
 import '../styles/Dashboard.css';
 
 const HomePage = () => {
   const [timeRange, setTimeRange] = useState('week');
   const [volumeFilter, setVolumeFilter] = useState('all');
+  const [canvasParams, setCanvasParams] = useState(null);
 
   const { loading, error, totals, btlData, bridgingData } = useDashboardData(timeRange, volumeFilter);
+
+  // Listen for Canvas data
+  useEffect(() => {
+    const handleCanvasData = () => {
+      if (window.canvasData && window.canvasData.parameters) {
+        setCanvasParams(window.canvasData.parameters);
+      }
+    };
+
+    // Check if data already exists
+    handleCanvasData();
+
+    // Listen for future updates
+    window.addEventListener('canvasDataReady', handleCanvasData);
+    return () => window.removeEventListener('canvasDataReady', handleCanvasData);
+  }, []);
 
   if (loading) {
     return (
@@ -42,11 +57,26 @@ const HomePage = () => {
         {/* Header with time range toggle */}
         <DashboardHeader timeRange={timeRange} onTimeRangeChange={setTimeRange} />
 
-        {/* Canvas Debug Info */}
-        <CanvasDebug />
-
-        {/* Canvas Parameters Section */}
-        <CanvasParameters />
+        {/* Canvas Parameters Display */}
+        {canvasParams && (
+          <div className="canvas-parameters-section" style={{
+            padding: '16px',
+            marginBottom: '16px',
+            backgroundColor: 'var(--token-layer-surface)',
+            borderRadius: '4px',
+            border: '1px solid var(--token-border-subtle)'
+          }}>
+            <h3 style={{ marginTop: 0 }}>Canvas Parameters</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+              <div>
+                <strong>Record ID:</strong> {canvasParams.recordId || 'N/A'}
+              </div>
+              <div>
+                <strong>Action:</strong> {canvasParams.action || 'N/A'}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Totals Section */}
         <div className="totals-section">
