@@ -57,22 +57,40 @@ const HomePage = () => {
         {/* Header with time range toggle */}
         <DashboardHeader timeRange={timeRange} onTimeRangeChange={setTimeRange} />
 
-        {/* Canvas Parameters Display - Minimal */}
-        {canvasData && canvasData.isAvailable && canvasData.parameters && Object.keys(canvasData.parameters).length > 0 && (
+        {/* Canvas Parameters Display - Prominent recordId and action */}
+        {canvasData && canvasData.isAvailable && canvasData.parameters && (
           <div className="canvas-info-section" style={{
-            padding: '12px 16px',
+            padding: '16px',
             marginBottom: '20px',
-            backgroundColor: '#e8f4f8',
+            backgroundColor: '#0066cc',
             borderRadius: '4px',
-            border: '1px solid #0066cc'
+            color: 'white'
           }}>
-            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
-              <span style={{ fontWeight: '500', color: '#0066cc' }}>📱 Canvas:</span>
-              {Object.entries(canvasData.parameters).map(([key, value]) => (
-                <span key={key} style={{ fontSize: '14px' }}>
-                  <strong>{key}:</strong> <code>{String(value) || 'N/A'}</code>
-                </span>
-              ))}
+            <div style={{ display: 'flex', gap: '24px', alignItems: 'center', flexWrap: 'wrap' }}>
+              {canvasData.parameters.recordId && (
+                <div>
+                  <div style={{ fontSize: '12px', opacity: 0.9, marginBottom: '4px' }}>Record ID</div>
+                  <div style={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'monospace' }}>
+                    {canvasData.parameters.recordId}
+                  </div>
+                </div>
+              )}
+              {canvasData.parameters.action && (
+                <div>
+                  <div style={{ fontSize: '12px', opacity: 0.9, marginBottom: '4px' }}>Action</div>
+                  <div style={{ fontSize: '18px', fontWeight: 'bold' }}>
+                    {canvasData.parameters.action}
+                  </div>
+                </div>
+              )}
+              {/* Show other parameters inline */}
+              {Object.entries(canvasData.parameters)
+                .filter(([key]) => key !== 'recordId' && key !== 'action')
+                .map(([key, value]) => (
+                  <div key={key} style={{ fontSize: '14px' }}>
+                    <strong>{key}:</strong> {String(value) || 'N/A'}
+                  </div>
+                ))}
             </div>
           </div>
         )}
