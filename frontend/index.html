@@ -19,37 +19,271 @@
     
     <!-- Canvas Parameter Extraction Script -->
     <script>
-      if (!window.Sfdc?.canvas) {
-        document.body.innerHTML = "<h2>Canvas SDK not loaded</h2>";
-      } else {
-        Sfdc.canvas.client.refreshSignedRequest(function (signedRequest) {
-          console.log("Signed Request:", signedRequest);
+      /**
+       * Enhanced Canvas Parameter Extraction with Detailed Logging
+       * Store them in window object so React/Context can access them
+       */
+      window.canvasData = {
+        parameters: {},
+        context: null,
+        user: null,
+        organization: null,
+        isCanvasAvailable: false,
+        extractionLogs: []
+      };
 
-          fetch("/api/canvas", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ signed_request: signedRequest })
-          })
-            .then(res => res.json())
-            .then(data => {
-              if (!data.success) {
-                document.body.innerHTML = "<h2>Invalid Canvas Request</h2>";
-              } else {
-                const params = data.canvasContext.environment.parameters;
-                document.getElementById("app").innerHTML = `
-                  <h2>Canvas App</h2>
-                  <p><b>Record Id:</b> ${params.recordId || "N/A"}</p>
-                  <p><b>Action:</b> ${params.action || "N/A"}</p>
-                `;
-              }
-            });
+      const addLog = (message) => {
+        window.canvasData.extractionLogs.push({
+          time: new Date().toLocaleTimeString(),
+          message
         });
-      }
+        console.log('[CANVAS]', message);
+      };
+
+      // Check if Salesforce Canvas SDK is available
+      const checkCanvasSDK = () => {
+        const has = typeof window.Sfdc !== 'undefined' && 
+               window.Sfdc.canvas && 
+               window.Sfdc.canvas.client;
+        
+        if (has) {
+          addLog('✅ Salesforce Canvas SDK is available');
+        } else {
+          addLog('❌ Salesforce Canvas SDK NOT available');
+          addLog('typeof Sfdc: ' + typeof window.Sfdc);
+          if (typeof window.Sfdc !== 'undefined') {
+            addLog('Sfdc.canvas exists: ' + !!window.Sfdc.canvas);
+            if (window.Sfdc.canvas) {
+              addLog('Sfdc.canvas.client exists: ' + !!window.Sfdc.canvas.client);
+            }
+          }
+        }
+        return has;
+      };
+
+      // Get Canvas Context
+      const initializeCanvasContext = () => {
+        addLog('🔄 Starting Canvas context initialization...');
+
+        if (!checkCanvasSDK()) {
+          addLog('❌ Canvas SDK check failed, skipping initialization');
+          return;
+        }
+
+        window.canvasData.isCanvasAvailable = true;
+
+        // Method 1: Try to get signed request directly
+        addLog('📍 Method 1: Trying signedrequest()...');
+        try {
+          const signedRequest = window.Sfdc.canvas.client.signedrequest();
+          addLog('signedrequest() returned: ' + (signedRequest ? 'object' : 'null'));
+          
+          if (signedRequest) {
+            addLog('✅ Got signed request from signedrequest()');
+            addLog('Signed request keys: ' + Object.keys(signedRequest).join(', '));
+            handleSignedRequest(signedRequest);
+            return;
+          } else {
+            addLog('⚠️ signedrequest() returned null, trying other methods');
+          }
+        } catch (e) {
+          addLog('⚠️ signedrequest() threw error: ' + e.message);
+        }
+
+        // Method 2: Try refreshSignedRequest (async)
+        addLog('📍 Method 2: Trying refreshSignedRequest()...');
+        try {
+          window.Sfdc.canvas.client.refreshSignedRequest((response) => {
+            addLog('refreshSignedRequest() callback received');
+            addLog('Response type: ' + typeof response);
+            
+            if (response) {
+              addLog('Response keys: ' + Object.keys(response).join(', '));
+              
+              if (response.payload) {
+                addLog('✅ Got payload from refreshSignedRequest');
+                handleSignedRequest(response.payload);
+              } else {
+                addLog('Response: ' + JSON.stringify(response).substring(0, 200));
+                handleSignedRequest(response);
+              }
+            } else {
+              addLog('❌ refreshSignedRequest returned null');
+            }
+          });
+        } catch (e) {
+          addLog('⚠️ refreshSignedRequest() threw error: ' + e.message);
+        }
+
+        // Method 3: Try ctx() method
+        addLog('📍 Method 3: Trying ctx()...');
+        try {
+          window.Sfdc.canvas.client.ctx((response) => {
+            addLog('ctx() callback received');
+            addLog('Response type: ' + typeof response);
+            
+            if (response) {
+              addLog('Response keys: ' + Object.keys(response).join(', '));
+              
+              const context = response.payload?.context || response.context || response;
+              addLog('✅ Got context from ctx()');
+              addLog('Context keys: ' + Object.keys(context).join(', '));
+              extractCanvasData(context);
+            } else {
+              addLog('❌ ctx() returned null');
+            }
+          });
+        } catch (e) {
+          addLog('⚠️ ctx() threw error: ' + e.message);
+        }
+
+        // Set timeout to log if nothing worked
+        setTimeout(() => {
+          if (!window.canvasData.user && !window.canvasData.parameters) {
+            addLog('⚠️ 3 second timeout: No data extracted yet');
+          }
+        }, 3000);
+      };
+
+      // Handle Signed Request
+      const handleSignedRequest = (signedRequest) => {
+        addLog('🔍 Processing signed request...');
+        
+        try {
+          if (!signedRequest) {
+            addLog('❌ signedRequest is null');
+            return;
+          }
+
+          addLog('Signed request keys: ' + Object.keys(signedRequest).join(', '));
+
+          // Try different paths to get context
+          let context = signedRequest.context || 
+                       signedRequest.payload?.context || 
+                       signedRequest.payload ||
+                       signedRequest;
+
+          addLog('Extracted context keys: ' + Object.keys(context).join(', '));
+          extractCanvasData(context);
+          
+        } catch (e) {
+          addLog('❌ Error handling signed request: ' + e.message);
+        }
+      };
+
+      // Extract Data from Canvas Context
+      const extractCanvasData = (context) => {
+        addLog('📋 Extracting data from context...');
+        
+        try {
+          if (!context) {
+            addLog('❌ Context is null');
+            return;
+          }
+
+          addLog('Context keys: ' + Object.keys(context).join(', '));
+
+          // Extract user info
+          if (context.user) {
+            window.canvasData.user = {
+              userName: context.user.userName,
+              userId: context.user.userId,
+              email: context.user.email,
+              fullName: context.user.fullName,
+              locale: context.user.locale
+            };
+            addLog('✅ User extracted: ' + window.canvasData.user.userName);
+          } else {
+            addLog('⚠️ No user in context');
+          }
+
+          // Extract organization info
+          if (context.organization) {
+            window.canvasData.organization = {
+              name: context.organization.name,
+              organizationId: context.organization.organizationId,
+              organizationType: context.organization.organizationType,
+              organizationMultiCurrency: context.organization.organizationMultiCurrency
+            };
+            addLog('✅ Organization extracted: ' + window.canvasData.organization.name);
+          } else {
+            addLog('⚠️ No organization in context');
+          }
+
+          // Extract environment/parameters
+          if (context.environment) {
+            window.canvasData.context = context.environment;
+            window.canvasData.parameters = context.environment.parameters || {};
+            
+            addLog('✅ Environment extracted');
+            addLog('Parameters: ' + JSON.stringify(window.canvasData.parameters));
+            addLog('Instance URL: ' + context.environment.instanceUrl);
+          } else {
+            addLog('⚠️ No environment in context');
+          }
+
+          addLog('📊 Canvas Data Ready!');
+          
+          // Dispatch custom event so React can listen to it
+          window.dispatchEvent(new CustomEvent('canvasDataReady', { 
+            detail: window.canvasData 
+          }));
+
+        } catch (e) {
+          addLog('❌ Error extracting canvas data: ' + e.message);
+        }
+      };
+
+      // Initialize immediately
+      addLog('🚀 Initializing Canvas on page load...');
+      initializeCanvasContext();
+
+      // Also try after a small delay
+      setTimeout(() => {
+        if (!window.canvasData.user && !window.canvasData.parameters) {
+          addLog('🔄 No data yet, retrying initialization...');
+          initializeCanvasContext();
+        } else {
+          addLog('✅ Data already extracted, skipping retry');
+        }
+      }, 2000);
+
+      // Log everything to a div for easier debugging
+      setInterval(() => {
+        const logsDiv = document.getElementById('canvas-extraction-logs');
+        if (logsDiv && window.canvasData.extractionLogs.length > 0) {
+          logsDiv.innerHTML = window.canvasData.extractionLogs
+            .map(log => `<div style="font-family: monospace; font-size: 11px; padding: 2px 0; border-bottom: 1px solid #eee;">
+              <span style="color: #666;">${log.time}</span> ${log.message}
+            </div>`)
+            .join('');
+          logsDiv.scrollTop = logsDiv.scrollHeight;
+        }
+      }, 100);
     </script>
   </head>
   <body>
-    <div id="app"></div>
     <div id="root"></div>
+    
+    <!-- Canvas Extraction Debug Panel -->
+    <div id="canvas-extraction-logs" style="
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      width: 400px;
+      height: 300px;
+      background: #f5f5f5;
+      border: 2px solid #333;
+      border-radius: 8px 8px 0 0;
+      overflow-y: auto;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 11px;
+      z-index: 9999;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+    "></div>
+
     <script type="module" src="/src/index.jsx"></script>
   </body>
 </html>
+
