@@ -24,7 +24,8 @@ export default function handler(req, res) {
   if (req.method === 'POST') {
     try {
       const signedRequest = req.body.signed_request;
-
+      alert('hi');
+      alert(signedRequest);
       if (!signedRequest) {
         console.error('Canvas: No signed_request in body');
         return res.status(400).json({ error: 'Missing signed_request' });
