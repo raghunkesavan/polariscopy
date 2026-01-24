@@ -69,16 +69,16 @@ const HomePage = () => {
             <div style={{ display: 'flex', gap: '24px', alignItems: 'center', flexWrap: 'wrap' }}>
               {canvasData.parameters.recordId && (
                 <div>
-                  <div style={{ fontSize: '12px', opacity: 0.9, marginBottom: '4px' }}>Record ID</div>
-                  <div style={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'monospace' }}>
+                  <div style={{ fontSize: '12px', opacity: 0.9, marginBottom: '4px', color: 'white' }}>Record ID</div>
+                  <div style={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'monospace', color: 'white' }}>
                     {canvasData.parameters.recordId}
                   </div>
                 </div>
               )}
               {canvasData.parameters.action && (
                 <div>
-                  <div style={{ fontSize: '12px', opacity: 0.9, marginBottom: '4px' }}>Action</div>
-                  <div style={{ fontSize: '18px', fontWeight: 'bold' }}>
+                  <div style={{ fontSize: '12px', opacity: 0.9, marginBottom: '4px', color: 'white' }}>Action</div>
+                  <div style={{ fontSize: '18px', fontWeight: 'bold', color: 'white' }}>
                     {canvasData.parameters.action}
                   </div>
                 </div>
@@ -87,7 +87,7 @@ const HomePage = () => {
               {Object.entries(canvasData.parameters)
                 .filter(([key]) => key !== 'recordId' && key !== 'action')
                 .map(([key, value]) => (
-                  <div key={key} style={{ fontSize: '14px' }}>
+                  <div key={key} style={{ fontSize: '14px', color: 'white' }}>
                     <strong>{key}:</strong> {String(value) || 'N/A'}
                   </div>
                 ))}
