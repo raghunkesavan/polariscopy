@@ -75,6 +75,11 @@
           })
             .then(res => res.json())
             .then(data => {
+              alert(
+                  'Backend Response:\n\n' +
+                  JSON.stringify(data, null, 2)
+                  );
+
               if (data.success === false) {
                 alert('failed data access');
                 alert(data.error);
