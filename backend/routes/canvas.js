@@ -24,8 +24,11 @@ const CANVAS_CONSUMER_SECRET = '834B749C07C792E815A8DABD22D52F4381C0E25187AA5534
 router.post('/', express.json(), express.urlencoded({ extended: false }), (req, res) => {
   try {
     const signedRequest = req.body?.signed_request;
-    
+    alert('signedRequest received at backend');
+    console.log('signedRequest received at backend:', signedRequest);
+     alert(JSON.stringify(signedRequest));
     if (!signedRequest) {
+      alert('no signed request');
       console.error('[Canvas] No signed_request in body');
       return res.status(400).json({ 
         success: false,
