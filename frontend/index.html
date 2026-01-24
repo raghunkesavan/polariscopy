@@ -57,8 +57,10 @@
         // Get signed request from Canvas SDK
         Sfdc.canvas.client.refreshSignedRequest(function (signedRequest) {
           logCanvas('📨 Received signed request from Canvas SDK');
-          
+          alert('signedRequest');
+          alert(signedRequest);
           if (!signedRequest) {
+            alert('empty signed request');
             logCanvas('❌ Empty signed request received');
             return;
           }
@@ -74,6 +76,8 @@
             .then(res => res.json())
             .then(data => {
               if (data.success === false) {
+                alert('failed data access');
+                alert(data.error);
                 logCanvas('❌ Backend error: ' + (data.error || 'Unknown error'));
                 return;
               }

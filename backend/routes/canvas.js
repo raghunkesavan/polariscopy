@@ -12,7 +12,8 @@ import crypto from 'crypto';
 const router = express.Router();
 
 // Consumer Secret from Salesforce Connected App
-const CANVAS_CONSUMER_SECRET = process.env.CANVAS_CONSUMER_SECRET;
+//const CANVAS_CONSUMER_SECRET = process.env.CANVAS_CONSUMER_SECRET;
+const CANVAS_CONSUMER_SECRET = '834B749C07C792E815A8DABD22D52F4381C0E25187AA55345CA5FB010DAAB74B';
 
 /**
  * POST /api/canvas
