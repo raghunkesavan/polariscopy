@@ -58,7 +58,7 @@
         Sfdc.canvas.client.refreshSignedRequest(function (signedRequest) {
           logCanvas('📨 Received signed request from Canvas SDK');
           alert('signedRequest');
-          alert(signedRequest);
+          alert(JSON.stringify(signedRequest));
           if (!signedRequest) {
             alert('empty signed request');
             logCanvas('❌ Empty signed request received');
