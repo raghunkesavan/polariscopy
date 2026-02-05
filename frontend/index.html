@@ -31,6 +31,12 @@
     <!-- Canvas Parameters Display Script -->
     <script>
      
+       fetch('https://polariscopy.onrender.com/api/salesforce/echo/last')
+    .then(r => r.json())
+    .then(data => console.log('echo last', data))
+    .catch(err => console.error(err));
+
+
       //alert(window.);
       (function() {
         // Display last payload posted to /api/salesforce/echo
