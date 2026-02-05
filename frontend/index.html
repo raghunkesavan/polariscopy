@@ -31,13 +31,19 @@
     <!-- Canvas Parameters Display Script -->
     <script>
      
-       fetch('https://polariscopy.onrender.com/api/salesforce/echo/last')
-    .then(r => r.json())
-    .then(data => console.log('echo last', data))
-    .catch(err => console.error(err));
+    fetch('https://polariscopy.onrender.com/api/salesforce/echo/last')
+      .then(r => r.json())
+      .then(data => {
+        console.log('echo last', data);
+        alert(JSON.stringify(data, null, 2));
+      })
+      .catch(err => {
+        console.error(err);
+        alert('Error: ' + err.message);
+      });
 
 
-      alert(data.recordId);
+     // alert(data.recordId);
       (function() {
         // Display last payload posted to /api/salesforce/echo
         const echoEl = document.getElementById('salesforce-echo');
