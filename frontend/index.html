@@ -19,119 +19,95 @@
     
     <!-- Canvas Parameter Extraction Script (CanvasDemo Pattern) -->
     <script>
-      
-      /**
-       * Canvas Parameter Extraction
-       * Based on CanvasDemo-master pattern
-       * 
-       * Extracts Canvas parameters and makes them available to React
-       */
-      alert('raghu test');
-      alert(window.canvasData);
-      //alert(JSON.stringify(req.body.signed_request));
-      //alert(window.canvasParameters);
-      window.canvasData = {
-        parameters: {},
-        user: null,
-        organization: null,
-        isAvailable: false,
-        extractionLog: []
-      };
-
-      const logCanvas = (message) => {
-        window.canvasData.extractionLog.push({
-          time: new Date().toISOString(),
-          message
-        });
-        console.log('[CANVAS]', message);
-      };
-
-      // Listen for Canvas SDK to be available
-      const initCanvasApp = () => {
-        logCanvas('🚀 Initializing Canvas App...');
-
-        // Check if Canvas SDK is available
-        if (typeof Sfdc === 'undefined' || !Sfdc.canvas || !Sfdc.canvas.client) {
-          logCanvas('⚠️  Salesforce Canvas SDK not available - not running in Canvas');
-          return;
-        }
-
-        logCanvas('✅ Canvas SDK detected');
-        window.canvasData.isAvailable = true;
-
-        // Get signed request from Canvas SDK
-        Sfdc.canvas.client.refreshSignedRequest(function (signedRequest) {
-          logCanvas('📨 Received signed request from Canvas SDK');
-          alert('signedRequest');
-          alert(JSON.stringify(signedRequest));
-          if (!signedRequest) {
-            alert('empty signed request');
-            logCanvas('❌ Empty signed request received');
-            return;
-          }
-
-          logCanvas('📤 Sending signed request to backend /api/canvas...');
-
-          // Send to backend for verification and extraction
-          fetch(window.location.origin + '/api/canvas', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ signed_request: signedRequest })
-          })
-            .then(res => res.json())
-            .then(data => {
-              alert(
-                  'Backend Response:\n\n' +
-                  JSON.stringify(data, null, 2)
-                  );
-
-              if (data.success === false) {
-                alert('failed data access');
-                alert(data.error);
-                logCanvas('❌ Backend error: ' + (data.error || 'Unknown error'));
-                return;
-              }
-
-              logCanvas('✅ Backend verified Canvas data');
-
-              // Extract and store Canvas parameters
-              window.canvasData.isAvailable = true;
-              window.canvasData.parameters = data.canvasParameters || {};
-              window.canvasData.user = data.context?.user || null;
-              window.canvasData.organization = data.context?.organization || null;
-              window.canvasData.client = data.client || null;
-
-              logCanvas('📋 Canvas Parameters:', window.canvasData.parameters);
-              logCanvas('👤 User:', window.canvasData.user?.userName);
-              logCanvas('🏢 Org:', window.canvasData.organization?.organizationId);
-
-              // Dispatch event so React can listen
-              window.dispatchEvent(new CustomEvent('canvasDataReady', { 
-                detail: window.canvasData 
-              }));
-
-            })
-            .catch(err => {
-              logCanvas('❌ Error calling /api/canvas: ' + err.message);
-            });
-        });
-      };
-
-      // Initialize on page load
-      initCanvasApp();
-
-      // Fallback: Also try after a short delay
-      setTimeout(() => {
-        if (!window.canvasData.isAvailable && typeof Sfdc !== 'undefined' && Sfdc.canvas) {
-          logCanvas('🔄 Retrying Canvas initialization...');
-          initCanvasApp();
-        }
-      }, 2000);
+    
     </script>
+
   </head>
   <body>
     <div id="root"></div>
+    <div id="salesforce-echo" style="padding: 12px; font-family: Inter, sans-serif;"></div>
     <script type="module" src="/src/index.jsx"></script>
+    
+    <!-- Canvas Parameters Display Script -->
+    <script>
+      (function() {
+        // Display last payload posted to /api/salesforce/echo
+        const echoEl = document.getElementById('salesforce-echo');
+        const backendUrl = window.location.hostname === 'localhost'
+          ? 'http://localhost:3001'
+          : window.location.origin;
+
+        fetch(backendUrl + '/api/salesforce/echo/last')
+          .then(res => res.json())
+          .then(data => {
+            if (!echoEl) return;
+            if (!data?.payload) {
+              echoEl.textContent = 'No Salesforce echo payload received yet.';
+              return;
+            }
+            echoEl.textContent = 'Last Salesforce Echo Payload: ' + JSON.stringify(data.payload, null, 2);
+          })
+          .catch(() => {
+            if (echoEl) {
+              echoEl.textContent = 'Failed to load Salesforce echo payload.';
+            }
+          });
+
+        // Check for Canvas parameters in URL
+        const params = new URLSearchParams(window.location.search);
+        const canvasParams = {};
+        let hasCanvasParams = false;
+
+        // Extract all parameters
+        for (const [key, value] of params) {
+          canvasParams[key] = value;
+          if (key === 'canvasToken' || key.startsWith('canvas_') || 
+              key === 'userId' || key === 'userName' || key === 'orgId' || key === 'recordId') {
+            hasCanvasParams = true;
+          }
+        }
+
+        // Display alert if canvas parameters exist
+        if (hasCanvasParams) {
+          const alertMessage = 'Canvas Parameters Received:\n\n' + 
+            JSON.stringify(canvasParams, null, 2);
+          
+          // Show alert immediately
+          alert(alertMessage);
+          
+          // Also log to console
+          console.log('[Canvas Parameters]', canvasParams);
+          
+          // Store in sessionStorage if not already there
+          if (!sessionStorage.getItem('canvasContext')) {
+            try {
+              const context = {
+                parameters: Object.fromEntries(
+                  Array.from(params).filter(([k]) => k.startsWith('canvas_'))
+                    .map(([k, v]) => [k.replace('canvas_', ''), v])
+                ),
+                user: {
+                  userId: params.get('userId'),
+                  userName: params.get('userName'),
+                  email: params.get('userEmail'),
+                },
+                organization: {
+                  organizationId: params.get('orgId'),
+                  name: params.get('orgName'),
+                },
+                environment: {
+                  instanceUrl: params.get('instanceUrl'),
+                  recordId: params.get('recordId'),
+                },
+              };
+              sessionStorage.setItem('canvasContext', JSON.stringify(context));
+            } catch (err) {
+              console.error('[Canvas] Failed to store context:', err);
+            }
+          }
+        }
+      })();
+    </script>
   </body>
 </html>
 
