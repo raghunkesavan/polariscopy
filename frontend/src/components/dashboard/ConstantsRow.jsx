@@ -3,21 +3,23 @@ import { getMarketRates } from '../../config/constants';
 import './ConstantsRow.css';
 
 const ConstantsRow = () => {
-  const [recordId, setRecordId] = useState(null);
-  const [action, setAction] = useState(null);
-  const [debugInfo, setDebugInfo] = useState({});
+  // const [recordId, setRecordId] = useState(null);
+  // const [action, setAction] = useState(null);
+  // const [debugInfo, setDebugInfo] = useState({});
   
-  // Get Canvas parameters from window.canvasData
-  const canvasParams = window.canvasData?.parameters || {};
+  // // Get Canvas parameters from window.canvasData
+  // const canvasParams = window.canvasData?.parameters || {};
 
   // Convert decimal to percentage string
   const toPercent = (decimal) => `${(decimal * 100).toFixed(2)}%`;
 
   const constants = getMarketRates();
-
+  
+/*
   useEffect(() => {
     // Method 1: Use window.canvasData (from index.html extraction)
     if (canvasParams.recordId || canvasParams.action) {
+      alert('canvasParams found');
       console.warn('Canvas parameters from window.canvasData:', canvasParams);
       setRecordId(canvasParams.recordId || null);
       setAction(canvasParams.action || null);
@@ -51,7 +53,7 @@ const ConstantsRow = () => {
       parameters: canvasParams,
       message: 'No Canvas parameters detected',
     });
-  }, [canvasParams]);
+  }, [canvasParams]); */
 
   return (
     <div className="constants-section">
@@ -80,7 +82,7 @@ const ConstantsRow = () => {
         </div>
       </div>
 
-      <div>
+      {/* <div>
         <h2>Canvas App (React)</h2>
         <p><b>Record Id:</b> {recordId || 'N/A'}</p>
         <p><b>Action:</b> {action || 'N/A'}</p>
@@ -90,9 +92,10 @@ const ConstantsRow = () => {
             {JSON.stringify(debugInfo, null, 2)}
           </pre>
         </details>
-      </div>
+      </div> */}
     </div>
   );
+  
 };
 
 export default ConstantsRow;

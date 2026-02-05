@@ -24,7 +24,39 @@ export default function LoginPage() {
       setRememberMe(true);
     }
   }, []);
+  //alert('Login Page Loaded');
+  //alert(window.canvasData?.isAvailable);
+  //alert(JSON.stringify(window));
+  /*
+useEffect(() => {
+  // Case 1: Canvas data already loaded
+  if (window.canvasData?.isAvailable) {
+    const { recordId, action } = window.canvasData.parameters || {};
 
+    if (recordId || action) {
+      alert(
+        `Canvas Parameters received:\n\nRecordId: ${recordId}\nAction: ${action}`
+      );
+    }
+  }
+
+  // Case 2: Wait for Canvas data event
+  const handler = (event) => {
+    const { recordId, action } = event.detail.parameters || {};
+
+    alert(
+      `Canvas Parameters received:\n\nRecordId: ${recordId}\nAction: ${action}`
+    );
+  };
+
+  window.addEventListener('canvasDataReady', handler);
+
+  return () => {
+    window.removeEventListener('canvasDataReady', handler);
+  };
+}, []);
+*/
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');

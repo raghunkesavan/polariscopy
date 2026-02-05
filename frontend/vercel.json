@@ -10,8 +10,8 @@
       "source": "/(.*)",
       "headers": [
         {
-          "key": "X-Frame-Options",
-          "value": "ALLOWALL"
+          "key": "Content-Security-Policy",
+          "value": "frame-ancestors https://*.salesforce.com https://*.force.com https://*.lightning.force.com https://mfsuk--dev.sandbox.my.salesforce.com http://localhost:* 'self'"
         },
         {
           "key": "Access-Control-Allow-Origin",

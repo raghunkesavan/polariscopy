@@ -10,7 +10,7 @@
 import crypto from 'crypto';
 
 const CANVAS_CONSUMER_SECRET = process.env.CANVAS_CONSUMER_SECRET;
-
+//const CANVAS_CONSUMER_SECRET = '834B749C07C792E815A8DABD22D52F4381C0E25187AA55345CA5FB010DAAB74B';
 export default function handler(req, res) {
   // Handle CORS
   if (req.method === 'OPTIONS') {
@@ -24,8 +24,10 @@ export default function handler(req, res) {
   if (req.method === 'POST') {
     try {
       const signedRequest = req.body.signed_request;
-      alert('hi');
-      alert(signedRequest);
+      console.log('Canvas: Received signed_request:', signedRequest);
+
+      //alert('hi');
+      //alert(signedRequest);
       if (!signedRequest) {
         console.error('Canvas: No signed_request in body');
         return res.status(400).json({ error: 'Missing signed_request' });

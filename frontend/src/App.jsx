@@ -6,6 +6,7 @@ import Calculator from './components/calculators/Calculator';
 import BTLCalculator from './components/calculators/BTL_Calculator';
 import BridgingCalculator from './components/calculators/BridgingCalculator';
 import QuotesList from './components/calculators/QuotesList';
+import Canvas from './components/Canvas';
 import AppShell from './components/layout/AppShell';
 import ErrorBoundary from './components/ui/ErrorBoundary';
 import { 
@@ -37,6 +38,7 @@ import './styles/accessibility.css';
 import './styles/utilities.css';
 import './styles/FeatureIcons.css';
 import './styles/typography-inter.css'; // Inter typography (toggled via body class)
+import jwtDecode from 'jwt-decode';
 
 // AppContent component to use theme context
 const AppContent = () => {
@@ -75,6 +77,15 @@ const AppContent = () => {
   
   // Show navigation only if NOT public route AND NOT embedded
   const showNavigation = !isPublicRoute && !isEmbedded;
+
+  // Canvas route should render standalone without AppShell
+  if (location.pathname === '/canvas') {
+    return (
+      <div data-theme={resolvedTheme}>
+        <Canvas />
+      </div>
+    );
+  }
 
   return (
     <div data-theme={resolvedTheme}>
@@ -322,6 +333,24 @@ const AppContent = () => {
 };
 
 function App() {
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const canvasToken = params.get('canvasToken');
+
+    if (canvasToken) {
+      const canvasContext = jwtDecode(canvasToken);
+
+      // Store for app usage
+      localStorage.setItem('canvasContext', JSON.stringify(canvasContext));
+      localStorage.setItem('canvasToken', canvasToken);
+
+      // Clean URL
+      window.history.replaceState({}, '', '/');
+    }
+  }, []);
+
+
   return (
     <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <ToastProvider>

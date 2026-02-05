@@ -2,7 +2,18 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    {
+      name: 'configure-response-headers',
+      configureServer: (server) => {
+        server.middlewares.use((_req, res, next) => {
+          res.setHeader('Content-Security-Policy', "frame-ancestors https://*.salesforce.com https://*.force.com https://*.lightning.force.com http://localhost:* 'self'");
+          next();
+        });
+      }
+    }
+  ],
   build: {
     rollupOptions: {
       output: {

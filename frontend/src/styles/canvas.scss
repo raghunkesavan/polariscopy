@@ -1,0 +1,201 @@
+// Canvas Integration Styles
+.canvas-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--token-layer-background, #f4f4f4);
+  color: var(--token-text-primary, #161616);
+  padding: var(--token-spacing-large, 24px);
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.canvas-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+
+  h1 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: var(--token-spacing-large, 24px);
+    color: var(--token-text-primary, #161616);
+  }
+
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: var(--token-spacing-large, 24px);
+    margin-bottom: var(--token-spacing-medium, 16px);
+    color: var(--token-text-primary, #161616);
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: var(--token-spacing-medium, 16px);
+    color: var(--token-text-primary, #161616);
+  }
+}
+
+.status-section {
+  margin-bottom: var(--token-spacing-large, 24px);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: var(--token-spacing-medium, 16px);
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  &.status-initializing {
+    background-color: #e0e0e0;
+    color: #525252;
+  }
+
+  &.status-checking-canvas-data {
+    background-color: #fff4ce;
+    color: #b8960f;
+  }
+
+  &.status-sending-to-backend {
+    background-color: #d0e2ff;
+    color: #0043ce;
+  }
+
+  &.status-connected {
+    background-color: #d0f0d0;
+    color: #24a148;
+  }
+
+  &.status-error {
+    background-color: #ffd0d0;
+    color: #da1e28;
+  }
+
+  &.status-backend-error {
+    background-color: #ffd0d0;
+    color: #da1e28;
+  }
+
+  &.status-no-canvas-context {
+    background-color: #ffd0d0;
+    color: #da1e28;
+  }
+}
+
+.error-section {
+  background-color: var(--token-layer-ui, #f4f4f4);
+  border-left: 4px solid #da1e28;
+  padding: var(--token-spacing-medium, 16px);
+  margin-bottom: var(--token-spacing-large, 24px);
+  border-radius: 4px;
+
+  h3 {
+    color: #da1e28;
+    margin-top: 0;
+  }
+}
+
+.error-message {
+  color: #da1e28;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0;
+  word-break: break-word;
+}
+
+.canvas-data-section,
+.backend-response-section,
+.redirect-section,
+.info-section {
+  background-color: var(--token-layer-ui, #f4f4f4);
+  border: 1px solid var(--token-border-subtle, #e0e0e0);
+  border-radius: 4px;
+  padding: var(--token-spacing-medium, 16px);
+  margin-bottom: var(--token-spacing-large, 24px);
+}
+
+.redirect-section {
+  text-align: center;
+  border-color: #0043ce;
+  background-color: #d0e2ff;
+
+  h3 {
+    color: #0043ce;
+    margin-top: 0;
+  }
+
+  p {
+    color: #0043ce;
+    font-size: 14px;
+    margin: var(--token-spacing-medium, 16px) 0;
+  }
+}
+
+.spinner {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 67, 206, 0.2);
+  border-top-color: #0043ce;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.data-display {
+  background-color: var(--token-layer-background, #fff);
+  border: 1px solid var(--token-border-subtle, #e0e0e0);
+  border-radius: 4px;
+  padding: var(--token-spacing-medium, 16px);
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-x: auto;
+  max-height: 400px;
+  overflow-y: auto;
+  color: var(--token-text-primary, #161616);
+  margin: 0;
+}
+
+.info-section {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      padding: var(--token-spacing-small, 8px) 0;
+      border-bottom: 1px solid var(--token-border-subtle, #e0e0e0);
+      font-size: 14px;
+      color: var(--token-text-primary, #161616);
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      strong {
+        font-weight: 600;
+        color: var(--token-text-primary, #161616);
+      }
+    }
+  }
+}
+
+// Dark mode support
+:root[data-carbon-theme='g100'],
+.dark-mode {
+  --token-layer-background: #161616;
+  --token-layer-ui: #262626;
+  --token-text-primary: #f4f4f4;
+  --token-border-subtle: #393939;
+}

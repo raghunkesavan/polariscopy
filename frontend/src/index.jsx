@@ -4,9 +4,12 @@ import { Buffer } from 'buffer';
 import App from './App';
 import { SupabaseProvider } from './contexts/SupabaseContext';
 import { AppSettingsProvider } from './contexts/AppSettingsContext';
+//import canvasRoute from '.../routes/canvas.js';
 
 // Polyfill Buffer for @react-pdf/renderer
 window.Buffer = Buffer;
+//const canvasRoute = require('./routes/canvas');
+//App.use('/canvas', canvasRoute);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
