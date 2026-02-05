@@ -3,7 +3,7 @@
  */
 
 import express from 'express';
-import { authenticateApiKey } from '../middleware/apiKeyAuth.js';
+//import { authenticateApiKey } from '../middleware/apiKeyAuth.js';
 
 const router = express.Router();
 
@@ -28,7 +28,7 @@ router.get('/echo/last', (req, res) => {
 });
 
 // All routes require API key
-router.use(authenticateApiKey);
+//router.use(authenticateApiKey);
 
 // Simple health/ping endpoint for Salesforce
 router.get('/ping', (req, res) => {
