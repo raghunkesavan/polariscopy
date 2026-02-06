@@ -1,7 +1,55 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const CalculatorLandingPage = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    let isMounted = true;
+    const controller = new AbortController();
+
+    const fetchLastEcho = async () => {
+      try {
+        const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+        const response = await fetch(`${baseUrl}/api/salesforce/echo/last`, {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) return;
+
+        const data = await response.json();
+        const payload = data?.payload || {};
+        const quoteTypeRaw =
+          payload.quoteType ||
+          payload.quote_type ||
+          payload.calculator_type ||
+          payload.calculatorType ||
+          '';
+        const quoteType = quoteTypeRaw.toString().toLowerCase();
+
+        if (!isMounted || !quoteType) return;
+
+        if (quoteType.includes('btl') || quoteType.includes('buy-to-let') || quoteType.includes('buy to let')) {
+          navigate('/calculator/btl', { replace: true });
+          return;
+        }
+
+        if (quoteType.includes('bridge') || quoteType.includes('bridging') || quoteType.includes('fusion')) {
+          navigate('/calculator/bridging', { replace: true });
+        }
+      } catch (err) {
+        // Ignore auto-redirect errors and allow manual selection
+      } finally {
+        // no-op
+      }
+    };
+
+    fetchLastEcho();
+
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
+  }, [navigate]);
   const calculatorFeatures = [
     { icon: 'clock', title: 'Instant Results', desc: 'Get quotes in seconds' },
     { icon: 'shield', title: 'Accurate Rates', desc: 'Real-time pricing' },

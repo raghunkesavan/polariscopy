@@ -57,6 +57,36 @@ useEffect(() => {
 }, []);
 */
   
+  const resolvePostLoginRoute = async () => {
+    try {
+      const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+      const response = await fetch(`${baseUrl}/api/salesforce/echo/last`);
+      if (!response.ok) return '/home';
+
+      const data = await response.json();
+      const payload = data?.payload || {};
+      const quoteTypeRaw =
+        payload.quoteType ||
+        payload.quote_type ||
+        payload.calculator_type ||
+        payload.calculatorType ||
+        '';
+      const quoteType = quoteTypeRaw.toString().toLowerCase();
+
+      if (quoteType.includes('btl') || quoteType.includes('buy-to-let') || quoteType.includes('buy to let')) {
+        return '/calculator/btl';
+      }
+
+      if (quoteType.includes('bridge') || quoteType.includes('bridging') || quoteType.includes('fusion')) {
+        return '/calculator/bridging';
+      }
+
+      return '/home';
+    } catch (err) {
+      return '/home';
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -73,8 +103,8 @@ useEffect(() => {
           localStorage.removeItem('rememberedEmail');
         }
 
-        // Redirect to home page after successful login
-        navigate('/home');
+        const destination = await resolvePostLoginRoute();
+        navigate(destination, { replace: true });
       } else {
         setError(result.error || 'Login failed');
       }
