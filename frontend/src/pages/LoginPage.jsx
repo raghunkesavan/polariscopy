@@ -56,11 +56,14 @@ useEffect(() => {
   };
 }, []);
 */
+      const quoteType = quoteTypeRaw.toString().toLowerCase();
   
   const resolvePostLoginRoute = async () => {
     try {
       const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
       const response = await fetch(`${baseUrl}/api/salesforce/echo/last`);
+
+       console.log('[Raghu response Echo] Raghu response Payload received:', response + baseUrl);
       if (!response.ok) return '/home';
 
       const data = await response.json();
@@ -71,7 +74,10 @@ useEffect(() => {
         payload.calculator_type ||
         payload.calculatorType ||
         '';
-      const quoteType = quoteTypeRaw.toString().toLowerCase();
+
+      //alert (raghu + ' Quote Type: ' + quoteType);
+      
+       console.log('[Raghu Echo] Raghu Payload received:', quoteType);
 
       if (quoteType.includes('btl') || quoteType.includes('buy-to-let') || quoteType.includes('buy to let')) {
         return '/calculator/btl';
