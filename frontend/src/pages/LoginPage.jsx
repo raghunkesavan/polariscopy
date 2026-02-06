@@ -61,6 +61,7 @@ useEffect(() => {
   const resolvePostLoginRoute = async () => {
     try {
       const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+      console.log('[Raghu response Echo1] Raghu1 response Payload received:',  baseUrl);
       const response = await fetch(`${baseUrl}/api/salesforce/echo/last`);
 
        console.log('[Raghu response Echo] Raghu response Payload received:', response + baseUrl);
