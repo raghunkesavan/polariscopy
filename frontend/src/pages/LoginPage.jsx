@@ -65,7 +65,8 @@ useEffect(() => {
       console.log('[Raghu response Echo1] Raghu1 response Payload received:',  baseUrl);
       const response = await fetch(`${baseUrl}/api/salesforce/echo/last`);
 
-       console.log('[Raghu response Echo] Raghu response Payload received:', response + baseUrl);
+       console.log('[Raghu response Echo] Raghu response Payload received:', response);
+        console.log('[Raghu response baseUrl] Raghu response Payload received baseUrl:', baseUrl);
       if (!response.ok) return '/home';
 
       const data = await response.json();
