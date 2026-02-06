@@ -56,7 +56,7 @@ useEffect(() => {
   };
 }, []);
 */
-      const quoteType = quoteTypeRaw.toString().toLowerCase();
+     
   
   const resolvePostLoginRoute = async () => {
     try {
@@ -74,7 +74,7 @@ useEffect(() => {
         payload.calculator_type ||
         payload.calculatorType ||
         '';
-
+      const quoteType = quoteTypeRaw.toString().toLowerCase();
       //alert (raghu + ' Quote Type: ' + quoteType);
       
        console.log('[Raghu Echo] Raghu Payload received:', quoteType);
