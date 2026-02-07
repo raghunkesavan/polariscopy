@@ -90,9 +90,9 @@ useEffect(() => {
         return '/calculator/bridging';
       }
 
-      return '/home';
+      return '/Login';
     } catch (err) {
-      return '/home';
+      return '/Login';
     }
   };
 
