@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DashboardHeader from '../components/dashboard/DashboardHeader';
 import TotalsCard from '../components/dashboard/TotalsCard';
 import VolumeChart from '../components/dashboard/VolumeChart';
@@ -8,6 +9,7 @@ import useDashboardData from '../hooks/useDashboardData';
 import '../styles/Dashboard.css';
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const [timeRange, setTimeRange] = useState('week');
   const [volumeFilter, setVolumeFilter] = useState('all');
   const [canvasData, setCanvasData] = useState(null);
@@ -29,6 +31,52 @@ const HomePage = () => {
     window.addEventListener('canvasDataReady', handleCanvasData);
     return () => window.removeEventListener('canvasDataReady', handleCanvasData);
   }, []);
+
+  useEffect(() => {
+    let isMounted = true;
+    const controller = new AbortController();
+
+    const fetchLastEcho = async () => {
+      try {
+        const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+        const response = await fetch(`${baseUrl}/api/salesforce/echo/last`, {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) return;
+
+        const data = await response.json();
+        const payload = data?.payload || {};
+        const quoteTypeRaw =
+          payload.quoteType ||
+          payload.quote_type ||
+          payload.calculator_type ||
+          payload.calculatorType ||
+          '';
+        const quoteType = quoteTypeRaw.toString().toLowerCase();
+
+        if (!isMounted || !quoteType) return;
+
+        if (quoteType.includes('btl') || quoteType.includes('buy-to-let') || quoteType.includes('buy to let')) {
+          navigate('/calculator/btl', { replace: true });
+          return;
+        }
+
+        if (quoteType.includes('bridge') || quoteType.includes('bridging') || quoteType.includes('fusion')) {
+          navigate('/calculator/bridging', { replace: true });
+        }
+      } catch (err) {
+        // Ignore auto-redirect errors
+      }
+    };
+
+    fetchLastEcho();
+
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
+  }, [navigate]);
 
   if (loading) {
     return (
