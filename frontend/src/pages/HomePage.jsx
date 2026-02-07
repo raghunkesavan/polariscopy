@@ -38,7 +38,8 @@ const HomePage = () => {
 
     const fetchLastEcho = async () => {
       try {
-        const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+         const baseUrl = 'https://polariscopy.onrender.com';
+        //const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
         const response = await fetch(`${baseUrl}/api/salesforce/echo/last`, {
           signal: controller.signal,
         });
