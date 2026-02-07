@@ -17,7 +17,7 @@ const CalculatorLandingPage = () => {
 
         if (!response.ok) {
           window.location.reload();
-          return;
+          return '/Login';
         }
 
         const data = await response.json();
@@ -33,7 +33,7 @@ const CalculatorLandingPage = () => {
         if (!isMounted || !quoteType) {
 
           window.location.reload();
-          return;
+          return '/Login';
 
         }
 
