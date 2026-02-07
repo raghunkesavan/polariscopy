@@ -29,7 +29,7 @@ const CalculatorLandingPage = () => {
 
         if (!isMounted || !quoteType) return;
 
-        if (quoteType.includes('btl') || quoteType.includes('buy-to-let') || quoteType.includes('buy to let')) {
+        if (quoteType.includes('BTL') || quoteType.includes('btl') || quoteType.includes('buy-to-let') || quoteType.includes('buy to let')) {
           navigate('/calculator/btl', { replace: true });
           return;
         }
