@@ -67,7 +67,7 @@ useEffect(() => {
 
        console.log('[Raghu response Echo] Raghu response Payload received:', response);
         console.log('[Raghu response baseUrl] Raghu response Payload received baseUrl:', baseUrl);
-      if (!response.ok) return '/home';
+      if (!response.ok) return '/login';
 
       const data = await response.json();
       const payload = data?.payload || {};
