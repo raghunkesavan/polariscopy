@@ -67,7 +67,13 @@ useEffect(() => {
 
        console.log('[Raghu response Echo] Raghu response Payload received:', response);
         console.log('[Raghu response baseUrl] Raghu response Payload received baseUrl:', baseUrl);
-      if (!response.ok) return '/login';
+      if (!response.ok) {
+
+        window.location.reload();
+         return '/login';
+      }
+        
+       
 
       const data = await response.json();
       const payload = data?.payload || {};
@@ -89,7 +95,8 @@ useEffect(() => {
       if (quoteType.includes('bridge') || quoteType.includes('bridging') || quoteType.includes('fusion')) {
         return '/calculator/bridging';
       }
-
+      
+      window.location.reload();
       return '/Login';
     } catch (err) {
       return '/Login';

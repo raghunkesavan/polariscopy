@@ -15,7 +15,10 @@ const CalculatorLandingPage = () => {
           signal: controller.signal,
         });
 
-        if (!response.ok) return;
+        if (!response.ok) {
+          window.location.reload();
+          return;
+        }
 
         const data = await response.json();
         const payload = data?.payload || {};
@@ -27,7 +30,12 @@ const CalculatorLandingPage = () => {
           '';
         const quoteType = quoteTypeRaw.toString().toLowerCase();
 
-        if (!isMounted || !quoteType) return;
+        if (!isMounted || !quoteType) {
+
+          window.location.reload();
+          return;
+
+        }
 
         if (quoteType.includes('BTL') || quoteType.includes('btl') || quoteType.includes('buy-to-let') || quoteType.includes('buy to let')) {
           navigate('/calculator/btl', { replace: true });
