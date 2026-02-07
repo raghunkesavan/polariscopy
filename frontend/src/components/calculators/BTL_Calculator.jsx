@@ -1633,7 +1633,6 @@ export default function BTLcalculator({
             onCancel={handleCancelQuote}
           />
         }
-        isReadOnly={isReadOnly}
       />
 
       {/* Client details section */}

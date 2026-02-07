@@ -82,7 +82,7 @@ useEffect(() => {
       
        console.log('[Raghu Echo] Raghu Payload received:', quoteType);
 
-      if (quoteType.includes('btl') || quoteType.includes('buy-to-let') || quoteType.includes('buy to let')) {
+      if (quoteType.includes('BTL') || quoteType.includes('btl') || quoteType.includes('buy-to-let') || quoteType.includes('buy to let')) {
         return '/calculator/btl';
       }
 
