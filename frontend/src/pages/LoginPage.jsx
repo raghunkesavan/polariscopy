@@ -58,6 +58,7 @@ useEffect(() => {
 */
      
   
+  /*
   const resolvePostLoginRoute = async () => {
     try {
       //const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
@@ -102,6 +103,7 @@ useEffect(() => {
       return '/Login';
     }
   };
+  */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -119,8 +121,10 @@ useEffect(() => {
           localStorage.removeItem('rememberedEmail');
         }
 
+        /*
         const destination = await resolvePostLoginRoute();
         navigate(destination, { replace: true });
+        */
       } else {
         setError(result.error || 'Login failed');
       }

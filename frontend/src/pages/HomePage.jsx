@@ -65,6 +65,7 @@ const HomePage = () => {
 
         if (quoteType.includes('bridge') || quoteType.includes('bridging') || quoteType.includes('fusion')) {
           navigate('/calculator/bridging', { replace: true });
+          return;
         }
       } catch (err) {
         // Ignore auto-redirect errors
