@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
+import useCanvasContext from '../hooks/useCanvasContext';
 import '../styles/LoginPage.scss';
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const { login, error: authError } = useAuth();
+  const { login, error: authError, user } = useAuth();
   const { isDark } = useTheme();
+  const { canvasContext, isFromCanvas } = useCanvasContext();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,6 +26,38 @@ export default function LoginPage() {
       setRememberMe(true);
     }
   }, []);
+
+  // Redirect if user is already authenticated
+  useEffect(() => {
+    if (user) {
+      const destination = determinePostLoginRoute();
+      navigate(destination, { replace: true });
+    }
+  }, [user, navigate, canvasContext, isFromCanvas]);
+
+  // Determine where to navigate after successful login
+  const determinePostLoginRoute = () => {
+    // Check if coming from Canvas with specific calculator type
+    if (isFromCanvas && canvasContext?.parameters) {
+      const quoteType = (canvasContext.parameters.quoteType || 
+                         canvasContext.parameters.quote_type || 
+                         canvasContext.parameters.calculator_type || 
+                         canvasContext.parameters.calculatorType || '').toString().toLowerCase();
+      
+      // BTL calculator
+      if (quoteType.includes('btl') || quoteType.includes('buy-to-let') || quoteType.includes('buy to let')) {
+        return '/calculator/btl';
+      }
+      
+      // Bridging/Fusion calculator
+      if (quoteType.includes('bridge') || quoteType.includes('bridging') || quoteType.includes('fusion')) {
+        return '/calculator/bridging';
+      }
+    }
+    
+    // Default to home page
+    return '/home';
+  };
   //alert('Login Page Loaded');
   //alert(window.canvasData?.isAvailable);
   //alert(JSON.stringify(window));
@@ -121,10 +155,9 @@ useEffect(() => {
           localStorage.removeItem('rememberedEmail');
         }
 
-        /*
-        const destination = await resolvePostLoginRoute();
+        // Navigate to appropriate page
+        const destination = determinePostLoginRoute();
         navigate(destination, { replace: true });
-        */
       } else {
         setError(result.error || 'Login failed');
       }
