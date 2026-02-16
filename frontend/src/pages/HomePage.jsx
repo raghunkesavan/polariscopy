@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import useCanvasContext from '../hooks/useCanvasContext';
 import DashboardHeader from '../components/dashboard/DashboardHeader';
 import TotalsCard from '../components/dashboard/TotalsCard';
 import VolumeChart from '../components/dashboard/VolumeChart';
@@ -10,6 +12,8 @@ import '../styles/Dashboard.css';
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const { canvasContext } = useCanvasContext();
   const [timeRange, setTimeRange] = useState('week');
   const [volumeFilter, setVolumeFilter] = useState('all');
   const [canvasData, setCanvasData] = useState(null);
@@ -38,9 +42,17 @@ const HomePage = () => {
 
     const fetchLastEcho = async () => {
       try {
-         const baseUrl = 'https://polariscopy.onrender.com';
+        // Get userId from Canvas context or authenticated user
+        const userId = canvasContext?.user?.userId || user?.id || user?.email;
+        
+        if (!userId) {
+          console.log('[HomePage] No userId available, skipping echo fetch');
+          return;
+        }
+
+        const baseUrl = 'https://polariscopy.onrender.com';
         //const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
-        const response = await fetch(`${baseUrl}/api/salesforce/echo/last`, {
+        const response = await fetch(`${baseUrl}/api/salesforce/echo/last?userId=${encodeURIComponent(userId)}`, {
           signal: controller.signal,
         });
 

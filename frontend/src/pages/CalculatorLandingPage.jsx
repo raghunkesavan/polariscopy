@@ -1,17 +1,30 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import useCanvasContext from '../hooks/useCanvasContext';
 
 const CalculatorLandingPage = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const { canvasContext } = useCanvasContext();
+  
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
 
     const fetchLastEcho = async () => {
       try {
+        // Get userId from Canvas context or authenticated user
+        const userId = canvasContext?.user?.userId || user?.id || user?.email;
+        
+        if (!userId) {
+          console.log('[CalculatorLandingPage] No userId available, skipping echo fetch');
+          return;
+        }
+
         //const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
         const baseUrl = 'https://polariscopy.onrender.com';
-        const response = await fetch(`${baseUrl}/api/salesforce/echo/last`, {
+        const response = await fetch(`${baseUrl}/api/salesforce/echo/last?userId=${encodeURIComponent(userId)}`, {
           signal: controller.signal,
         });
 
