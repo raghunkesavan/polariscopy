@@ -50,7 +50,7 @@ export default function LoginPage() {
       }
       
       // Bridging/Fusion calculator
-      if (quoteType.includes('bridge') || quoteType.includes('bridging') || quoteType.includes('fusion')) {
+      if (quoteType.includes('bridge') || quoteType.includes('Bridging') || quoteType.includes('fusion')) {
         return '/calculator/bridging';
       }
     }
