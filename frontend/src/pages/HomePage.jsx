@@ -52,7 +52,7 @@ const HomePage = () => {
 
         const baseUrl = 'https://polariscopy.onrender.com';
         //const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
-        const response = await fetch(`${baseUrl}/api/salesforce/echo/last?userId=${encodeURIComponent(userId)}`, {
+        const response = await fetch(`${baseUrl}/api/salesforce/echo/last?userid=${encodeURIComponent(userId)}`, {
           signal: controller.signal,
         });
 

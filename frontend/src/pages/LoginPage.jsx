@@ -28,6 +28,7 @@ export default function LoginPage() {
   }, []);
 
   // Redirect if user is already authenticated
+/*
   useEffect(() => {
     if (user) {
       const destination = determinePostLoginRoute();
@@ -58,6 +59,8 @@ export default function LoginPage() {
     // Default to home page
     return '/home';
   };
+
+  */
   //alert('Login Page Loaded');
   //alert(window.canvasData?.isAvailable);
   //alert(JSON.stringify(window));
