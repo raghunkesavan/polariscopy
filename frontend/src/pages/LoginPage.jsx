@@ -27,15 +27,6 @@ export default function LoginPage() {
     }
   }, []);
 
-  // Redirect if user is already authenticated
-/*
-  useEffect(() => {
-    if (user) {
-      const destination = determinePostLoginRoute();
-      navigate(destination, { replace: true });
-    }
-  }, [user, navigate, canvasContext, isFromCanvas]);
-
   // Determine where to navigate after successful login
   const determinePostLoginRoute = () => {
     // Check if coming from Canvas with specific calculator type
@@ -51,7 +42,7 @@ export default function LoginPage() {
       }
       
       // Bridging/Fusion calculator
-      if (quoteType.includes('bridge') || quoteType.includes('Bridging') || quoteType.includes('fusion')) {
+      if (quoteType.includes('bridge') || quoteType.includes('bridging') || quoteType.includes('fusion')) {
         return '/calculator/bridging';
       }
     }
@@ -60,7 +51,13 @@ export default function LoginPage() {
     return '/home';
   };
 
-  */
+  // Redirect if user is already authenticated
+  useEffect(() => {
+    if (user) {
+      const destination = determinePostLoginRoute();
+      navigate(destination, { replace: true });
+    }
+  }, [user, navigate, canvasContext, isFromCanvas]);
   //alert('Login Page Loaded');
   //alert(window.canvasData?.isAvailable);
   //alert(JSON.stringify(window));
