@@ -190,13 +190,14 @@ router.post('/echo', (req, res) => {
     decrypted
   });
 
+ /*
   res.json({
     success: true,
     user: userId,
     receivedAt,
     decrypted,
     cachedUsers: userEchoPayloads.size
-  });
+  }); */
   
   console.log(`[Salesforce Echo] ✅ Payload received for user ${userId}:`, JSON.stringify(decrypted, null, 2));
   console.log(`[Salesforce Echo] 📊 Total cached users: ${userEchoPayloads.size}`);
