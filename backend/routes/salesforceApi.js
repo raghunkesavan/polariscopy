@@ -91,8 +91,8 @@ router.post('/echonew', (req, res) => {
       });
     }
     
-   // decrypted = decodeFromSalesforce(payload);
-    console.log('[Salesforce Echo] 🔓 Decoded raghu payload1:', JSON.stringify(payload, null, 2));
+    decrypted = decodeFromSalesforce(payload);
+    console.log('[Salesforce Echo] 🔓 Decoded raghu payload1:', JSON.stringify(decrypted, null, 2));
     
   } catch (error) {
     console.error('[Salesforce Echo] ❌ Decoding failed:', error.message);
@@ -104,7 +104,7 @@ router.post('/echonew', (req, res) => {
   }
 
   // Extract userId from multiple possible sources
-  const userId = payload.user ||  
+  const userId = decrypted.user ||  
                  req.query.userId || 
                  req.headers['x-user-id'] || 
                  req.headers['x-salesforce-user-id'];
@@ -133,7 +133,7 @@ router.post('/echonew', (req, res) => {
     cachedUsers: userEchoPayloads.size
   });
   
-  console.log(`[Salesforce Echo] ✅ Payload received for user ${userId}:`, JSON.stringify(payload, null, 2));
+  console.log(`[Salesforce Echo] ✅ Payload received for user ${userId}:`, JSON.stringify(decrypted, null, 2));
   console.log(`[Salesforce Echo] 📊 Total cached users: ${userEchoPayloads.size}`);
 });
 
