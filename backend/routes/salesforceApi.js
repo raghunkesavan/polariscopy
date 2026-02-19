@@ -107,6 +107,8 @@ router.post('/echo', (req, res) => {
     }
     
     decrypted = decryptFromSalesforce(iv, payload, process.env.AES_KEY_BASE64);
+    console.log('[Salesforce Echo] 🔓 Decrypted raghu payload:', JSON.stringify(decrypted, null, 2));
+    
   } catch (error) {
     console.error('[Salesforce Echo] ❌ Decryption failed:', error.message);
     return res.status(400).json({
