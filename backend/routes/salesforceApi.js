@@ -17,6 +17,9 @@ function decodeFromSalesforce(base64String) {
 const userEchoPayloads = new Map(); // userId -> { receivedAt, expiresAt, decrypted }
 const ECHO_CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
+// Global variable to store last decoded payload
+let decrypted;
+
 // Cleanup expired payloads every minute
 setInterval(() => {
   const now = Date.now();
@@ -157,6 +160,7 @@ router.post('/echo', (req, res) => {
     }
     
     decrypted = decodeFromSalesforce(payload);
+    decrypted =decodeFromSalesforce(decrypted);
     console.log('[Salesforce Echo] 🔓 Decoded raghu payload:', JSON.stringify(decrypted, null, 2));
     
   } catch (error) {
