@@ -160,8 +160,8 @@ router.post('/echo', (req, res) => {
       });
     }
     
-    decrypted = decodeFromSalesforce(payload);
-    const outerObject = JSON.parse(decrypted);
+    //decrypted = decodeFromSalesforce(payload);
+    const outerObject = JSON.parse(payload);
     const base64Payload = outerObject.payload.payload;
     const decodedString = decodeFromSalesforce(base64Payload);
     decodedObject = JSON.parse(decodedString);
