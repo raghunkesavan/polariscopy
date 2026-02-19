@@ -14,7 +14,7 @@ function decodeFromSalesforce(base64String) {
 }
 
 // In-memory store for payloads per user (resets on server restart)
-const userEchoPayloads = new Map(); // userId -> { receivedAt, expiresAt, decrypted }
+const userEchoPayloads = new Map(); // userId -> { receivedAt, expiresAt, payload }
 const ECHO_CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
 // Cleanup expired payloads every minute
@@ -58,7 +58,7 @@ router.get('/echo/last', (req, res) => {
     success: true,
     user: userId,
     lastReceivedAt: validPayload?.receivedAt || null,
-    payload: validPayload?.decrypted || null
+    payload: validPayload?.payload || null
   });
 });
 
@@ -72,6 +72,69 @@ router.get('/ping', (req, res) => {
     message: 'Salesforce API is reachable',
     timestamp: new Date().toISOString()
   });
+});
+
+// Example POST endpoint (echo payload)
+// Expects userId in payload, query param, or header
+router.post('/echonew', (req, res) => {
+  const receivedAt = new Date().toISOString();
+  const { payload } = req.body || {};
+  
+  // Decode the payload from Salesforce
+  let decrypted;
+  try {
+    if (!payload) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing payload in request body',
+        receivedAt
+      });
+    }
+    
+   // decrypted = decodeFromSalesforce(payload);
+    console.log('[Salesforce Echo] 🔓 Decoded raghu payload1:', JSON.stringify(payload, null, 2));
+    
+  } catch (error) {
+    console.error('[Salesforce Echo] ❌ Decoding failed:', error.message);
+    return res.status(400).json({
+      success: false,
+      error: 'Failed to decode payload',
+      receivedAt
+    });
+  }
+
+  // Extract userId from multiple possible sources
+  const userId = payload.user ||  
+                 req.query.userId || 
+                 req.headers['x-user-id'] || 
+                 req.headers['x-salesforce-user-id'];
+
+  if (!userId) {
+    console.warn('[Salesforce Echo] ⚠️ No userId found in payload, query, or headers');
+    return res.status(400).json({
+      success: false,
+      error: 'userId required in decrypted payload (user field), query param (userId), or headers (x-user-id, x-salesforce-user-id)',
+      receivedAt
+    });
+  }
+
+  // Store payload for this specific user
+  userEchoPayloads.set(userId, {
+    receivedAt,
+    expiresAt: Date.now() + ECHO_CACHE_TTL_MS,
+    payload
+  });
+
+  res.json({
+    success: true,
+    user: userId,
+    receivedAt,
+    payload,
+    cachedUsers: userEchoPayloads.size
+  });
+  
+  console.log(`[Salesforce Echo] ✅ Payload received for user ${userId}:`, JSON.stringify(payload, null, 2));
+  console.log(`[Salesforce Echo] 📊 Total cached users: ${userEchoPayloads.size}`);
 });
 
 // Example POST endpoint (echo payload)
