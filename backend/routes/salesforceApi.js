@@ -144,6 +144,7 @@ router.post('/echonew', (req, res) => {
 */
 // Example POST endpoint (echo payload)
 // Expects userId in payload, query param, or header
+ const decodedObject= null;
 router.post('/echo', (req, res) => {
   const receivedAt = new Date().toISOString();
   const { payload } = req.body || {};
@@ -160,8 +161,12 @@ router.post('/echo', (req, res) => {
     }
     
     decrypted = decodeFromSalesforce(payload);
-    decrypted =decodeFromSalesforce(decrypted);
-    console.log('[Salesforce Echo] 🔓 Decoded raghu payload:', JSON.stringify(decrypted, null, 2));
+    const outerObject = JSON.parse(responseString);
+    const base64Payload = outerObject.payload.payload;
+    const decodedString = decodeFromSalesforce(base64Payload);
+    decodedObject = JSON.parse(decodedString);
+
+    //console.log('[Salesforce Echo] 🔓 Decoded raghu payload:', JSON.stringify(decodedObject, null, 2));
     
   } catch (error) {
     console.error('[Salesforce Echo] ❌ Decoding failed:', error.message);
@@ -173,7 +178,7 @@ router.post('/echo', (req, res) => {
   }
 
   // Extract userId from multiple possible sources
-  const userId = decrypted.user ||  
+  const userId = decodedObject.user ||  
                  req.query.userId || 
                  req.headers['x-user-id'] || 
                  req.headers['x-salesforce-user-id'];
@@ -191,7 +196,7 @@ router.post('/echo', (req, res) => {
   userEchoPayloads.set(userId, {
     receivedAt,
     expiresAt: Date.now() + ECHO_CACHE_TTL_MS,
-    decrypted
+    decodedObject
   });
 
  /*
@@ -203,7 +208,7 @@ router.post('/echo', (req, res) => {
     cachedUsers: userEchoPayloads.size
   }); */
   
-  console.log(`[Salesforce Echo] ✅ Payload received for user ${userId}:`, JSON.stringify(decrypted, null, 2));
+  //console.log(`[Salesforce Echo] ✅ Payload received for user ${userId}:`, JSON.stringify(decodedObject, null, 2));
   console.log(`[Salesforce Echo] 📊 Total cached users: ${userEchoPayloads.size}`);
 });
 
