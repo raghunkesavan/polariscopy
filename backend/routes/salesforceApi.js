@@ -9,7 +9,6 @@ const router = express.Router();
 function decodeFromSalesforce(base64String) {
     // Decode Base64 string to UTF-8
     const decoded = Buffer.from(base64String, "base64").toString("utf8");
-    
     // Parse as JSON
     return JSON.parse(decoded);
 }
