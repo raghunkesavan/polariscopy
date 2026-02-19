@@ -14,7 +14,7 @@ function decodeFromSalesforce(base64String) {
 }
 
 // In-memory store for payloads per user (resets on server restart)
-const userEchoPayloads = new Map(); // userId -> { receivedAt, expiresAt, payload }
+const userEchoPayloads = new Map(); // userId -> { receivedAt, expiresAt, decrypted }
 const ECHO_CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
 // Cleanup expired payloads every minute
@@ -58,7 +58,7 @@ router.get('/echo/last', (req, res) => {
     success: true,
     user: userId,
     lastReceivedAt: validPayload?.receivedAt || null,
-    payload: validPayload?.payload || null
+    payload: validPayload?.decrypted || null
   });
 });
 
