@@ -1,23 +1,35 @@
 /**
  * Salesforce-facing REST API
  */
-
+import crypto from "crypto";
 import express from 'express';
 //import { authenticateApiKey } from '../middleware/apiKeyAuth.js';
 
 const router = express.Router();
 
+function decryptFromSalesforce(ivBase64, dataBase64, base64Key) {
+    const key = Buffer.from(base64Key, "base64");
+    const iv = Buffer.from(ivBase64, "base64");
+    const encryptedData = Buffer.from(dataBase64, "base64");
+
+    const decipher = crypto.createDecipheriv("aes-256-cbc", key, iv);
+    let decrypted = decipher.update(encryptedData, null, "utf8");
+    decrypted += decipher.final("utf8");
+
+    return JSON.parse(decrypted);
+}
+
 // In-memory store for payloads per user (resets on server restart)
-const userEchoPayloads = new Map(); // userId -> { receivedAt, expiresAt, payload }
+const userEchoPayloads = new Map(); // userId -> { receivedAt, expiresAt, decrypted }
 const ECHO_CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
 // Cleanup expired payloads every minute
 setInterval(() => {
   const now = Date.now();
-  for (const [user, data] of userEchoPayloads.entries()) {
+  for (const [userId, data] of userEchoPayloads.entries()) {
     if (data.expiresAt && now > data.expiresAt) {
-      userEchoPayloads.delete(user);
-      console.log(`[Salesforce Echo] 🧹 Cleaned up expired payload for user: ${user}`);
+      userEchoPayloads.delete(userId);
+      console.log(`[Salesforce Echo] 🧹 Cleaned up expired payload for user: ${userId}`);
     }
   }
 }, 60 * 1000);
@@ -26,11 +38,11 @@ setInterval(() => {
 // Expects userId as query param or header
 router.get('/echo/last', (req, res) => {
   // Get userId from query param, header, or Canvas context
-  const userId = req.query.user || 
+  const userId = req.query.userId || 
                  req.headers['x-user-id'] || 
                  req.headers['x-salesforce-user-id'];
 
-  if (!user) {
+  if (!userId) {
     return res.json({
       success: false,
       error: 'userId parameter required (query param, x-user-id header, or x-salesforce-user-id header)',
@@ -39,20 +51,20 @@ router.get('/echo/last', (req, res) => {
     });
   }
 
-  const userPayload = userEchoPayloads.get(user);
+  const userPayload = userEchoPayloads.get(userId);
   const isExpired = userPayload?.expiresAt && Date.now() > userPayload.expiresAt;
 
   if (isExpired) {
-    userEchoPayloads.delete(user);
+    userEchoPayloads.delete(userId);
   }
 
   const validPayload = isExpired ? null : userPayload;
 
   res.json({
     success: true,
-    user,
+    user: userId,
     lastReceivedAt: validPayload?.receivedAt || null,
-    payload: validPayload?.payload || null
+    payload: validPayload?.decrypted || null
   });
 });
 
@@ -72,43 +84,69 @@ router.get('/ping', (req, res) => {
 // Expects userId in payload, query param, or header
 router.post('/echo', (req, res) => {
   const receivedAt = new Date().toISOString();
-  const payload = req.body || {};
+  const { iv, payload } = req.body || {};
+  
+  // Decrypt the payload from Salesforce
+  let decrypted;
+  try {
+    if (!iv || !payload) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing iv or payload in request body',
+        receivedAt
+      });
+    }
+    
+    if (!process.env.AES_KEY_BASE64) {
+      console.error('[Salesforce Echo] ❌ AES_KEY_BASE64 environment variable not set');
+      return res.status(500).json({
+        success: false,
+        error: 'Server configuration error',
+        receivedAt
+      });
+    }
+    
+    decrypted = decryptFromSalesforce(iv, payload, process.env.AES_KEY_BASE64);
+  } catch (error) {
+    console.error('[Salesforce Echo] ❌ Decryption failed:', error.message);
+    return res.status(400).json({
+      success: false,
+      error: 'Failed to decrypt payload',
+      receivedAt
+    });
+  }
 
   // Extract userId from multiple possible sources
-  const userId = payload.userId ||
-                 payload.user ||  
-                 payload.user_id || 
-                 payload.sfUserId || 
-                 payload.salesforceUserId ||
+  const userId = decrypted.user ||  
                  req.query.userId || 
                  req.headers['x-user-id'] || 
                  req.headers['x-salesforce-user-id'];
 
-  if (!user) {
+  if (!userId) {
     console.warn('[Salesforce Echo] ⚠️ No userId found in payload, query, or headers');
     return res.status(400).json({
       success: false,
-      error: 'userId required in payload (userId, user_id, sfUserId, salesforceUserId), query param, or headers (x-user-id, x-salesforce-user-id)',
+      error: 'userId required in decrypted payload (user field), query param (userId), or headers (x-user-id, x-salesforce-user-id)',
       receivedAt
     });
   }
 
   // Store payload for this specific user
-  userEchoPayloads.set(user, {
+  userEchoPayloads.set(userId, {
     receivedAt,
     expiresAt: Date.now() + ECHO_CACHE_TTL_MS,
-    payload
+    decrypted
   });
 
   res.json({
     success: true,
-    user,
+    user: userId,
     receivedAt,
-    payload,
+    decrypted,
     cachedUsers: userEchoPayloads.size
   });
   
-  console.log(`[Salesforce Echo] ✅ Payload received for user ${user}:`, JSON.stringify(payload, null, 2));
+  console.log(`[Salesforce Echo] ✅ Payload received for user ${userId}:`, JSON.stringify(decrypted, null, 2));
   console.log(`[Salesforce Echo] 📊 Total cached users: ${userEchoPayloads.size}`);
 });
 
@@ -120,7 +158,7 @@ router.get('/echo/stats', (req, res) => {
   for (const [userId, data] of userEchoPayloads.entries()) {
     const timeRemaining = Math.max(0, data.expiresAt - now);
     users.push({
-      userid,
+      userId,
       receivedAt: data.receivedAt,
       expiresInSeconds: Math.ceil(timeRemaining / 1000),
       isExpired: timeRemaining <= 0
