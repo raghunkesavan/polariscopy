@@ -1,22 +1,17 @@
 /**
  * Salesforce-facing REST API
  */
-import crypto from "crypto";
 import express from 'express';
 //import { authenticateApiKey } from '../middleware/apiKeyAuth.js';
 
 const router = express.Router();
 
-function decryptFromSalesforce(ivBase64, dataBase64, base64Key) {
-    const key = Buffer.from(base64Key, "base64");
-    const iv = Buffer.from(ivBase64, "base64");
-    const encryptedData = Buffer.from(dataBase64, "base64");
-
-    const decipher = crypto.createDecipheriv("aes-256-cbc", key, iv);
-    let decrypted = decipher.update(encryptedData, null, "utf8");
-    decrypted += decipher.final("utf8");
-
-    return JSON.parse(decrypted);
+function decodeFromSalesforce(base64String) {
+    // Decode Base64 string to UTF-8
+    const decoded = Buffer.from(base64String, "base64").toString("utf8");
+    
+    // Parse as JSON
+    return JSON.parse(decoded);
 }
 
 // In-memory store for payloads per user (resets on server restart)
@@ -84,36 +79,27 @@ router.get('/ping', (req, res) => {
 // Expects userId in payload, query param, or header
 router.post('/echo', (req, res) => {
   const receivedAt = new Date().toISOString();
-  const { iv, payload } = req.body || {};
+  const { payload } = req.body || {};
   
-  // Decrypt the payload from Salesforce
+  // Decode the payload from Salesforce
   let decrypted;
   try {
-    if (!iv || !payload) {
+    if (!payload) {
       return res.status(400).json({
         success: false,
-        error: 'Missing iv or payload in request body',
+        error: 'Missing payload in request body',
         receivedAt
       });
     }
     
-    if (!process.env.AES_KEY_BASE64) {
-      console.error('[Salesforce Echo] ❌ AES_KEY_BASE64 environment variable not set');
-      return res.status(500).json({
-        success: false,
-        error: 'Server configuration error',
-        receivedAt
-      });
-    }
-    
-    decrypted = decryptFromSalesforce(iv, payload, process.env.AES_KEY_BASE64);
-    console.log('[Salesforce Echo] 🔓 Decrypted raghu payload:', JSON.stringify(decrypted, null, 2));
+    decrypted = decodeFromSalesforce(payload);
+    console.log('[Salesforce Echo] 🔓 Decoded raghu payload:', JSON.stringify(decrypted, null, 2));
     
   } catch (error) {
-    console.error('[Salesforce Echo] ❌ Decryption failed:', error.message);
+    console.error('[Salesforce Echo] ❌ Decoding failed:', error.message);
     return res.status(400).json({
       success: false,
-      error: 'Failed to decrypt payload',
+      error: 'Failed to decode payload',
       receivedAt
     });
   }
