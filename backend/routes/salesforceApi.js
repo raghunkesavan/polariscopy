@@ -76,6 +76,7 @@ router.get('/ping', (req, res) => {
 
 // Example POST endpoint (echo payload)
 // Expects userId in payload, query param, or header
+/*
 router.post('/echonew', (req, res) => {
   const receivedAt = new Date().toISOString();
   const { payload } = req.body || {};
@@ -137,6 +138,7 @@ router.post('/echonew', (req, res) => {
   console.log(`[Salesforce Echo] 📊 Total cached users: ${userEchoPayloads.size}`);
 });
 
+*/
 // Example POST endpoint (echo payload)
 // Expects userId in payload, query param, or header
 router.post('/echo', (req, res) => {
