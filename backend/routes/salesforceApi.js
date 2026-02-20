@@ -144,13 +144,10 @@ router.post('/echonew', (req, res) => {
 */
 // Example POST endpoint (echo payload)
 // Expects userId in payload, query param, or header
- const decodedObject= null;
 router.post('/echo', (req, res) => {
   const receivedAt = new Date().toISOString();
   const { payload } = req.body || {};
-  
-  // Decode the payload from Salesforce
-  let decrypted;
+
   try {
     if (!payload) {
       return res.status(400).json({
@@ -159,58 +156,54 @@ router.post('/echo', (req, res) => {
         receivedAt
       });
     }
-    
-    //decrypted = decodeFromSalesforce(payload);
-    const outerObject = JSON.parse(payload);
-    const base64Payload = outerObject.payload.payload;
-    const decodedString = decodeFromSalesforce(base64Payload);
-    decodedObject = JSON.parse(decodedString);
 
-    //console.log('[Salesforce Echo] 🔓 Decoded raghu payload:', JSON.stringify(decodedObject, null, 2));
-    
+    // Decode Base64 → string
+    const decodedString = Buffer.from(payload, 'base64').toString('utf8');
+
+    // Convert to JSON
+    const decodedObject = JSON.parse(decodedString);
+
+    // Extract userId
+    const userId =
+      decodedObject.user ||
+      req.query.userId ||
+      req.headers['x-user-id'] ||
+      req.headers['x-salesforce-user-id'];
+
+    if (!userId) {
+      return res.status(400).json({
+        success: false,
+        error: 'userId required',
+        receivedAt
+      });
+    }
+
+    // Store in Map
+    userEchoPayloads.set(userId, {
+      receivedAt,
+      expiresAt: Date.now() + ECHO_CACHE_TTL_MS,
+      data: decodedObject
+    });
+
+    console.log(`[Salesforce Echo] ✅ Stored for ${userId}`);
+    console.log(`[Salesforce Echo] 📊 Cached users: ${userEchoPayloads.size}`);
+
+    return res.json({
+      success: true,
+      user: userId,
+      receivedAt
+    });
+
   } catch (error) {
-    console.error('[Salesforce Echo] ❌ Decoding failed:', error.message);
+    console.error('[Salesforce Echo] ❌ Error:', error.message);
     return res.status(400).json({
       success: false,
       error: 'Failed to decode payload',
       receivedAt
     });
   }
-
-  // Extract userId from multiple possible sources
-  const userId = decodedObject.user ||  
-                 req.query.userId || 
-                 req.headers['x-user-id'] || 
-                 req.headers['x-salesforce-user-id'];
-
-  if (!userId) {
-    console.warn('[Salesforce Echo] ⚠️ No userId found in payload, query, or headers');
-    return res.status(400).json({
-      success: false,
-      error: 'userId required in decrypted payload (user field), query param (userId), or headers (x-user-id, x-salesforce-user-id)',
-      receivedAt
-    });
-  }
-
-  // Store payload for this specific user
-  userEchoPayloads.set(userId, {
-    receivedAt,
-    expiresAt: Date.now() + ECHO_CACHE_TTL_MS,
-    decodedObject
-  });
-
- /*
-  res.json({
-    success: true,
-    user: userId,
-    receivedAt,
-    decrypted,
-    cachedUsers: userEchoPayloads.size
-  }); */
-  
-  //console.log(`[Salesforce Echo] ✅ Payload received for user ${userId}:`, JSON.stringify(decodedObject, null, 2));
-  console.log(`[Salesforce Echo] 📊 Total cached users: ${userEchoPayloads.size}`);
 });
+
 
 // Debug endpoint to view all cached users and their data
 router.get('/echo/stats', (req, res) => {
