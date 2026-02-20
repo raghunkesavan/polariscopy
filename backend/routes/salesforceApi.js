@@ -61,7 +61,7 @@ router.get('/echo/last', (req, res) => {
   res.json({
     success: true,
     user: userId,
-    lastReceivedAt: validPayload?.receivedAt || null,
+    lastReceivedAtnew: validPayload?.receivedAt || null,
     payload: validPayload?.data || null   // ✅ FIXED HERE
   });
 });
