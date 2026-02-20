@@ -97,13 +97,12 @@ router.post('/echo', (req, res) => {
       });
     }
 
-    // Decode Base64 → string
+    // 🔥 Step 1: Decode Base64
     const decodedString = Buffer.from(payload, 'base64').toString('utf8');
 
-    // Convert to JSON
+    // 🔥 Step 2: Convert to JSON
     const decodedObject = JSON.parse(decodedString);
 
-    // Extract userId
     const userId =
       decodedObject.user ||
       req.query.userId ||
@@ -118,15 +117,12 @@ router.post('/echo', (req, res) => {
       });
     }
 
-    // Store in Map
+    // 🔥 Step 3: Store ONLY decodedObject
     userEchoPayloads.set(userId, {
       receivedAt,
       expiresAt: Date.now() + ECHO_CACHE_TTL_MS,
-      data: decodedObject
+      data: decodedObject   // ✅ STORE CLEAN JSON
     });
-
-    console.log(`[Salesforce Echo] ✅ Stored for ${userId}`);
-    console.log(`[Salesforce Echo] 📊 Cached users: ${userEchoPayloads.size}`);
 
     return res.json({
       success: true,
@@ -135,7 +131,7 @@ router.post('/echo', (req, res) => {
     });
 
   } catch (error) {
-    console.error('[Salesforce Echo] ❌ Error:', error.message);
+    console.error('Decode error:', error.message);
     return res.status(400).json({
       success: false,
       error: 'Failed to decode payload',
