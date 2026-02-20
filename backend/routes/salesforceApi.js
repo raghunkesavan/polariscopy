@@ -34,22 +34,23 @@ setInterval(() => {
 // Public endpoint to read last payload (no API key required)
 // Expects userId as query param or header
 router.get('/echo/last', (req, res) => {
-  // Get userId from query param, header, or Canvas context
-  const userId = req.query.userId || 
-                 req.headers['x-user-id'] || 
-                 req.headers['x-salesforce-user-id'];
+  const userId =
+    req.query.userId ||
+    req.headers['x-user-id'] ||
+    req.headers['x-salesforce-user-id'];
 
   if (!userId) {
     return res.json({
       success: false,
-      error: 'userId parameter required (query param, x-user-id header, or x-salesforce-user-id header)',
+      error: 'userId parameter required',
       lastReceivedAt: null,
       payload: null
     });
   }
 
   const userPayload = userEchoPayloads.get(userId);
-  const isExpired = userPayload?.expiresAt && Date.now() > userPayload.expiresAt;
+  const isExpired =
+    userPayload?.expiresAt && Date.now() > userPayload.expiresAt;
 
   if (isExpired) {
     userEchoPayloads.delete(userId);
@@ -61,9 +62,10 @@ router.get('/echo/last', (req, res) => {
     success: true,
     user: userId,
     lastReceivedAt: validPayload?.receivedAt || null,
-    payload: validPayload?.decrypted || null
+    payload: validPayload?.data || null   // ✅ FIXED HERE
   });
 });
+
 
 // All routes require API key
 //router.use(authenticateApiKey);
@@ -77,71 +79,9 @@ router.get('/ping', (req, res) => {
   });
 });
 
-// Example POST endpoint (echo payload)
-// Expects userId in payload, query param, or header
-/*
-router.post('/echonew', (req, res) => {
-  const receivedAt = new Date().toISOString();
-  const { payload } = req.body || {};
-  
-  // Decode the payload from Salesforce
-  let decrypted;
-  try {
-    if (!payload) {
-      return res.status(400).json({
-        success: false,
-        error: 'Missing payload in request body',
-        receivedAt
-      });
-    }
-    
-    decrypted = decodeFromSalesforce(payload);
-    console.log('[Salesforce Echo] 🔓 Decoded raghu payload1:', JSON.stringify(decrypted, null, 2));
-    
-  } catch (error) {
-    console.error('[Salesforce Echo] ❌ Decoding failed:', error.message);
-    return res.status(400).json({
-      success: false,
-      error: 'Failed to decode payload',
-      receivedAt
-    });
-  }
 
-  // Extract userId from multiple possible sources
-  const userId = decrypted.user ||  
-                 req.query.userId || 
-                 req.headers['x-user-id'] || 
-                 req.headers['x-salesforce-user-id'];
 
-  if (!userId) {
-    console.warn('[Salesforce Echo] ⚠️ No userId found in payload, query, or headers');
-    return res.status(400).json({
-      success: false,
-      error: 'userId required in decrypted payload (user field), query param (userId), or headers (x-user-id, x-salesforce-user-id)',
-      receivedAt
-    });
-  }
 
-  // Store payload for this specific user
-  userEchoPayloads.set(userId, {
-    receivedAt,
-    expiresAt: Date.now() + ECHO_CACHE_TTL_MS,
-    payload
-  });
-
-  res.json({
-    success: true,
-    user: userId,
-    receivedAt,
-    payload,
-    cachedUsers: userEchoPayloads.size
-  });
-  
-  console.log(`[Salesforce Echo] ✅ Payload received for user ${userId}:`, JSON.stringify(decrypted, null, 2));
-  console.log(`[Salesforce Echo] 📊 Total cached users: ${userEchoPayloads.size}`);
-});
-
-*/
 // Example POST endpoint (echo payload)
 // Expects userId in payload, query param, or header
 router.post('/echo', (req, res) => {
