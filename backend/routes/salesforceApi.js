@@ -62,7 +62,7 @@ router.get('/echo/last', (req, res) => {
     success: true,
     user: userId,
     lastReceivedAt: validPayload?.receivedAt || null,
-    //payload: validPayload?.data || null   // ✅ FIXED HERE
+    payload: validPayload?.data || null   // ✅ FIXED HERE
   });
 });
 
